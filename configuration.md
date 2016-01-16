@@ -2,6 +2,7 @@
 
 * [Configuration](#configuration)
 	* [Social Authentication](#social-authentication)
+	* [Two-Factor Authentication (2FA)](#two-factor-auth)
 	* [Email](#email)
 	* [Session](#session)
 
@@ -61,3 +62,41 @@ TWITTER_CALLBACK_URI=http://YOUR_DOMAIN/auth/twitter/callback
 ```
 
 ####Google+
+
+In order to utilise Google+ Authentication, first you need to create new Google Project/Application. To do that, first you have to go to https://console.developers.google.com/projec, click **Create project** button at top left corner and enter your Project name.
+
+After you have created your project, you now have to enable Google+ API and get the credentials that will be used for authentication. Go to https://console.developers.google.com/apis/library, select your project from dropdown available on top right header and click on Google+ API link inside the list of available Google APIs.
+
+![Vanguard Social Authentication - Google APIs](assets/image/g_plus_api.png)
+
+After opening the Google+ API page, click **Enable API** button in order to enable the API.
+
+![Vanguard Social Authentication - Enable Google+ API](assets/image/g_plus_api_enable.png)
+
+After enabling the API, the only remaining step is to get the credentials you need. Just click on **Go to Credentials** button, fill the displayed credentials form as following and click **What credentials do I need?** button:
+
+![Vanguard Social Authentication - Getting Credentials](assets/image/g_plus_api_credentials1.png)
+
+After entering in the required application Name, make sure that you enter `http://YOUR_DOMAIN` in **Authorized JavaScript origins** section, and `http://YOUR_DOMAIN/auth/google/callback` in **Authorized redirect URIs** section. 
+
+After you fill those fields, click **Create client ID" button, provide your product name as required, and get your Client Id and Client Secret keys.
+
+When you have those keys, the only thing left for you to do is to paste them into your `.env` file as following:
+
+```
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_CALLBACK_URI=http://YOUR_DOMAIN/auth/google/callback
+```
+
+###Two-Factor Authentication (2FA)
+
+Vanguard utilises [Authy](https://www.authy.com/), reliable third-party service, to allow Two-Factor Authentication for users. 
+
+All you need to do is to login to your [Authy Dashboard](https://dashboard.authy.com/signin) (or create an Authy account if you are not already registered) and create New Application. After creating the application, you will be able to get your Api Key from your application's Dashboard. When you have your API Key, you should paste it to your `.env` file as following:
+
+```
+AUTHY_KEY=your_authy_api_key
+```
+
+And that's it, you are now able to Enable/Disable Two-Factor authentication anytime you want from your [Auth and Registration](settings/auth-and-registration) settings page.
