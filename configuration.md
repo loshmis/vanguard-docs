@@ -134,3 +134,23 @@ MAIL_ENCRYPTION=your_smtp_encryption
 
 >**Note** If your SMTP server does not have encryption, just set it to `null`, or set it to blank like this: `MAIL_ENCRYPTION=`.
 
+####Additional Mail Configuration
+
+One thing that you would want to configure for your application is your "From" email address and "From" name. You can do that by editing `config/mail.php` file and updating `from` array to fit your needs.
+
+###Session Configuration
+
+Vanguard support multiple session drivers like `File`, `Cookie`, `Database`, `APC`, `Memcached`, `Redis` and `Array` (used for testing purposes only).  
+
+> **Note!** Default session driver is **Database**, since it is the only driver that support user session management. If you change database driver to any other driver than session, Active Sessions Management feature will be **disabled**.
+
+Changing session driver is as easy as updating your `SESSION_DRIVER` variable inside `.env` file and changing it's value to one of above drivers (all lowercase). 
+
+For example, if you want to switch to `File` session driver, you will update your `.env` file like following:
+
+```
+SESSION_DRIVER=file
+```
+
+That's it, you don't have to change anything inside your codebase. Everything will be working as usual, except you won't be able to track user sessions.
+
