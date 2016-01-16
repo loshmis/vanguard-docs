@@ -2,9 +2,11 @@
 
 * [Introduction](#intro)
 * [Adding Missing Database Fields](#database)
-* [Updating Auth Controller](#controller)
+* [Updating Controller Form Rendering Method](#controller)
 * [Updating Form HTML](#form-html)
 * [Updating User Model](#model)
+* [Adding Validation](#validation)
+* [Updating Controller to Accept New Form Fields](#controller-store)
 
 ---
 
@@ -88,7 +90,7 @@ If for some reason you decide not to use the migrations for altering the databas
 
 Since we are going to allow users to select their country on registration form, we have to fetch all available countries from the database, and to pass those countries to our registration [view](https://laravel.com/docs/5.2/views). 
 
-In order to do that, we will have to edit `app/Http/Controllers/Auth/AuthController` class and update it's `getRegister` method as following:
+In order to do that, we will have to edit `app/Http/Controllers/Auth/AuthController.php` file and update it's `AuthController::getRegister` method as following:
 
 ```php
 /**
@@ -121,3 +123,65 @@ We are now ready to update the form HTML.
 
 As you can see from previous code snippet, where we have updated `getRegister` method for our `AuthController`, there is some `view` function call that says `view('auth.register', ...`. This actually means that it Laravel will look for our view into `resources/views/auth/` directory, it will look for file called `register.blade.php`. So, that's the file we need to update.
 
+So, we will update `resources/views/auth/register.blade.php` file and add the following code snippet right after email input field:
+
+```php
+<div class="form-group input-icon">
+   <i class="fa fa-user"></i>
+   <input type="text" name="nick" id="nick" class="form-control" 
+		   placeholder="Nick Name"  value="{{ old('nick') }}">
+</div>
+
+<div class="form-group">
+    {!! Form::select('country_id', $countries, old('country_id'), 
+		    ['class' => 'form-control', 'id' => 'country_id']) !!}
+</div>
+```
+
+This will render us the following registration form:
+
+![Vanguard - Registration Field Example Form](assets/images/examples/form-example.png)
+
+> **Note!** If you curious how `Form::select` works, check [Laravel Collective](https://laravelcollective.com/docs/5.2/html) documentation.
+
+##Adding Validation
+
+Since we have defined that Nick Name will be an required field with minimum length of 3 characters, we have to add one more validation rule inside `$rules` array available in `RegisterRequest::rules` method in `app/Http/Requests/Auth/RegisterRequest.php` file.
+
+So, right after `password` validation rules, add the following rule
+
+```php
+$rules = [
+    //...
+    'nick' => 'required|min:3'
+];
+```
+
+This validation rule will make our Nick Name field required his minimum length must be 3 characters.
+
+> **Note!** If you want to know more about Laravel validation and available validation rules, check the [validation documentation](https://laravel.com/docs/5.2/validation).
+
+
+##Updating User Model
+
+Since we have added new database field inside our users table, we have to update our users model and add that field to your [fillable attributes](https://laravel.com/docs/5.2/eloquent#mass-assignment) array.
+
+So, just edit `app/User.php` and add field `nick` into `$fillable` array, right after `remember_token` field.
+
+##Updating Controller to Accept New Form Fields
+
+And the last step is to actually tell to our `AuthController` that we want him to use two more fields which we have added to our registration form.
+
+To do that, just go to `AuthController` and inside `postRegister` method, replace 
+
+```php
+$request->only('email', 'username', 'password')
+```
+
+with
+
+```php
+$request->only('email', 'username', 'password', 'country_id', 'nick')
+```
+
+And that's it, your registration form now have two more fields that are automatically validated and stored into the user's table after successful registration. :)
