@@ -48,3 +48,14 @@ Available options are:
 
 If this option is enabled, users will be able to enable/disable 2FA using [Authy](https://www.authy.com/) secure service if they want to from their Profile page. In order to enable 2FA, check [configuration section](configuration) to see how to get required API key.
 
+###Registration Settings
+
+Registration settings is used to quickly configure registration process, or to disable it completely. Page with self-explanatory options is provided below.
+
+![Vanguard - Registration Settings](assets/img/settings-registration.png)
+
+###Notifications Settings
+
+Notifications settings contains option for enabling or disabling email notifications when new user signs up. If it is set to YES, all users with Amin role will receive an notification when new user signs up.
+
+![Vanguard - Notifications Settings](assets/img/settings-notifications.png)
