@@ -230,4 +230,4 @@ Now, if we want to display Random List content from our example website to user 
 //...
 ```
 
-Of course, since `see_random_list` permission does not exist, we will have to create it first, as it is explained inside [roles and permissions](roles-and-permissions) section,  and set the `name` attribute to `see_random_list` (for Display Name we can use anything we want, ex: See Random List). When such permission is created, we can assign it to 
+Of course, since `see_random_list` permission does not exist, we will have to create it first, as it is explained inside [roles and permissions](roles-and-permissions) section,  and set the `name` attribute to `see_random_list` (for Display Name we can use anything we want, ex: See Random List). When such permission is created, we can assign it to any role we want.
