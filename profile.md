@@ -34,3 +34,24 @@ Uploading avatar is ridiculously easy. After selecting **Upload Avatar** option 
 After putting the image to desired position, and clicking the **Save** button, avatar will be automatically cropped and uploaded to the server, and user's avatar will be updated.
 
 ![Vanguard User Profile - Avatar Upload](assets/img/profile-avatar-upload.png)
+
+###Social Networks
+
+Users can, optionally, provide their social networks accounts by updating them on Social Networks tab, inside their Profile page.
+
+ ![Vanguard User Profile - Social Networks](assets/img/profile-socials.png)
+
+Those social networks will be displayed when administrator view their [profile](users/show) from backend.
+
+###Authentication
+
+On Authentications tab, under Profile section, every user is able to update his login details including email, username and password. If password field is empty when users click "Update Details" button, password will not be updated.
+
+![Vanguard User Profile - Authentication](assets/img/profile-auth.png)
+
+Users are also able to enable or disable Two-Factor Authentication (2FA) for their account (of course, if it is enabled globally by administrators). And, as it already mentioned in [authentication section](auth#two-factor-token), in order to use two factor authentication, user has to install Authy application on his phone.
+
+In order to enable 2FA, user has to provide his Country Code and Cell Phone number, without country code prefix. For example, if your cell phone number is +12345678, and you are from USA, then your Country Code will be `1` and your Cell Phone Number will be `2345678`.
+
+If you are not sure what your country code is, list of all country codes can be found [here](https://countrycode.org/).
+
