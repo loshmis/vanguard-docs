@@ -3,8 +3,9 @@
 * [Configuration](#configuration)
 	* [Social Authentication](#social-authentication)
 	* [Two-Factor Authentication (2FA)](#two-factor-auth)
-	* [Email](#email)
-	* [Session](#session)
+	* [Google reCAPTCHA](#recaptcha)
+	* [Email Configuration](#email-configuration)
+	* [Session Configuration](#session-configuration)
 
 ---
 
@@ -100,3 +101,36 @@ AUTHY_KEY=your_authy_api_key
 ```
 
 And that's it, you are now able to Enable/Disable Two-Factor authentication anytime you want from your [Auth and Registration](settings/auth-and-registration) settings page.
+
+###Google reCAPTCHA
+
+Google's reCAPTCHA is available for Vanguard's user registration form. Enabling reCAPTCHA is, fortunately, an easy thing to do. Just go to [reCaptcha Website](https://www.google.com/recaptcha/intro/index.html), get your _Site Key_ and _Secret Key_ and paste them into your `.env` file as following:
+
+```
+RECAPTCHA_SECRETKEY=your_recaptcha_secret_key
+RECAPTCHA_SITEKEY=your_recaptcha_site_key
+```
+
+That's all you need to do. Now you are able to enable or disable reCAPTCHA on your registration page from  [Auth and Registration](settings/auth-and-registration) settings page.
+
+###Email Configuration
+
+By default, Vanguard will be configured to use native PHP mail driver for sending emails. However, you can configure it to use `SMTP`,  `Sendmail`,  `Mailgun`, `Mandrill`, `Amazon SES` or `Log` driver (good for development purposes).
+
+Here we will cover only SMTP configuration, and if you are interested in other options mentioned above, you can find all details of how to enable them inside [Laravel Documentation](https://laravel.com/docs/5.2/mail#introduction).
+
+####SMTP
+
+In order to switch to SMTP driver, instead of native PHP mail, just open your `.env` file and define your mail environment variables as following:
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=your_smtp_host
+MAIL_PORT=your_smtp_port
+MAIL_USERNAME=your_smtp_username
+MAIL_PASSWORD=your_smtp_password
+MAIL_ENCRYPTION=your_smtp_encryption
+```
+
+>**Note** If your SMTP server does not have encryption, just set it to `null`, or set it to blank like this: `MAIL_ENCRYPTION=`.
+
