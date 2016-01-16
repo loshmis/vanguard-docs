@@ -45,3 +45,19 @@ FACEBOOK_CALLBACK_URI=http://YOUR_DOMAIN/auth/facebook/callback
 
 >**Note!** The `.env` file will be available inside your root folder **after** successful installation, so make sure that you have already installed the application before you start the configuration process.
 
+####Twitter
+
+In order to create Twitter application, and get the required Application Id and Secret key, go to [Twitter Application Management](https://apps.twitter.com/) and click **Create New App** button at the top right corner. 
+When app creation form is opened, fill all required fields and click **Create your Twitter Application** button at the bottom of the page.
+
+>**Note!** Your **Callback URL** is `http://YOUR_DOMAIN/auth/twitter/callback`.
+
+After application is created, go to **Keys and Access Tokens** tab, grab your Consumer Key and Consumer Secret and paste them into your `.env` file as following:
+
+```
+TWITTER_CLIENT_ID=your_consumer_key
+TWITTER_CLIENT_SECRET=your_consumer_secret
+TWITTER_CALLBACK_URI=http://YOUR_DOMAIN/auth/twitter/callback
+```
+
+####Google+
