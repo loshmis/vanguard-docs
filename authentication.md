@@ -1,6 +1,6 @@
-#Authentication
+#Authentication & Registration
 
-* [Authentication](#authentication)
+* [Authentication & Registration](#authentication-and-registration)
 	* [Loggin In](#logging-in)
 	* [Two-Factor Token](#two-factor-token)
 	* [Registration](#registration)
@@ -8,7 +8,7 @@
 
 ---
 
-##Authentication
+##Authentication & Registration
 
 ###Logging In
 
