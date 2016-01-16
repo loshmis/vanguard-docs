@@ -2,8 +2,8 @@
 
 * [Introduction](#intro)
 * [Adding Missing Database Fields](#database)
-* [Updating Form HTML](#form-html)
 * [Updating Auth Controller](#controller)
+* [Updating Form HTML](#form-html)
 * [Updating User Model](#model)
 
 ---
@@ -84,5 +84,40 @@ If for some reason you decide not to use the migrations for altering the databas
 
 >**Note!** This maybe looks easier for now, but what if you forgot to tell to your co-workers that you have added that new field? Or even if you tell them, each one of them will have to create it manually.
 
-## Updating Form HTML
+## Updating Auth Controller
+
+Since we are going to allow users to select their country on registration form, we have to fetch all available countries from the database, and to pass those countries to our registration [view](https://laravel.com/docs/5.2/views). 
+
+In order to do that, we will have to edit `app/Http/Controllers/Auth/AuthController` class and update it's `getRegister` method as following:
+
+```php
+/**
+ * Show the application registration form.
+ *
+ * @param CountryRepository $countryRepository
+ * @return \Illuminate\Http\Response
+ */
+public function getRegister(CountryRepository $countryRepository)
+{
+    //...
+    $countries = $countryRepository->lists();
+    return view('auth.register', compact('socialProviders', 'countries'));
+}
+```
+
+Now, we have updated our controller method that is responsible for displaying the registration form and provided an array of countries to it in following format
+
+```php
+[
+	'country1_id' => 'country1_name',
+	'country2_id' => 'country2_name',
+	//...
+]
+```
+
+We are now ready to update the form HTML.
+
+##Updating Form HTML
+
+As you can see from previous code snippet, where we have updated `getRegister` method for our `AuthController`, there is some `view` function call that says `view('auth.register', ...`. This actually means that it Laravel will look for our view into `resources/views/auth/` directory, it will look for file called `register.blade.php`. So, that's the file we need to update.
 
