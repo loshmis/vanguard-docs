@@ -9,6 +9,7 @@
 
 ---
 
+<a name="intro"></a>
 ##Introduction
 
 If you already have an existing PHP application, and you want to add user login and registration features, this section will show you how to accomplish that with Vanguard.
@@ -17,6 +18,7 @@ If can, it is highly recommended to move your application to Laravel framework a
 
 For the purpose of this example, we will create a very simple one-page website that we will protect using Vanguard. We will first protect the whole page and make it be available for authenticated users only. After that, we will make that webpage display some content only for authenticated users, and if user is a guest then he won't be able to see that content.
 
+<a name="structure"></a>
 ##Website Structure
 
 The HTML for example page is given below:
@@ -61,9 +63,10 @@ And, this page currently looking like this:
 
 ![Vanguard - Simple Website Example](assets/img/examples/simple-website.png)
 
+<a name="protecting-website"></a>
 ##Protecting The Website
 
-In order to protect the website and allow access to authenticated users only, all you have to do is to add following code snippet at the top of webpage you want to protect:
+In order to protect the website and allow access to authenticated users only, all you have to do is to add following code snippet **at the top of webpage** you want to protect:
 
 ```php
 <?php
@@ -91,6 +94,7 @@ If your Vanguard installation is inside some subfolder, just make sure that you 
 //...
 ```
 
+<a name="auth-only"></a>
 ##Displaying Content For Authenticated Users Only
 
 What if you want to still display a page to guest users, but hide some content from them and make it visible to authenticated users only? Luckily, Vanguard makes such task pretty easy.
@@ -162,6 +166,7 @@ This means that, on webiste above, we did the following:
 1. If user is logged in, then we will display logout button. Otherwise, we will display Login button.
 2. We will display Random List element only if user is logged in.
 
+<a name="role-specific"></a>
 ##Displaying Content Based On User Role
 
 From outside (and from inside) of Vanguard application, currently logged in user can be fetched using Auth [Facade](https://laravel.com/docs/master/facades), like following:
@@ -201,6 +206,7 @@ The modified website example will display Random List section only if currently 
 //...
 ```
 
+<a name="permission-specific"></a>
 ##Displaying Content Based On User Permissions
 
 If we want to check if some user has some permission, we can simply do that by calling `can` method on some user instance, with [permission name](roles-and-permissions) as parameter, like following:

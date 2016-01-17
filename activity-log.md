@@ -6,13 +6,14 @@
 	
 ---
 
+<a name="activity-log"></a>
 ##Activity Log
 
 User activity is recorded for every system user. Every time when someone update his profile information, upload avatar or maybe even make password reset email request, system store that activity into database and so system administrators can see what their users are doing.
 
 The list of available activities and appropriate messages is provided below:
 
-| Action                   |
+| Actions                   |
 |--------------------------|
 | User was logged in.      |
 | User was logged out.     |
@@ -38,6 +39,7 @@ The list of available activities and appropriate messages is provided below:
 | User updated the permission.|
 | User deleted permission.|
 
+<a name="system-activity-log"></a>
 ###System Activity Log
 
 Administrators are able to see activity logs for all system users, as well as search for specific log messages only, as it is displayed on image below.
@@ -46,6 +48,7 @@ Administrators are able to see activity logs for all system users, as well as se
 
 Also, if administrator is interested for activity log of particular user, simply by clicking on user's name he can view the entire log for that specific user.
 
+<a name="user-activity-log"></a>
 ###User Activity Log
 
 Non-administrator users can see only their own activity log and search through it if they see some suspicious activity.

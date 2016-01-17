@@ -8,18 +8,21 @@
 
 ---
 
+<a name="user-profile"></a>
 ##User Profile
 
 Every user of the system, no matter what his role is, is able to update his profile. Link to user's profile is available at the top right corner, like it is displayed below:
 
 ![Vanguard - Link to User Profile](assets/img/dashboard-profile-ling.png)
 
+<a name="details"></a>
 ###Details
 
 On Profile Details page, users can update their basic informations like First Name, Last Name etc. Also, they are able to update they country from a list of available countries, or to update their birthday using easy bootstrap calendar plugin.
 
 ![Vanguard User Profile - Details](assets/img/profile-details.png)
 
+<a name="avatar"></a>
 ###Avatar
 
 Every user is able to set his avatar photo. By clicking "Change Photo" button below his current avatar, he is able to remove current avatar by clicking _No Photo_, to upload avatar image or to use his [Gravatar](https://en.gravatar.com/) (if there is no Gravatar account attached to his email address, default Gravatar image will be displayed).
@@ -35,6 +38,7 @@ After putting the image to desired position, and clicking the **Save** button, a
 
 ![Vanguard User Profile - Avatar Upload](assets/img/profile-avatar-upload.png)
 
+<a name="social-networks"></a>
 ###Social Networks
 
 Users can, optionally, provide their social networks accounts by updating them on Social Networks tab, inside their Profile page.
@@ -43,6 +47,7 @@ Users can, optionally, provide their social networks accounts by updating them o
 
 Those social networks will be displayed when administrator view their [profile](users/show) from backend.
 
+<a name="auth"></a>
 ###Authentication
 
 On Authentications tab, under Profile section, every user is able to update his login details including email, username and password. If password field is empty when users click "Update Details" button, password will not be updated.

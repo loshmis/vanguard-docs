@@ -8,16 +8,19 @@
 	
 ---
 
+<a name="settings"></a>
 ##Settings
 
 Vanguard provides simple but powerful interface for managing global application settings.  It allows administrators (or any other users with appropriate permission) to easily enable/disable registration, Two-Factor Authentication, Authentication Throttling and more.
 
+<a name="general"></a>
 ###General Settings
 
 General settings section is used for updating the application name. Once application name has been updated, it will change inside entire system, so you don't have to edit any code at all.
 
 ![Vanguard - General Settings](assets/img/settings-general.png)
 
+<a name="auth"></a>
 ###Authentication Settings
 
 Authentication settings section contains everything that will allow easy authentication configuration. 
@@ -26,11 +29,11 @@ Authentication settings section contains everything that will allow easy authent
 
 ####General Auth Settings
 
-**Allow "Remember Me"?** - used to enable/disable the checkbox for remembering the user, that is available on login page. If this option is set to OFF, users will be automatically logged out once their session expire. 
+* **Allow "Remember Me"?** - used to enable/disable the checkbox for remembering the user, that is available on login page. If this option is set to OFF, users will be automatically logged out once their session expire. 
 
-**Forgot Password** - used for enabling/disabling reset password feature. If it is set to OFF, users won't be able to reset their password if they forget it.
+* **Forgot Password** - used for enabling/disabling reset password feature. If it is set to OFF, users won't be able to reset their password if they forget it.
 
-**Reset Token Lifetime**  - integer variable that represent lifetime of password reset token (in **minutes**).
+* **Reset Token Lifetime**  - integer variable that represent lifetime of password reset token (in **minutes**).
 
 ####Authentication Throttling
 
@@ -38,11 +41,11 @@ Authentication Throttling is security feature that will prevent brute force atta
 
 Available options are:
 
-**Throttle Authentication** - used to enable/disable authentication throttling
+* **Throttle Authentication** - used to enable/disable authentication throttling
 
-**Maximum Number of Attempts** - maximum number of times that user can enter wrong credentials before his account is locked for some period of time
+* **Maximum Number of Attempts** - maximum number of times that user can enter wrong credentials before his account is locked for some period of time
 
-**Lockout Time** - number of **minutes** that represent for how long user account will be locked. For example, if this parameter is set to 2 and Maximum Number of Attempts parameter from above is set to 5, this means that after some user enter wrong credentials for **5** times, his account will be locked down for **2** minutes.
+* **Lockout Time** - number of **minutes** that represent for how long user account will be locked. For example, if this parameter is set to 2 and Maximum Number of Attempts parameter from above is set to 5, this means that after some user enter wrong credentials for **5** times, his account will be locked down for **2** minutes.
 
 ####Two-Factor Authentication (2FA)
 
@@ -54,6 +57,7 @@ Registration settings is used to quickly configure registration process, or to d
 
 ![Vanguard - Registration Settings](assets/img/settings-registration.png)
 
+<a name="notifications"></a>
 ###Notifications Settings
 
 Notifications settings contains option for enabling or disabling email notifications when new user signs up. If it is set to YES, all users with Amin role will receive an notification when new user signs up.

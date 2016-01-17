@@ -8,10 +8,12 @@
 	
 ---
 
+<a name="roles-and-permissions"></a>
 ##Roles and Permissions
 
 Vanguard comes with advanced roles and permissions mechanism based on [Entrust](https://github.com/Zizaco/entrust) package. System is created to allow users to have **only one** role, and to allow different permissions for each role.
 
+<a name="roles-available"></a>
 ###Available System Roles
 
 On roles section of the website administrators (or other users with appropriate permissions) can see and manage available system roles, as well as add unlimited number of new roles. Page with default system roles (**Admin** and **User**) is provided below.
@@ -20,6 +22,7 @@ On roles section of the website administrators (or other users with appropriate 
 
 >**Note!** Default system roles cannot be deleted from UI. Custom created roles can be deleted without any problem.
 
+<a name="roles-manage"></a>
 ###Managing Roles
 
 As it was already mentioned, users with appropriate permissions can add unlimited number of roles, and use them to customise the application. More on that can be found in [customisation](customisation) section.
@@ -30,6 +33,7 @@ Form for adding new role, and editing existing roles, is provided below.
 
 Every role has **name**, that is used as key inside the source code of application. Display name is used inside the UI to better explain who is this role referring to.
 
+<a name="permissions"></a>
 ###System Permissions
 
 Permissions represent some concrete actions that specific role can perform. For example, one of default permissions is `users.manage`, and every user with role which has this permission can manage system users. 
@@ -38,6 +42,7 @@ This means that, for example, you can create new system role called `Manager`, a
 
 >**Note!** Default system permissions cannot be deleted from UI. Custom created permissions can be deleted without any problem.
 
+<a name="permissions-manage"></a>
 ###Managing Permissions
 
 List of available permissions, including available system roles and their permissions, is provided below.
