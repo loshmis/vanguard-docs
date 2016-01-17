@@ -13,7 +13,7 @@
 
 Every user of the system, no matter what his role is, is able to update his profile. Link to user's profile is available at the top right corner, like it is displayed below:
 
-![Vanguard - Link to User Profile](assets/img/dashboard-profile-ling.png)
+![Vanguard - Link to User Profile](assets/img/link-user-profile.png)
 
 <a name="details"></a>
 ###Details

@@ -14,11 +14,12 @@
 In order to install Vanguard application, your server must meet following requirements:
 
 
-* PHP >= 5.5.9
+* PHP >= 5.5.9 (including PHP 7) or HHVM
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
+* GD PHP Extension
 
 <a name="installing-vanguard"></a>
 ###Installing Vanguard
