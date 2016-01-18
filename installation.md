@@ -75,7 +75,14 @@ Once application is successfully completed, you will see the last step from inst
 
 ![alt Vanguard Installation - Installation Completed](assets/img/install_step6.png)
 
+An default user will be created for you with following credentials:
+
+**username:** admin
+**password:** admin123
+
 > **Note!** Since your root directory is still writable by the group, you should now change the permissions to `755` and make it writable only by root system user. This is for security reasons.
+
+> **Note!** Don't forget to change default user's credentials before you put the application to production!
 
 <a name="application-url"></a>
 ###Application URL
