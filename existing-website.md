@@ -17,6 +17,7 @@ If you already have an existing PHP application, and you want to add user login 
 If can, it is highly recommended to move your application to Laravel framework and incorporate it inside Vanguard application. This will give you a ton of great features and abilities, and make your website more organised and maintainable.
 
 For the purpose of this example, we will create a very simple one-page website that we will protect using Vanguard. We will first protect the whole page and make it be available for authenticated users only. After that, we will make that webpage display some content only for authenticated users, and if user is a guest then he won't be able to see that content.
+For the purpose of this example, we will create a very simple one-page website that we will protect using Vanguard. We will first protect the whole page and make it be available for authenticated users only. After that, we will make that webpage display some content only for authenticated users, and if user is a guest then he won't be able to see that content.
 
 <a name="structure"></a>
 ##Website Structure
@@ -183,7 +184,7 @@ If we want to check if user has some role, it can be done like this:
 $user->hasRole('admin');
 ```
 
-The parameter used for `hasRole` function is role `name`.  Check [roles and permissions](roles-and-permissions) section for more details about what is `name` attribute and how you can create/manage roles in Vanguard.
+The parameter used for `hasRole` function is role `name`.  Check [roles and permissions](roles-and-permissions.html) section for more details about what is `name` attribute and how you can create/manage roles in Vanguard.
 
 So, since we now know how to check if user has specific role, rendering some content or doing some action based on user's role is almost the same as we did for authenticated/non-authenticated users.
 
@@ -209,7 +210,7 @@ The modified website example will display Random List section only if currently 
 <a name="permission-specific"></a>
 ##Displaying Content Based On User Permissions
 
-If we want to check if some user has some permission, we can simply do that by calling `can` method on some user instance, with [permission name](roles-and-permissions) as parameter, like following:
+If we want to check if some user has some permission, we can simply do that by calling `can` method on some user instance, with [permission name](roles-and-permissions.html#permissions) as parameter, like following:
 
 ```php
 //This function call will return TRUE if 
@@ -236,4 +237,4 @@ Now, if we want to display Random List content from our example website to user 
 //...
 ```
 
-Of course, since `see_random_list` permission does not exist, we will have to create it first, as it is explained inside [roles and permissions](roles-and-permissions) section,  and set the `name` attribute to `see_random_list` (for Display Name we can use anything we want, ex: See Random List). When such permission is created, we can assign it to any role we want.
+Of course, since `see_random_list` permission does not exist, we will have to create it first, as it is explained inside [roles and permissions](roles-and-permissions.html) section,  and set the `name` attribute to `see_random_list` (for Display Name we can use anything we want, ex: See Random List). When such permission is created, we can assign it to any role we want.

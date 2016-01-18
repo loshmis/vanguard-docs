@@ -55,4 +55,4 @@ Vanguard support unlimited number of permissions, and they can be added via form
 
 ![Vanguard - Permissions](assets/img/permissions-add.png)
 
-Permission **name** is used as key/constant inside the source code to check if user has permissions to perform some action (more on that inside [customisation](customisation) section), and **display name** is used inside the UI, to better explain what the permission is used for.
+Permission **name** is used as key/constant inside the source code to check if user has permissions to perform some action (more on that inside [custom registration form example](registration-form.html)), and **display name** is used inside the UI, to better explain what the permission is used for.

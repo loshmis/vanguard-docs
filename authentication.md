@@ -30,7 +30,7 @@ After entering the 2FA token, Vanguard will contact Authy servers to check the t
 <a name="registration"></a>
 ###Registration
 
-Since registration can be completely disabled inside [application settings](settings/auth), registration form is only accessible if registration is enabled.
+Since registration can be completely disabled inside [application settings](settings.html#auth), registration form is only accessible if registration is enabled.
 
 Users are able to access the registration form and create new account by clicking the **Don't have an account?** link on login page and filling up the registration form.
 

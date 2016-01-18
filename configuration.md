@@ -102,7 +102,7 @@ All you need to do is to login to your [Authy Dashboard](https://dashboard.authy
 AUTHY_KEY=your_authy_api_key
 ```
 
-And that's it, you are now able to Enable/Disable Two-Factor authentication anytime you want from your [Auth and Registration](settings/auth-and-registration) settings page.
+And that's it, you are now able to Enable/Disable Two-Factor authentication anytime you want from your [Auth and Registration](settings/authentication.html#two-factor-token) settings page.
 
 <a name="recaptcha"></a>
 ###Google reCAPTCHA
@@ -114,7 +114,7 @@ RECAPTCHA_SECRETKEY=your_recaptcha_secret_key
 RECAPTCHA_SITEKEY=your_recaptcha_site_key
 ```
 
-That's all you need to do. Now you are able to enable or disable reCAPTCHA on your registration page from  [Auth and Registration](settings/auth-and-registration) settings page.
+That's all you need to do. Now you are able to enable or disable reCAPTCHA on your registration page from  [Auth and Registration](settings.html#auth) settings page.
 
 <a name="email-configuration"></a>
 ###Email Configuration

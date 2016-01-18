@@ -49,7 +49,7 @@ Available options are:
 
 ####Two-Factor Authentication (2FA)
 
-If this option is enabled, users will be able to enable/disable 2FA using [Authy](https://www.authy.com/) secure service if they want to from their Profile page. In order to enable 2FA, check [configuration section](configuration) to see how to get required API key.
+If this option is enabled, users will be able to enable/disable 2FA using [Authy](https://www.authy.com/) secure service if they want to from their Profile page. In order to enable 2FA, check [configuration section](configuration.html#two-factor-auth) to see how to get required API key.
 
 ###Registration Settings
 
