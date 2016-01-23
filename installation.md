@@ -21,6 +21,8 @@ In order to install Vanguard application, your server must meet following requir
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
 * GD PHP Extension
+* Fileinfo PHP Extension
+* Xdebug Max Nesting Level (>= 500)
 
 <a name="installing-vanguard"></a>
 ###Installing Vanguard
