@@ -13,5 +13,6 @@
 - Testing
     - [Vanguard Automated Tests](testing.html)
 - Tutorials
+    - [Working with Vanguard Permissions](working-with-permissions.html)
 	- [Using Vanguard for Existing Website](existing-website.html)
 	- [Extending Registration Form](registration-form.html)
