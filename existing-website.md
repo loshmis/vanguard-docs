@@ -181,7 +181,7 @@ Now, by calling `echo $user->first_name;`  it will print the value inside `first
 If we want to check if user has some role, it can be done like this:
 
 ```php
-$user->hasRole('admin');
+$user->hasRole('Admin');
 ```
 
 The parameter used for `hasRole` function is role `name`.  Check [roles and permissions](roles-and-permissions.html) section for more details about what is `name` attribute and how you can create/manage roles in Vanguard.
@@ -193,7 +193,7 @@ The modified website example will display Random List section only if currently 
 ```php
 //...
 
-    <?php if (Auth::user()->hasRole('admin')): ?>
+    <?php if (Auth::user()->hasRole('Admin')): ?>
         <h4>Random List</h4>
         <ul class="list-group">
             <li class="list-group-item">Cras justo odio</li>
