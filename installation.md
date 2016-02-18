@@ -128,10 +128,15 @@ This will allow us to change the name and location of `public` folder for our ap
 The final step is to update the `index.php` file you have copied from `public` to `public_html` directory. So, go to `public_html` and edit `index.php` file and update it as following:
 
 ```php
+//update path to autoload.php file
 require __DIR__.'/../Vanguard/bootstrap/autoload.php';
 
+//update path to app.php file
 $app = require_once __DIR__.'/../Vanguard/bootstrap/app.php';
 
+//this line should be added right after previous line where $app variable 
+//is defined and it is used to tell Laravel where your public folder is now. 
+//Do not change it, just copy and paste it!
 $app->instance('path.public', __DIR__);
 
 //leave the rest unchanged

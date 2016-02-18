@@ -3,6 +3,7 @@
 * [Introduction](#intro)
 * [Website Structure](#structure)
 * [Protecting The Website](#protecting-website)
+* [Redirecting to Custom Page After Login](#redirect-to-custom-page)
 * [Displaying Content For Authenticated Users Only](#auth-only)
 * [Displaying Content Based On User Role](#role-specific)
 * [Displaying Content Based On User Permissions](#permission-specific)
@@ -93,6 +94,32 @@ If your Vanguard installation is inside some subfolder, just make sure that you 
 //...
 	redirectTo('vanguard/login');
 //...
+```
+
+<a name="redirect-to-custom-page"></a>
+##Redirecting to Custom Page After Login
+
+In case you want to redirect users to some custom page after successful authentication, this can be easily achieved with Vanguard as following:
+
+```php
+//This can be url to any page, it doesn't matter
+//if it is on your existing website or not
+$to = "http://www.google.com";
+
+if (! Auth::check()) {
+    redirectTo('login?to=' . $to);
+} 
+```
+
+There are many cases where you want to return user to current page after they successfully log in via Vanguard. Fortunately, previous example does exactly what you need, and the only thing you need to change is redirect page. Here is an example:
+
+```php
+//Move this to some helper function if you need it more than once
+ $currentUrl = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+ 
+ if (! Auth::check()) {
+     redirectTo('login?to=' . $currentUrl);
+ } 
 ```
 
 <a name="auth-only"></a>
