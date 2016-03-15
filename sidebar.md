@@ -1,6 +1,8 @@
 - Setup
     - [Installation](installation.html)
     - [Configuration](configuration.html)
+    - [Localization](localization.html)
+    - [Upgrade Guide](upgrade-guide.html)
 - Usage
 	- [Authentication & Registration](authentication.html)
 	- [Dashboard](dashboard.html)
