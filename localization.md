@@ -26,8 +26,8 @@ Vanguard utilizes Laravel's default localization mechanism. All translation file
 
 Out of the box, you can switch among following locales:
 
-- English
-- Serbian Latin
+- \- English
+- \- Serbian Latin
 
 More locales will be added in the future.
 
