@@ -10,7 +10,7 @@
 <a name="localization"></a>
 ##Localization
 
-Vanguard utilizes Laravel's default localization mechanism. All translation files are located inside `resources/lang` folder. Within this directory there should be a subdirectory for each language supported by the application:
+Vanguard utilizes Laravel's default localization mechanism to allow you to translate it to any language you want. All translation files are located inside `resources/lang` folder. Within this directory there should be a subdirectory for each language supported by the application:
 
 ```php
 /resources
