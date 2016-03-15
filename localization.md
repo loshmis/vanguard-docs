@@ -1,6 +1,7 @@
 #Localization
 
 * [Localization](#localization)
+    * [Available Locales](#available-locales)
 	* [Translating Vanguard](#translating-vanguard)
 	* [Setting Application Locale](#setting-application-locale)
 	
@@ -19,6 +20,16 @@ Vanguard utilizes Laravel's default localization mechanism. All translation file
         /es
             app.php
 ```
+
+<a name="available-locales"></a>
+###Available Locales
+
+Out of the box, you can switch among following locales:
+
+- English
+- Serbian Latin
+
+More locales will be added in the future.
 
 <a name="translating-vanguard"></a>
 ###Translating Vanguard
