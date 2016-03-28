@@ -28,6 +28,7 @@ Out of the box, you can switch among following locales:
 
 - \- English
 - \- Serbian Latin
+- \- German
 
 More locales will be added in the future.
 

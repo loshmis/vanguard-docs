@@ -1,12 +1,40 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+	* [To 1.1.1 from 1.1.0](#upgrade-1.1.1)
 	* [To 1.1.0 from 1.0.4](#upgrade-1.1.0)
 	
 ---
 
 <a name="upgrade-guide"></a>
 ##Upgrade Guide
+
+This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
+You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-1.1.1"></a>
+###To 1.1.1 from 1.1.0
+
+Version 1.1.1 contains only few bug fixes as well as **German** translation files.
+
+Below is the list of changed and added files with some basic info about the changes:
+
+```php
+ app/Http/Controllers/Auth/SocialAuthController.php |   4 +   // check redirectToProvider method
+ app/Http/Kernel.php                                |  25 +-
+ app/Providers/RouteServiceProvider.php             |  17 +-
+ config/app.php                                     |   2 +-  //increased Vanguard version number
+ resources/views/user/list.blade.php                |   2 +-  //fix translation for "page-title" section
+ resources/views/user/view.blade.php                |   2 +-  //fix translation for "Phone"
+
+ //New files (you don't have to add them if you don't want to translate Vanguard to German):
+ resources/lang/de/app.php                          | 334 +++++++++++++++++++++
+ resources/lang/de/auth.php                         |  19 ++
+ resources/lang/de/log.php                          |  29 ++
+ resources/lang/de/pagination.php                   |  19 ++
+ resources/lang/de/passwords.php                    |  22 ++
+ resources/lang/de/validation.php                   | 115 +++++++
+```
 
 <a name="upgrade-1.1.0"></a>
 ###To 1.1.0 from 1.0.4
