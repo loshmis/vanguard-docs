@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 1.1.2 from 1.1.1](#upgrade-1.1.2)
 	* [To 1.1.1 from 1.1.0](#upgrade-1.1.1)
 	* [To 1.1.0 from 1.0.4](#upgrade-1.1.0)
 	
@@ -11,6 +12,18 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-1.1.2"></a>
+###To 1.1.2 from 1.1.1
+
+Version 1.1.2 fixes missing VerifyInstallation middleware that redirects user to install page if they try to access some page when Vanguard is not installed.
+
+List of modified files:
+
+```php
+ app/Http/Kernel.php     |   1 -    // added missing middleware
+ config/app.php          |   2 +-   // updated version number
+```
 
 <a name="upgrade-1.1.1"></a>
 ###To 1.1.1 from 1.1.0
