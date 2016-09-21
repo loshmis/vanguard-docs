@@ -4,6 +4,7 @@
 	* [Server Requirements](#server-requirements)
 	* [Installing Vanguard](#installing-vanguard)
 	* [Application URL](#application-url)
+	* [Re-Installing The App](#re-installing)
 
 ---
 <a name="installation"></a>
@@ -145,3 +146,11 @@ $app->instance('path.public', __DIR__);
 And that's it, Vanguard application will now be available at `yourdomain.com`, and all application files will be secured.
 
 Of course, if you want, you can place `public` Vanguard files (those files you have copied to `public_html` directory int Step 2) into any other folder/subfolder on your website, as long as you update the path to `autoload.php` and `app.php` files inside your `index.php` file.
+
+<a name="re-installing"></a>
+###Re-Installing The App
+
+Lets say that you have installed Vanguard application, but, for some reason, you want to re-install it and start from scratch. 
+
+In that case, the easiest way is to just delete whole application and drop all DB tables and start the installation process again. However, in case that you have modified only one or two files, you don't have to delete and re-upload the whole app because of that.
+You simply can replace those modified files with original files from zip archive, remove the database and remove `.env` file from Vanguard's root folder. The `.env` file is the key here, since Vanguard will check if that file exist on every request and, if file does not exist, you will be redirected to installation wizard automatically.
