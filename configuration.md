@@ -6,6 +6,7 @@
 	* [Google reCAPTCHA](#recaptcha)
 	* [Email Configuration](#email-configuration)
 	* [Session Configuration](#session-configuration)
+	* [HTTPS](#https)
 
 ---
 
@@ -159,3 +160,15 @@ SESSION_DRIVER=file
 
 That's it, you don't have to change anything inside your codebase. Everything will be working as usual, except you won't be able to track user sessions.
 
+<a name="https"></a>
+###HTTPS
+
+If you want to force all the pages to be accessed via HTTPS, the recommended way to do so is via your web server configuration. Either if you are using Apache or nginx, or some other web server, you can easily configure them to redirect all traffic to HTTPS.
+
+However, if you are not sure how to do that or your server configuration does not allow you so, you can simply add `FORCE_SSL` variable to your `.env` file and set it to `true`. It will force all links to be served via HTTPS.
+So, inside your `.env` file, it should look like following:
+
+```php
+//... 
+FORCE_SSL=true
+```

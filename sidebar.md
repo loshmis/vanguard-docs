@@ -18,4 +18,4 @@
     - [Working with Vanguard Permissions](working-with-permissions.html)
 	- [Using Vanguard for Existing Website](existing-website.html)
 	- [Extending Registration Form](registration-form.html)
-	<!--- [Creating New Page](new-page.html)-->
+	- [Creating New Page](new-page.html)

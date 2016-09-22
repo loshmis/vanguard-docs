@@ -25,7 +25,7 @@ On roles section of the website administrators (or other users with appropriate 
 <a name="roles-manage"></a>
 ###Managing Roles
 
-As it was already mentioned, users with appropriate permissions can add unlimited number of roles, and use them to customise the application. More on that can be found in [customisation](customisation) section.
+As it was already mentioned, users with appropriate permissions can add unlimited number of roles, and use them to customise the application. More on that can be found in [working with permissions](working-with-permissions.html) section.
 
 Form for adding new role, and editing existing roles, is provided below.
 
