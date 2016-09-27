@@ -37,7 +37,7 @@ More locales will be added in the future.
 
 If you want to translate Vanguard application, all you need to do is to create subfolder inside `resources/lang` directory that match your locale, copy the files from existing locale (`en` for example), and translate them to your language.
  
- **Note!** Vanguard specific files are `app.php` and `log.php`. All other files are Laravel's default localization files, and there is a big chance that someone has already translated those files for you. Check it [here](https://github.com/caouecs/Laravel-lang).
+> **Note!** Vanguard specific files are `app.php` and `log.php`. All other files are Laravel's default localization files, and there is a big chance that someone has already translated those files for you. Check it [here](https://github.com/caouecs/Laravel-lang).
 
 For example, if we want to translate Vanguard to Russian, we will do the following:
 

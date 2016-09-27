@@ -56,7 +56,7 @@ On Authentications tab, under Profile section, every user is able to update his 
 
 Users are also able to enable or disable Two-Factor Authentication (2FA) for their account (of course, if it is enabled globally by administrators). And, as it already mentioned in [authentication section](authentication.html#two-factor-token), in order to use two factor authentication, user has to install Authy application on his phone.
 
-In order to enable 2FA, user has to provide his Country Code and Cell Phone number, without country code prefix. For example, if your cell phone number is +12345678, and you are from USA, then your Country Code will be `1` and your Cell Phone Number will be `2345678`.
+To enable 2FA, user has to provide his Country Code and Cell Phone number, without country code prefix. For example, if your cell phone number is +12345678, and you are from USA, then your Country Code will be `1` and your Cell Phone Number will be `2345678`.
 
 If you are not sure what your country code is, list of all country codes can be found [here](https://countrycode.org/).
 

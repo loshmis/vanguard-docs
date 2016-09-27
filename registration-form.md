@@ -28,7 +28,7 @@ Since **Nick Name** does not exist into our database schema, we will have to add
 
 ###Laravel's Migrations (recommended)
 
-Creating [migrations](https://laravel.com/docs/5.2/migrations) for your database schema is the best way to create and modify your database schema. Also, since migrations are basically PHP files, those files will be stored on your Version Control System (Git, Mercurial, etc.) so any of your coworkers will have access to database schema that is being used for your project, and, the best thing about it, is that you will be able to see full history of changes for any of your database tables.
+Creating [migrations](https://laravel.com/docs/5.3/migrations) for your database schema is the best way to create and modify your database schema. Also, since migrations are basically PHP files, those files will be stored on your Version Control System (Git, Mercurial, etc.) so any of your coworkers will have access to database schema that is being used for your project, and, the best thing about it, is that you will be able to see full history of changes for any of your database tables.
 
 So, for our tutorial, we will create new database migrations by typing the following command into our terminal:
 
@@ -71,7 +71,7 @@ class AddNickNameFieldToUsersTable extends Migration
 
 ``` 
 
-When it is executed, this migration will add new column into `users` database table called `nick`, and it will be type of `VARCHAR(20)`. If you want to learn more about Laravel Migrations, check the [documentation](https://laravel.com/docs/5.2/migrations#modifying-columns).
+When it is executed, this migration will add new column into `users` database table called `nick`, and it will be type of `VARCHAR(20)`. If you want to learn more about Laravel Migrations, check the [documentation](https://laravel.com/docs/5.3/migrations#modifying-columns).
 
 Now, since our migration is ready, we can execute it by typing the following command into our terminal:
 
@@ -90,7 +90,7 @@ If for some reason you decide not to use the migrations for altering the databas
 <a name="controller"></a>
 ## Updating Auth Controller
 
-Since we are going to allow users to select their country on registration form, we have to fetch all available countries from the database, and to pass those countries to our registration [view](https://laravel.com/docs/5.2/views). 
+Since we are going to allow users to select their country on registration form, we have to fetch all available countries from the database, and to pass those countries to our registration [view](https://laravel.com/docs/5.3/views). 
 
 In order to do that, we will have to edit `app/Http/Controllers/Auth/AuthController.php` file and update it's `AuthController::getRegister` method as following:
 
@@ -124,7 +124,7 @@ We are now ready to update the form HTML.
 <a name="form-html"></a>
 ##Updating Form HTML
 
-As you can see from previous code snippet, where we have updated `getRegister` method for our `AuthController`, there is some `view` function call that says `view('auth.register', ...`. This actually means that it Laravel will look for our view into `resources/views/auth/` directory, it will look for file called `register.blade.php`. So, that's the file we need to update.
+As you can see from previous code snippet, where we have updated `getRegister` method for our `AuthController`, there is some `view` function call that says `view('auth.register', ...`. This actually means that it Laravel will look for our view into `resources/views/auth/` directory, it will look for file called `register.blade.php`. That's the file we need to update.
 
 So, we will update `resources/views/auth/register.blade.php` file and add the following code snippet right after email input field:
 
@@ -145,7 +145,7 @@ This will render us the following registration form:
 
 ![Vanguard - Registration Field Example Form](assets/img/examples/form-example.png)
 
-> **Note!** If you curious how `Form::select` works, check [Laravel Collective](https://laravelcollective.com/docs/5.2/html) documentation.
+> **Note!** If you curious how `Form::select` works, check [Laravel Collective](https://laravelcollective.com/docs/5.3/html) documentation.
 
 <a name="validation"></a>
 ##Adding Validation
@@ -163,12 +163,12 @@ $rules = [
 
 This validation rule will make our Nick Name field required his minimum length must be 3 characters.
 
-> **Note!** If you want to know more about Laravel validation and available validation rules, check the [validation documentation](https://laravel.com/docs/5.2/validation).
+> **Note!** If you want to know more about Laravel validation and available validation rules, check the [validation documentation](https://laravel.com/docs/5.3/validation).
 
 <a name="model"></a>
 ##Updating User Model
 
-Since we have added new database field inside our users table, we have to update our users model and add that field to your [fillable attributes](https://laravel.com/docs/5.2/eloquent#mass-assignment) array.
+Since we have added new database field inside our users table, we have to update our users model and add that field to your [fillable attributes](https://laravel.com/docs/5.3/eloquent#mass-assignment) array.
 
 So, just edit `app/User.php` and add field `nick` into `$fillable` array, right after `remember_token` field.
 

@@ -140,7 +140,7 @@ As you can see, our join query is really simple. At the and of the index method,
 <a name="view"></a>
 ###Page View
 
-In Laravel, all views are located inside `resources/views` folder. You can create unlimited number of sub-folders there, and group your users however you like it. 
+In Laravel, all views are located inside `resources/views` folder. You can create unlimited number of sub-folders there, and group your views however you like it. 
 One great thing is that you can use **dot** notation when you want to render that view. That means that instead of `/` you can use "." when you want to reference your view from a controller.
 
 In our controller code, we are referencing our view like `user.active-users` which means that we will create new file called `active-users.blade.php` inside `resources/views/user` folder.

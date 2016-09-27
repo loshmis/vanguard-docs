@@ -13,7 +13,7 @@
 <a name="configuration"></a>
 ##Configuration
 
-This section contains some important configuration options that are specific to Vanguard application. Since Vanguard is using Laravel PHP framework, full configuration options for some framework specific stuff can be found inside [Laravel documentation](https://laravel.com/docs/5.2/configuration). 
+This section contains some important configuration options that are specific to Vanguard application. Since Vanguard is using Laravel PHP framework, full configuration options for some framework specific stuff can be found inside [Laravel documentation](https://laravel.com/docs/5.3/configuration). 
 
 <a name="social-authentication"></a>
 ###Social Authentication
@@ -49,6 +49,16 @@ FACEBOOK_CALLBACK_URI=http://YOUR_DOMAIN/auth/facebook/callback
 
 >**Note!** The `.env` file will be available inside your root folder **after** successful installation, so make sure that you have already installed the application before you start the configuration process.
 
+**Note on Callback URL**
+
+Since all social providers require callback url, if you haven't removed `public` from your application url, make sure that you provide the correct callback url that also contains
+`public` segment. So, for example, your Facebook callback will look like this
+
+```php
+http://YOUR_DOMAIN/public/auth/facebook/callback
+```
+
+
 ####Twitter
 
 In order to create Twitter application, and get the required Application Id and Secret key, go to [Twitter Application Management](https://apps.twitter.com/) and click **Create New App** button at the top right corner. 
@@ -66,7 +76,7 @@ TWITTER_CALLBACK_URI=http://YOUR_DOMAIN/auth/twitter/callback
 
 ####Google+
 
-In order to utilise Google+ Authentication, first you need to create new Google Project/Application. To do that, first you have to go to https://console.developers.google.com/projec, click **Create project** button at top left corner and enter your Project name.
+In order to utilise Google+ Authentication, first you need to create new Google Project/Application. To do that, go to https://console.developers.google.com/project, click **Create project** button at top left corner and enter your Project name.
 
 After you have created your project, you now have to enable Google+ API and get the credentials that will be used for authentication. Go to https://console.developers.google.com/apis/library, select your project from dropdown available on top right header and click on Google+ API link inside the list of available Google APIs.
 
@@ -82,7 +92,7 @@ After enabling the API, the only remaining step is to get the credentials you ne
 
 After entering in the required application Name, make sure that you enter `http://YOUR_DOMAIN` in **Authorized JavaScript origins** section, and `http://YOUR_DOMAIN/auth/google/callback` in **Authorized redirect URIs** section. 
 
-After you fill those fields, click **Create client ID" button, provide your product name as required, and get your Client Id and Client Secret keys.
+After you fill those fields, click **Create client ID** button, provide your product name as required, and get your Client Id and Client Secret keys.
 
 When you have those keys, the only thing left for you to do is to paste them into your `.env` file as following:
 
@@ -122,7 +132,7 @@ That's all you need to do. Now you are able to enable or disable reCAPTCHA on yo
 
 By default, Vanguard will be configured to use native PHP mail driver for sending emails. However, you can configure it to use `SMTP`,  `Sendmail`,  `Mailgun`, `Mandrill`, `Amazon SES` or `Log` driver (good for development purposes).
 
-Here we will cover only SMTP configuration, and if you are interested in other options mentioned above, you can find all details of how to enable them inside [Laravel Documentation](https://laravel.com/docs/5.2/mail#introduction).
+Here we will cover only SMTP configuration, and if you are interested in other options mentioned above, you can find all details of how to enable them inside [Laravel Documentation](https://laravel.com/docs/5.3/mail#introduction).
 
 ####SMTP
 
@@ -159,6 +169,8 @@ SESSION_DRIVER=file
 ```
 
 That's it, you don't have to change anything inside your codebase. Everything will be working as usual, except you won't be able to track user sessions.
+
+More session configuration options are available inside `config/session.php` configuration file. Feel free to check that file and configure things such as session lifetime, session cookie name etc.
 
 <a name="https"></a>
 ###HTTPS

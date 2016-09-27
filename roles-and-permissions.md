@@ -20,7 +20,6 @@ On roles section of the website administrators (or other users with appropriate 
 
 ![Vanguard - Roles](assets/img/roles-list.png)
 
->**Note!** Default system roles cannot be deleted from UI. Custom created roles can be deleted without any problem.
 
 <a name="roles-manage"></a>
 ###Managing Roles

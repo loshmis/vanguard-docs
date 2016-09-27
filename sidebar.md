@@ -2,6 +2,7 @@
     - [Installation](installation.html)
     - [Configuration](configuration.html)
     - [Localization](localization.html)
+    - [Development Mode](development-mode.html)
     - [Upgrade Guide](upgrade-guide.html)
 - Usage
 	- [Authentication & Registration](authentication.html)
@@ -14,8 +15,10 @@
 	- [Settings](settings.html)
 - Testing
     - [Vanguard Automated Tests](testing.html)
-- Tutorials
+- Cookbook
     - [Working with Vanguard Permissions](working-with-permissions.html)
 	- [Using Vanguard for Existing Website](existing-website.html)
 	- [Extending Registration Form](registration-form.html)
 	- [Creating New Page](new-page.html)
+- Need More Help?
+    - [FAQ](faq.html)

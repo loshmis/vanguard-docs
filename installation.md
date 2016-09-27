@@ -16,11 +16,12 @@
 In order to install Vanguard application, your server must meet following requirements:
 
 
-* PHP >= 5.5.9 (including PHP 7) or HHVM
+* PHP >= 5.6.4 (including PHP 7)
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
+* XML PHP Extension
 * GD PHP Extension
 * Fileinfo PHP Extension
 * Xdebug Max Nesting Level (>= 500)
@@ -38,7 +39,7 @@ Ok, since this is the first time that you are accessing the system, the installa
 
 ![alt Vanguard Installation - Welcome Screen](assets/img/install_step1.png)
 
-> **Note!** If you get some `500 Server Error`  when you try to access the script installer, this usually means that your  `storage/` directory is not writable and that Laravel is unable to compile views or start the session. Just make that directory (and it's subdirectories) writable by setting them 777 permissions, and you are good to go.
+> **Note!** If you get some `500 Server Error`  when you try to access the script installer, this usually means that your  `storage/` directory is not writable and that Laravel is unable to compile views or start the session. Just make that directory, it's subdirectories and `storage.json` file writable by changing their permissions to 777 and you are good to go.
 
 ####Step 2 - System Requirements
 
@@ -104,7 +105,7 @@ But, what if you are hosting your application on some shared hosting and you are
 
 Lets say that you want to upload your application to some shared hosting. Typically, there will be an `public_html` directory where you would upload your application since everything that's inside that directory will be accessible via HTTP. But, as it is already mentioned, it is not good from security standpoint.
 
-#####Step 1 - Uploading the application
+####Step 1 - Uploading the application
 
 So, in this case, the best way is to upload Vanguard application into it's own folder that is **one level above** the `public_html` folder. In that case, your directory structure will look something like this:
 

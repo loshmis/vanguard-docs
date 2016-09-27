@@ -41,8 +41,6 @@ phpunit
 
 PHP unit will then execute your tests and you will be sure that your application is working as you expect.
 
-Vanguard is fully tested and working on PHP 5.5.9+ (including PHP 7) and HHVM.
+Vanguard is fully tested and working on PHP 5.6.4+ (including PHP 7).
 
 ![Vanguard - Automated Tests - PHP](assets/img/testing-php.png)
-
-![Vanguard - Automated Tests - HHVM](assets/img/testing-hhvm.png)

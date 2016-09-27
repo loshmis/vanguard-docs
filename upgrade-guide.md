@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 1.2.0 from 1.1.2](#upgrade-1.2.0)
     * [To 1.1.2 from 1.1.1](#upgrade-1.1.2)
 	* [To 1.1.1 from 1.1.0](#upgrade-1.1.1)
 	* [To 1.1.0 from 1.0.4](#upgrade-1.1.0)
@@ -12,6 +13,91 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-1.2.0"></a>
+###To 1.2.0 from 1.1.2
+
+This version is mostly an upgrade to Laravel 5.3, with some other small fixes and design updates.
+The best way to go through the update process is to fully follow [Laravel's upgrade guide](https://laravel.com/docs/5.3/upgrade#upgrade-5.3.0). This section inside Laravel's documentation will give you the complete idea of which files are changed and will drive you through full update process. 
+
+The easiest way is to just overwrite the file affected by this update with the new one from the latest version. However, if you have modified some files, you will have to go through the update process manually. 
+
+Git patch is provided inside the `documentation` folder in downloaded zip file.
+
+**Note:** To make [Entrust](https://github.com/Zizaco/entrust) package compatible with Laravel 5.3, new EntrustServiceProvider is created inside `app/Providers`, and that service provider is now referenced inside `config/app.php` instead of original one from Entrust package.
+
+List of modified and added files:
+
+```php
+ .gitignore                                                          |    1 +
+ _ide_helper.php                                                     | 2448 ++++++++-----------------------------------
+ app/Console/Commands/Inspire.php                                    |   33 +
+ app/Console/Kernel.php                                              |   17 +-
+ app/Exceptions/Handler.php                                          |   24 +-
+ app/Http/Controllers/ActivityController.php                         |    1 -
+ app/Http/Controllers/Auth/PasswordController.php                    |   18 +-
+ app/Http/Controllers/InstallController.php                          |    1 -
+ app/Http/Controllers/ProfileController.php                          |    6 +-
+ app/Http/Controllers/UsersController.php                            |   16 +-
+ app/Http/Kernel.php                                                 |    6 +-
+ app/Http/routes.php                                                 |  378 +++++++
+ app/Listeners/UserWasRegisteredListener.php                         |   14 +-
+ app/Mailers/NotificationMailer.php                                  |   17 +
+ app/Mailers/UserMailer.php                                          |    7 +-
+ app/Notifications/EmailConfirmation.php                             |   54 -
+ app/Notifications/ResetPassword.php                                 |   53 -
+ app/Notifications/UserRegistered.php                                |   70 --
+ app/Providers/AppServiceProvider.php                                |    1 -
+ app/Providers/AuthServiceProvider.php                               |    5 +-
+ app/Providers/BroadcastServiceProvider.php                          |   36 -
+ app/Providers/EntrustServiceProvider.php                            |   62 --
+ app/Providers/EventServiceProvider.php                              |    6 +-
+ app/Providers/RouteServiceProvider.php                              |   59 +-
+ app/Repositories/Activity/EloquentActivity.php                      |    6 +-
+ app/Repositories/Country/EloquentCountry.php                        |    4 +-
+ app/Repositories/Permission/EloquentPermission.php                  |    2 +-
+ app/Repositories/Role/EloquentRole.php                              |    2 +-
+ app/Repositories/Session/DbSession.php                              |    3 +-
+ app/Repositories/User/EloquentUser.php                              |   15 +-
+ app/User.php                                                        |   15 +-
+ composer.json                                                       |    9 +-
+ composer.lock                                                       | 1107 +++++++++----------
+ config/app.php                                                      |   24 +-
+ config/database.php                                                 |    1 -
+ database/factories/ModelFactory.php                                 |    2 +-
+ database/migrations/2015_09_19_191655_setup_countries_table.php     |    2 +-
+ database/migrations/2015_10_10_170827_create_users_table.php        |    2 +-
+ extra/auth.php                                                      |    6 +-
+ public/assets/css/app.css                                           |   30 +-
+ public/assets/js/as/app.js                                          |   42 +-
+ public/assets/js/as/dashboard-admin.js                              |   12 +
+ public/web.config                                                   |   23 -
+ resources/lang/en/app.php                                           |   12 +-
+ resources/views/layouts/app.blade.php                               |    4 +-
+ resources/views/partials/sidebar.blade.php                          |    2 +-
+ resources/views/settings/partials/auth.blade.php                    |    3 +-
+ resources/views/user/partials/avatar.blade.php                      |    2 +-
+ resources/views/vendor/notifications/email-plain.blade.php          |   22 -
+ resources/views/vendor/notifications/email.blade.php                |  193 ----
+ resources/views/vendor/pagination/bootstrap-4.blade.php             |   36 -
+ resources/views/vendor/pagination/default.blade.php                 |   36 -
+ resources/views/vendor/pagination/simple-bootstrap-4.blade.php      |   17 -
+ resources/views/vendor/pagination/simple-default.blade.php          |   17 -
+ routes/api.php                                                      |   12 -
+ routes/console.php                                                  |   18 -
+ routes/web.php                                                      |  378 -------
+ storage/settings.json                                               |    2 +-
+ tests/functional/FunctionalTestCase.php                             |   50 +-
+ tests/functional/Http/Controllers/ActivityControllerTest.php        |    9 +-
+ tests/functional/Http/Controllers/Auth/AuthControllerTest.php       |   83 +-
+ tests/functional/Http/Controllers/Auth/PasswordControllerTest.php   |   38 +-
+ tests/functional/Http/Controllers/Auth/SocialAuthControllerTest.php |    8 -
+ tests/functional/Http/Controllers/PermissionsControllerTest.php     |    2 +-
+ tests/functional/Repositories/Country/EloquentCountryTest.php       |    2 +-
+ tests/functional/Repositories/Role/EloquentRoleTest.php             |    4 +-
+ tests/functional/Repositories/User/EloquentUserTest.php             |    2 +-
+ 68 files changed, 1560 insertions(+), 4032 deletions(-)
+```
 
 <a name="upgrade-1.1.2"></a>
 ###To 1.1.2 from 1.1.1

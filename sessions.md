@@ -11,7 +11,7 @@
 <a name="active-sessions"></a>
 ###Active Sessions
 
-Every system user is able to see his active sessions, as well as Ip from which he is logged in, the [user agent](https://en.wikipedia.org/wiki/User_agent) and time of his last activity for that session.
+Every system user is able to see his active sessions, as well as IP address from which he is logged in, the [user agent](https://en.wikipedia.org/wiki/User_agent) and time of his last activity for that session.
 
 ![Vanguard - Active Sessions](assets/img/active-sessions.png)
 
