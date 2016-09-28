@@ -85,7 +85,7 @@ we just created, instead of using closure:
 ```php
 // /routes/web.php
 
-Route::get('active-users', 'ActiveUsersController@index');
+Route::get('active-users', 'ActiveUsersController@index')->name('active-users');
 //...
 ```
 

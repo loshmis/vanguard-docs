@@ -44,3 +44,23 @@ PHP unit will then execute your tests and you will be sure that your application
 Vanguard is fully tested and working on PHP 5.6.4+ (including PHP 7).
 
 ![Vanguard - Automated Tests - PHP](assets/img/testing-php.png)
+
+###Different Databases
+
+By default, Vanguard is configured to use SQLite in Memory database to perform tests. However, if you would like to test it on some other databases like MySQL, 
+then you will have to modify `DB_CONNECTION` environment variable inside `phpunit.xml` file and set it to `mysql` (or you can just completely remove it, since MySQL driver is default)
+and you have to add the name for test database by defining `DB_DATABASE` variable like following:
+
+```xml
+<php>
+    <env name="APP_ENV" value="testing"/>
+    <env name="CACHE_DRIVER" value="array"/>
+    <env name="SESSION_DRIVER" value="array"/>
+    <env name="QUEUE_DRIVER" value="sync"/>
+    <env name="DB_CONNECTION" value="mysql"/> <!-- database connection -->
+    <env name="DB_DATABASE" value="vanguard_test"/> <!-- test db name -->
+    <env name="MAIL_DRIVER" value="smtp"/>
+</php>
+```
+
+You can modify any other environment variables here if necessary.
