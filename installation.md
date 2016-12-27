@@ -39,7 +39,7 @@ Ok, since this is the first time that you are accessing the system, the installa
 
 ![alt Vanguard Installation - Welcome Screen](assets/img/install_step1.png)
 
-> **Note!** If you get some `500 Server Error`  when you try to access the script installer, this usually means that your  `storage/` directory is not writable and that Laravel is unable to compile views or start the session. Just make that directory, it's subdirectories and `storage.json` file writable by changing their permissions to 777 and you are good to go.
+> **Note!** If you get some `500 Server Error`  when you try to access the script installer, this usually means that your  `storage/` directory is not writable and that Laravel is unable to compile views or start the session. Just make that directory, it's subdirectories and `settings.json` file writable by changing their permissions to 777 and you are good to go.
 
 ####Step 2 - System Requirements
 
