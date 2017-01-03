@@ -26,6 +26,13 @@ In order to install Vanguard application, your server must meet following requir
 * Fileinfo PHP Extension
 * Xdebug Max Nesting Level (>= 500)
 
+<a name="file-system-permissions"></a>
+###File System Permissions
+To be able to start the installation at all, you must set appropriate permissions for `storage` folder and it's subfolders. So, the very first thing to do is to set permissions to `777` for `storage` folder, all it's subfolders as well as `settings.json` file.
+
+After setting the permissions you are ready to proceed to the installation.
+
+
 <a name="installing-vanguard"></a>
 ###Installing Vanguard
 
@@ -39,7 +46,9 @@ Ok, since this is the first time that you are accessing the system, the installa
 
 ![alt Vanguard Installation - Welcome Screen](assets/img/install_step1.png)
 
-> **Note!** If you get some `500 Server Error`  when you try to access the script installer, this usually means that your  `storage/` directory is not writable and that Laravel is unable to compile views or start the session. Just make that directory, it's subdirectories and `settings.json` file writable by changing their permissions to 777 and you are good to go.
+> **Note!** If you get `500 Server Error`  when you try to access the script installer, this usually means that your  `storage/` directory is not writable and that Laravel is unable to compile views or start the session. To fix this, just update the permissions like it is described [above](#file-system-permissions).
+
+> **Note!** If you are not able to access the website by accessing `yourdomain.com/public`, but you are able to access it via `yourdomain.com/public/index.php`, this means that you probably don't have Apache `mod_rewrite` installed and enabled. You can find more info about fixing this issue [here](faq.md).
 
 ####Step 2 - System Requirements
 
