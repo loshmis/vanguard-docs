@@ -4,6 +4,7 @@
 	* [The Configuration File](#configuration-file)
 	* [Login Page](#login-page)
 	* [GitHub Keys](#github-keys)
+
 ---
 
 <a name="adding-social-auth-provider"></a>
