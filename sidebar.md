@@ -20,5 +20,6 @@
 	- [Using Vanguard for Existing Website](existing-website.html)
 	- [Extending Registration Form](registration-form.html)
 	- [Creating New Page](new-page.html)
+	- [Adding Social Auth Provide](adding-social-auth-provider.html)
 - Need More Help?
     - [FAQ](faq.html)
