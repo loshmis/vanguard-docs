@@ -25,41 +25,85 @@ There was also one potential security issue related to avatar image upload which
 
 There are a lot of modifications inside `tests` directory, but if you don't use automated tests to test your application, you don't have to update it.
 
-Here is a list of modified files (except `tests`):
+Here is a list of modified files:
 
 ```
  app/Exceptions/Handler.php                                          |    2 +-
- app/Http/Controllers/ActivityController.php                         |    1 +
- app/Http/Controllers/Auth/SocialAuthController.php                  |    7 +-
- app/Http/Controllers/InstallController.php                          |    4 +-
- app/Http/Controllers/PermissionsController.php                      |    1 +
- app/Http/Controllers/ProfileController.php                          |   11 +-
- app/Http/Controllers/RolesController.php                            |    1 +
- app/Http/Controllers/SettingsController.php                         |    5 +
- app/Http/Controllers/UsersController.php                            |   15 +-
- app/Http/Middleware/SocialLogin.php                                 |    2 +-
- app/Listeners/RoleEventsSubscriber.php                              |    4 +-
- app/Providers/HtmlServiceProvider.php                               |    4 +-
- app/Repositories/Session/DbSession.php                              |    4 +
- app/Repositories/User/EloquentUser.php                              |    2 +-
- app/Services/Auth/TwoFactor/Authenticatable.php                     |    4 -
- app/Services/Upload/UserAvatarManager.php                           |   11 +-
- app/User.php                                                        |    1 -
- composer.json                                                       |   33 ++-
- config/app.php                                                      |    2 +-
- config/database.php                                                 |   15 +-
- config/mail.php                                                     |   17 ++
- database/factories/ModelFactory.php                                 |    4 +-
- gulpfile.js                                                         |   16 --
- package.json                                                        |   12 +-
- phpunit.xml                                                         |   11 +-
- resources/lang/en/app.php                                           |    4 +-
- resources/lang/sr/app.php                                           |    4 +-
- resources/views/user/profile.blade.php                              |    4 +-
- routes/web.php                                                      |  427 +++++++++++++++---------------
- webpack.mix.js                                                      |   15 ++
- 75 files changed, 4470 insertions(+), 4359 deletions(-)
-
+  app/Http/Controllers/ActivityController.php                         |    1 +
+  app/Http/Controllers/Auth/SocialAuthController.php                  |    7 +-
+  app/Http/Controllers/InstallController.php                          |    2 +-
+  app/Http/Controllers/PermissionsController.php                      |    1 +
+  app/Http/Controllers/ProfileController.php                          |   11 +-
+  app/Http/Controllers/RolesController.php                            |    1 +
+  app/Http/Controllers/SettingsController.php                         |    5 +
+  app/Http/Controllers/UsersController.php                            |   15 +-
+  app/Http/Middleware/SocialLogin.php                                 |    2 +-
+  app/Listeners/RoleEventsSubscriber.php                              |    4 +-
+  app/Providers/HtmlServiceProvider.php                               |    4 +-
+  app/Repositories/Session/DbSession.php                              |    4 +
+  app/Repositories/User/EloquentUser.php                              |    2 +-
+  app/Services/Auth/TwoFactor/Authenticatable.php                     |    4 -
+  app/Services/Upload/UserAvatarManager.php                           |   11 +-
+  app/User.php                                                        |    1 -
+  composer.json                                                       |   33 ++-
+  composer.lock                                                       | 1781 ++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------------------------------------------------------
+  config/app.php                                                      |    2 +-
+  config/database.php                                                 |   15 +-
+  config/mail.php                                                     |   17 ++
+  database/factories/ModelFactory.php                                 |    4 +-
+  gulpfile.js                                                         |   16 --
+  package.json                                                        |   12 +-
+  phpunit.xml                                                         |   11 +-
+  resources/lang/en/app.php                                           |    4 +-
+  resources/lang/sr/app.php                                           |    4 +-
+  resources/views/user/profile.blade.php                              |    4 +-
+  routes/web.php                                                      |  427 +++++++++++++++---------------
+  storage/settings.json                                               |    2 +-
+  tests/Feature/FunctionalTestCase.php                                |  168 ++++++++++++
+  tests/Feature/Http/Controllers/ActivityControllerTest.php           |   84 ++++++
+  tests/Feature/Http/Controllers/Auth/AuthControllerTest.php          |  399 ++++++++++++++++++++++++++++
+  tests/Feature/Http/Controllers/Auth/PasswordControllerTest.php      |  167 ++++++++++++
+  tests/Feature/Http/Controllers/Auth/SocialAuthControllerTest.php    |  238 +++++++++++++++++
+  tests/Feature/Http/Controllers/PermissionsControllerTest.php        |  183 +++++++++++++
+  tests/Feature/Http/Controllers/ProfileControllerTest.php            |  326 +++++++++++++++++++++++
+  tests/Feature/Http/Controllers/RolesControllerTest.php              |  134 ++++++++++
+  tests/Feature/Http/Controllers/SettingsControllerTest.php           |   34 +++
+  tests/Feature/Http/Controllers/UsersControllerTest.php              |  486 ++++++++++++++++++++++++++++++++++
+  tests/Feature/Listeners/BaseListenerTestCase.php                    |   29 ++
+  tests/Feature/Listeners/PermissionEventsSubscriberTest.php          |   38 +++
+  tests/Feature/Listeners/RoleEventsSubscriberTest.php                |   44 ++++
+  tests/Feature/Listeners/UserEventsSubscriberTest.php                |  148 +++++++++++
+  tests/Feature/Repositories/Activity/EloquentActivityTest.php        |  128 +++++++++
+  tests/Feature/Repositories/Country/EloquentCountryTest.php          |   34 +++
+  tests/Feature/Repositories/Permission/EloquentPermissionTest.php    |   86 ++++++
+  tests/Feature/Repositories/Role/EloquentRoleTest.php                |  106 ++++++++
+  tests/Feature/Repositories/Session/DbSessionTest.php                |  109 ++++++++
+  tests/Feature/Repositories/User/EloquentUserTest.php                |  379 ++++++++++++++++++++++++++
+  tests/MailTrap.php                                                  |    4 +
+  tests/TestCase.php                                                  |    9 +-
+  tests/functional/FunctionalTestCase.php                             |  163 ------------
+  tests/functional/Http/Controllers/ActivityControllerTest.php        |   81 ------
+  tests/functional/Http/Controllers/Auth/AuthControllerTest.php       |  393 ---------------------------
+  tests/functional/Http/Controllers/Auth/PasswordControllerTest.php   |  151 -----------
+  tests/functional/Http/Controllers/Auth/SocialAuthControllerTest.php |  207 ---------------
+  tests/functional/Http/Controllers/PermissionsControllerTest.php     |  180 -------------
+  tests/functional/Http/Controllers/ProfileControllerTest.php         |  292 ---------------------
+  tests/functional/Http/Controllers/RolesControllerTest.php           |  131 ---------
+  tests/functional/Http/Controllers/SettingsControllerTest.php        |   29 --
+  tests/functional/Http/Controllers/UsersControllerTest.php           |  447 -------------------------------
+  tests/functional/Listeners/BaseListenerTestCase.php                 |   26 --
+  tests/functional/Listeners/PermissionEventsSubscriberTest.php       |   36 ---
+  tests/functional/Listeners/RoleEventsSubscriberTest.php             |   43 ---
+  tests/functional/Listeners/UserEventsSubscriberTest.php             |  146 -----------
+  tests/functional/Repositories/Activity/EloquentActivityTest.php     |  125 ---------
+  tests/functional/Repositories/Country/EloquentCountryTest.php       |   31 ---
+  tests/functional/Repositories/Permission/EloquentPermissionTest.php |   82 ------
+  tests/functional/Repositories/Role/EloquentRoleTest.php             |  100 -------
+  tests/functional/Repositories/Session/DbSessionTest.php             |   78 ------
+  tests/functional/Repositories/User/EloquentUserTest.php             |  326 -----------------------
+  tests/unit/Presenters/UserPresenterTest.php                         |    3 +
+  webpack.mix.js                                                      |   15 ++
+  75 files changed, 4469 insertions(+), 4358 deletions(-)
 ```
 
 <a name="upgrade-1.2.1"></a>
