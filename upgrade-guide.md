@@ -16,7 +16,7 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
 
-<a name="upgrade-1.2.1"></a>
+<a name="upgrade-1.3.0"></a>
 ###To 1.3.0 from 1.2.1
 
 Update to Laravel 5.4 for Vanguard has arrived. The best way to upgrade to version 1.3 is to follow [laravel upgrade guide](https://laravel.com/docs/5.4/upgrade) which will cover 99% of the things that should be updated. 
