@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 1.3.0 from 1.2.1](#upgrade-1.3.0)
     * [To 1.2.1 from 1.2.0](#upgrade-1.2.1)
     * [To 1.2.0 from 1.1.2](#upgrade-1.2.0)
     * [To 1.1.2 from 1.1.1](#upgrade-1.1.2)
@@ -16,9 +17,55 @@ This section contains some info about what's changed in the latest version and h
 You can find the version you are currently using inside `config/app.php` file.
 
 <a name="upgrade-1.2.1"></a>
+###To 1.3.0 from 1.2.1
+
+Update to Laravel 5.4 for Vanguard has arrived. The best way to upgrade to version 1.3 is to follow [laravel upgrade guide](https://laravel.com/docs/5.4/upgrade) which will cover 99% of the things that should be updated. 
+
+There was also one potential security issue related to avatar image upload which can be exploited on web servers where directory listing is allowed (such as default Apache configuration). To be sure that you are protected, please update `UsersController::updateAvatar` method, `ProfileController::updateAvatar` method, as well as `Vanguard\Services\Upload\UserAvatarManager` class.
+
+There are a lot of modifications inside `tests` directory, but if you don't use automated tests to test your application, you don't have to update it.
+
+Here is a list of modified files (except `tests`):
+
+```
+ app/Exceptions/Handler.php                                          |    2 +-
+ app/Http/Controllers/ActivityController.php                         |    1 +
+ app/Http/Controllers/Auth/SocialAuthController.php                  |    7 +-
+ app/Http/Controllers/InstallController.php                          |    4 +-
+ app/Http/Controllers/PermissionsController.php                      |    1 +
+ app/Http/Controllers/ProfileController.php                          |   11 +-
+ app/Http/Controllers/RolesController.php                            |    1 +
+ app/Http/Controllers/SettingsController.php                         |    5 +
+ app/Http/Controllers/UsersController.php                            |   15 +-
+ app/Http/Middleware/SocialLogin.php                                 |    2 +-
+ app/Listeners/RoleEventsSubscriber.php                              |    4 +-
+ app/Providers/HtmlServiceProvider.php                               |    4 +-
+ app/Repositories/Session/DbSession.php                              |    4 +
+ app/Repositories/User/EloquentUser.php                              |    2 +-
+ app/Services/Auth/TwoFactor/Authenticatable.php                     |    4 -
+ app/Services/Upload/UserAvatarManager.php                           |   11 +-
+ app/User.php                                                        |    1 -
+ composer.json                                                       |   33 ++-
+ config/app.php                                                      |    2 +-
+ config/database.php                                                 |   15 +-
+ config/mail.php                                                     |   17 ++
+ database/factories/ModelFactory.php                                 |    4 +-
+ gulpfile.js                                                         |   16 --
+ package.json                                                        |   12 +-
+ phpunit.xml                                                         |   11 +-
+ resources/lang/en/app.php                                           |    4 +-
+ resources/lang/sr/app.php                                           |    4 +-
+ resources/views/user/profile.blade.php                              |    4 +-
+ routes/web.php                                                      |  427 +++++++++++++++---------------
+ webpack.mix.js                                                      |   15 ++
+ 75 files changed, 4470 insertions(+), 4359 deletions(-)
+
+```
+
+<a name="upgrade-1.2.1"></a>
 ###To 1.2.1 from 1.2.0
 
-This is bug-fix release, which contains few small bug fixes and tests improvements.
+This is bug-fix release, which contains few small bug fixes and tests improvements. 
 
 Here is the list of all modified files, and git patch is provided inside `documentation` folder in downloaded zip file:
 
@@ -38,6 +85,8 @@ Here is the list of all modified files, and git patch is provided inside `docume
 ```
 
 If you don't care about automated tests, you don't have to update those files.
+
+> Important: Don't forget to update image validation on avatar upload inside `UsersController` and `ProfileController` improve application security.
 
 <a name="upgrade-1.2.0"></a>
 ###To 1.2.0 from 1.1.2
