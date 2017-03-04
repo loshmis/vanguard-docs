@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 1.3.1 from 1.3.0](#upgrade-1.3.1)
     * [To 1.3.0 from 1.2.1](#upgrade-1.3.0)
     * [To 1.2.1 from 1.2.0](#upgrade-1.2.1)
     * [To 1.2.0 from 1.1.2](#upgrade-1.2.0)
@@ -15,6 +16,19 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-1.3.1"></a>
+###To 1.3.1 from 1.3.0
+
+This version contains only few bug fixes, and only few files has to be updated. Check the modified files below:
+
+```
+ app/Http/Controllers/InstallController.php |   2 +-
+ app/Providers/HtmlServiceProvider.php      |   2 +-
+ composer.lock                              | 266 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------------------------------
+ config/app.php                             |   2 +-
+ 4 files changed, 142 insertions(+), 130 deletions(-)
+```
 
 <a name="upgrade-1.3.0"></a>
 ###To 1.3.0 from 1.2.1
