@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 1.3.2 from 1.3.1](#upgrade-1.3.2)
     * [To 1.3.1 from 1.3.0](#upgrade-1.3.1)
     * [To 1.3.0 from 1.2.1](#upgrade-1.3.0)
     * [To 1.2.1 from 1.2.0](#upgrade-1.2.1)
@@ -16,6 +17,78 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-1.3.2"></a>
+###To 1.3.2 from 1.3.1
+
+In version 1.3.2 `zizaco/entrust` package has been removed, and Vanguard now has it's own, built in way, of handling the user permissions. 
+
+The main change is that you will now have to use `$user->hasPermission('permission_name')` instead of `$user->can('permission_name')`, and the reason is to support Laravel's native authorization system that uses `can` method.
+
+Another thing that you will have to do is to remove "role_user" database table (after you execute the SQL code below), since it is not being after `entrust` package is removed, and to create new `role_id` field in `users` database table which should be `int(10) unsigned NOT NULL`. From now on this field will hold the user's role.
+Now, since you probably already have users in your system, here is the sql code that you can execute to create this new field in `users` table and to update it's value to current user's role:
+
+```mysql
+ALTER TABLE users ADD `role_id` int(10) unsigned NOT NULL;
+
+UPDATE `users`
+INNER JOIN `role_user` ON `users`.`id` = `role_user`.`user_id` 
+SET `users`.`role_id` = `role_user`.`role_id`;
+
+ALTER TABLE `users` ADD CONSTRAINT users_role_id_foreign FOREIGN KEY(`role_id`) REFERENCES roles(id);
+```
+
+After you perform the above actions, next thing to do is to check the modified files and update your files to match the files from version 1.3.2:
+
+```
+ app/Http/Controllers/Auth/AuthController.php                                |   7 ++--
+ app/Http/Controllers/Auth/SocialAuthController.php                          |  12 +++---
+ app/Http/Controllers/ProfileController.php                                  |   8 ++--
+ app/Http/Controllers/UsersController.php                                    |  16 ++++----
+ app/Http/Kernel.php                                                         |   6 +--
+ app/Http/Middleware/CheckPermissions.php                                    |  41 -------------------
+ app/Http/Middleware/CheckRole.php                                           |  36 -----------------
+ app/Listeners/UserWasRegisteredListener.php                                 |   2 +-
+ app/Permission.php                                                          |   8 ++--
+ app/Presenters/UserPresenter.php                                            |   4 +-
+ app/Providers/AuthServiceProvider.php                                       |  16 +-------
+ app/Repositories/Role/EloquentRole.php                                      |  12 ++++--
+ app/Repositories/Role/RoleRepository.php                                    |   2 +-
+ app/Repositories/User/EloquentUser.php                                      |   7 +++-
+ app/Role.php                                                                |  20 +++++++---
+ app/Support/Authorization/AuthorizationRoleTrait.php                        | 153 ++++++++++++++++++++++++++++++++++++++++-------------------------------
+ app/Support/Authorization/AuthorizationUserTrait.php                        |  65 +++++++++++-------------------
+ app/Support/Authorization/CacheFlusherTrait.php                             |  35 +++++++++++++++++
+ app/User.php                                                                |   2 +-
+ composer.lock                                                               | 251 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------------------
+ config/app.php                                                              |   2 +
+ config/entrust.php                                                          |  92 +++++++++++++++++++++++++++++++++++++++++++
+ database/factories/ModelFactory.php                                         |   5 ---
+ database/migrations/2015_08_25_172600_create_settings_table.php             |  61 ++++++++++++++--------------
+ database/migrations/2015_09_19_191655_setup_countries_table.php             |  79 +++++++++++++++++++------------------
+ database/migrations/2015_10_10_170827_create_users_table.php                |   4 +-
+ database/migrations/2015_10_10_170911_create_user_social_networks_table.php |   2 +-
+ database/migrations/2015_10_10_171049_create_social_login_table.php         |   2 +-
+ database/migrations/2015_10_10_171734_add_foreign_keys.php                  |  56 ++++++++++++++++++++++++++
+ database/migrations/2015_12_19_191656_charify_countries_table.php           |  42 ++++++++++++++++++++
+ database/migrations/2015_12_24_080704_entrust_setup_tables.php              |  73 ++++++++++++++++++++++++++++++++++
+ database/migrations/2015_12_24_080704_setup_authorization_tables.php        |  59 ----------------------------
+ database/migrations/2015_12_29_224252_create_user_activity_table.php        |   4 +-
+ database/migrations/2015_12_30_171734_add_foreign_keys.php                  |  61 ----------------------------
+ database/seeds/UserSeeder.php                                               |   6 +--
+ resources/views/user/partials/details.blade.php                             |   2 +-
+ tests/Feature/FunctionalTestCase.php                                        |   4 +-
+ tests/Feature/Http/Controllers/Auth/AuthControllerTest.php                  |  22 ++++-------
+ tests/Feature/Http/Controllers/PermissionsControllerTest.php                |  12 +++---
+ tests/Feature/Http/Controllers/ProfileControllerTest.php                    |   8 ++--
+ tests/Feature/Http/Controllers/RolesControllerTest.php                      |  20 ++++------
+ tests/Feature/Http/Controllers/UsersControllerTest.php                      |   3 +-
+ tests/Feature/Repositories/Role/EloquentRoleTest.php                        |   4 +-
+ tests/Feature/Repositories/User/EloquentUserTest.php                        |  36 +++++++----------
+ 45 files changed, 720 insertions(+), 644 deletions(-)
+ ```
+
+> **Note** If you don't write automated tests for your application, you don't have to update the files within `tests` directory.
 
 <a name="upgrade-1.3.1"></a>
 ###To 1.3.1 from 1.3.0
