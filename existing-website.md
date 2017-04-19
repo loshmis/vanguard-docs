@@ -237,12 +237,12 @@ The modified website example will display Random List section only if currently 
 <a name="permission-specific"></a>
 ##Displaying Content Based On User Permissions
 
-If we want to check if some user has some permission, we can simply do that by calling `can` method on some user instance, with [permission name](roles-and-permissions.html#permissions) as parameter, like following:
+If we want to check if some user has some permission, we can simply do that by calling `hasPermission` method on some user instance, with [permission name](roles-and-permissions.html#permissions) as parameter, like following:
 
 ```php
 //This function call will return TRUE if 
 //user has specified permission, and false otherwise
-$user->can('users.manage')
+$user->hasPermission('users.manage')
 ```
 
 Now, if we want to display Random List content from our example website to user with `see_random_list` permission, we can do it like following:
@@ -250,7 +250,7 @@ Now, if we want to display Random List content from our example website to user 
 ```php
 //...
 
-    <?php if (Auth::user()->can('see_random_list')): ?>
+    <?php if (Auth::user()->hasPermission('see_random_list')): ?>
         <h4>Random List</h4>
         <ul class="list-group">
             <li class="list-group-item">Cras justo odio</li>
