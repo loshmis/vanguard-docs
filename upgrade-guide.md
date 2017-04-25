@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 1.3.3 from 1.3.2](#upgrade-1.3.3)
     * [To 1.3.2 from 1.3.1](#upgrade-1.3.2)
     * [To 1.3.1 from 1.3.0](#upgrade-1.3.1)
     * [To 1.3.0 from 1.2.1](#upgrade-1.3.0)
@@ -17,6 +18,16 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-1.3.3"></a>
+###To 1.3.3 from 1.3.2
+
+Fix compatibility issues with `laravel-jsvalidation` package and Laravel Framework version `5.4.19+`.
+
+There is only one file that you need to update, and that is `composer.json`. After updating composer.json file to the latest version, you can run `composer update` command to update your packages.
+
+P.S.
+This compatibility issue only exists for latest version of Laravel Framework (5.4.19 at the moment of typing).
 
 <a name="upgrade-1.3.2"></a>
 ###To 1.3.2 from 1.3.1
