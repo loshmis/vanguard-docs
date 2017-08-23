@@ -13,6 +13,7 @@
 	- [Activity Log](activity-log.html)
 	- [Roles and Permissions](roles-and-permissions.html)
 	- [Settings](settings.html)
+	- [Developer API](/api/index.html)
 - Testing
     - [Vanguard Automated Tests](testing.html)
 - Cookbook

@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 2.0.0 from 1.3.3](#upgrade-2.0.0)
     * [To 1.3.3 from 1.3.2](#upgrade-1.3.3)
     * [To 1.3.2 from 1.3.1](#upgrade-1.3.2)
     * [To 1.3.1 from 1.3.0](#upgrade-1.3.1)
@@ -19,12 +20,446 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
 
+<a name="upgrade-2.0.0"></a>
+###To 2.0.0 from 1.3.3
+
+Version 2 of Vanguard comes with a lot of changes mainly related to addition of JSON API that you can use to authenticate
+your users from any application and manage your users through Vanguard. A lot of files are changed, so 
+you will have to go through each one and make sure that it looks like it does in latest version, however 
+here is the list of some main changes to make things a bit easier:
+
+* Update `composer.json` file and run `composer update` command (or just overwrite composer.json, composer.lock files and vendor folder)
+with the latest version.
+
+* Run `php artisan migrate` command to create new database table for storing api token identifiers.
+
+* There are now two different folders inside `app/Http/Controllers` folder: `Api` and `Web`. The `Api` folder is completely new 
+so you can just copy it there from latest version. Your "old" controllers should be moved to `Web` folder and namespace for
+each controller should be updated accordingly.
+
+* `routes/api.php` file contains new routes related to the API, so make sure that you update that file too.
+
+* Update `app/Providers/RouteServiceProvider` to support api route mapping.
+
+* Added new `app/Transformers` folder which contains API transformers for all application entities
+
+* Added new `app/Services/Auth/Api` folder which contains files related to API authentication.
+
+* Added new `public/flags` directory which contains all flag images for countries that are available inside the system.
+
+* Added new `UseApiGuard` middleware which is now added to `api` middleware group inside `app/Http/Kernel.php` file.
+
+* Added new `expose_api` configuration parameter to `config/auth.php` file to enable/disable the API.
+
+Here is the list of all modified and added files for this update:
+
+```
+ app/Country.php                                                                          |     2 +*
+ app/Events/User/Registered.php                                                           |     2 +-
+ app/Exceptions/Handler.php                                                               |    15 +-
+ app/Http/Controllers/Api/ActivityController.php                                          |    39 +
+ app/Http/Controllers/Api/ApiController.php                                               |   208 ++
+ app/Http/Controllers/Api/Auth/AuthController.php                                         |    59 +
+ app/Http/Controllers/Api/Auth/Password/RemindController.php                              |    41 +
+ app/Http/Controllers/Api/Auth/Password/ResetController.php                               |    58 +
+ app/Http/Controllers/Api/Auth/RegistrationController.php                                 |    87 +
+ app/Http/Controllers/Api/Auth/SocialLoginController.php                                  |    64 +
+ app/Http/Controllers/Api/Authorization/PermissionsController.php                         |    97 +
+ app/Http/Controllers/Api/Authorization/RolePermissionsController.php                     |    65 +
+ app/Http/Controllers/Api/Authorization/RolesController.php                               |   107 +
+ app/Http/Controllers/Api/CountriesController.php                                         |    36 +
+ app/Http/Controllers/Api/Profile/AvatarController.php                                    |    92 +
+ app/Http/Controllers/Api/Profile/DetailsController.php                                   |    61 +
+ app/Http/Controllers/Api/Profile/SessionsController.php                                  |    35 +
+ app/Http/Controllers/Api/Profile/TwoFactorController.php                                 |    72 +
+ app/Http/Controllers/Api/SessionsController.php                                          |    54 +
+ app/Http/Controllers/Api/SettingsController.php                                          |    26 +
+ app/Http/Controllers/Api/StatsController.php                                             |    92 +
+ app/Http/Controllers/Api/Users/ActivityController.php                                    |    49 +
+ app/Http/Controllers/Api/Users/AvatarController.php                                      |   106 +
+ app/Http/Controllers/Api/Users/SessionsController.php                                    |    36 +
+ app/Http/Controllers/Api/Users/TwoFactorController.php                                   |    72 +
+ app/Http/Controllers/Api/Users/UsersController.php                                       |   141 ++
+ app/Http/Controllers/{ => Web}/ActivityController.php                                    |     4 +-
+ app/Http/Controllers/{ => Web}/Auth/AuthController.php                                   |    39 +-
+ app/Http/Controllers/{ => Web}/Auth/PasswordController.php                               |     2 +-
+ app/Http/Controllers/{ => Web}/Auth/SocialAuthController.php                             |    75 +-
+ app/Http/Controllers/{ => Web}/DashboardController.php                                   |     7 +-
+ app/Http/Controllers/{ => Web}/InstallController.php                                     |     3 +-
+ app/Http/Controllers/{ => Web}/PermissionsController.php                                 |     3 +-
+ app/Http/Controllers/{ => Web}/ProfileController.php                                     |    50 +-
+ app/Http/Controllers/{ => Web}/RolesController.php                                       |     7 +-
+ app/Http/Controllers/{ => Web}/SettingsController.php                                    |     7 +-
+ app/Http/Controllers/{ => Web}/UsersController.php                                       |    61 +-
+ app/Http/Kernel.php                                                                      |     1 +
+ app/Http/Middleware/Authenticate.php                                                     |     2 +-
+ app/Http/Middleware/CheckPermissions.php                                                 |     4 +-
+ app/Http/Middleware/DatabaseSession.php                                                  |     2 +-
+ app/Http/Middleware/UseApiGuard.php                                                      |    40 +
+ app/Http/Requests/Activity/GetActivitiesRequest.php                                      |    28 +
+ app/Http/Requests/Auth/Social/ApiAuthenticateRequest.php                                 |    25 +
+ app/Http/Requests/BinaryFileUploadRequest.php                                            |    77 +
+ app/Http/Requests/Permission/RemovePermissionRequest.php                                 |    23 +
+ app/Http/Requests/Role/RemoveRoleRequest.php                                             |    23 +
+ app/Http/Requests/Role/UpdateRolePermissionsRequest.php                                  |    32 +
+ app/Http/Requests/User/CreateUserRequest.php                                             |    10 +-
+ app/Http/Requests/User/UpdateDetailsRequest.php                                          |     2 +-
+ app/Http/Requests/User/UpdateUserRequest.php                                             |    31 +
+ app/Http/Requests/User/UploadAvatarRawRequest.php                                        |    22 +
+ app/Http/Requests/User/UploadAvatarRequest.php                                           |    21 -
+ app/Listeners/Registration/SendConfirmationEmail.php                                     |    42 +
+ app/Listeners/{UserWasRegisteredListener.php => Registration/SendSignUpNotification.php} |     8 +-
+ app/Mailers/AbstractMailer.php                                                           |    39 -
+ app/Mailers/UserMailer.php                                                               |    20 -
+ app/Permission.php                                                                       |     4 +
+ app/Providers/AuthServiceProvider.php                                                    |     9 +
+ app/Providers/EventServiceProvider.php                                                   |     7 +-
+ app/Providers/RouteServiceProvider.php                                                   |    29 +-
+ app/Repositories/Country/CountryRepository.php                                           |     8 +-
+ app/Repositories/Country/EloquentCountry.php                                             |     8 +
+ app/Repositories/Permission/PermissionRepository.php                                     |     2 +-
+ app/Repositories/Role/EloquentRole.php                                                   |     7 +-
+ app/Repositories/Session/DbSession.php                                                   |    21 +-
+ app/Repositories/Session/SessionRepository.php                                           |    12 +-
+ app/Repositories/User/EloquentUser.php                                                   |    33 +-
+ app/Repositories/User/UserRepository.php                                                 |    22 +-
+ app/Services/Auth/Api/ExtendsJwtValidation.php                                           |    69 +
+ app/Services/Auth/Api/JWT.php                                                            |     8 +
+ app/Services/Auth/Api/JWTAuth.php                                                        |     8 +
+ app/Services/Auth/Api/JWTServiceProvider.php                                             |    39 +
+ app/Services/Auth/Api/Token.php                                                          |    12 +
+ app/Services/Auth/Api/TokenFactory.php                                                   |    79 +
+ app/Services/Auth/Social/SocialManager.php                                               |    85 +
+ app/Services/Logging/UserActivity/Activity.php                                           |     2 +-
+ app/Services/Logging/UserActivity/Logger.php                                             |    10 +-
+ app/Services/Upload/UserAvatarManager.php                                                |    86 +-
+ app/Support/Authorization/AuthorizationUserTrait.php                                     |    44 +-
+ app/Support/DataArraySerializer.php                                                      |   100 +
+ app/Support/Enum/UserStatus.php                                                          |     2 +-
+ app/Transformers/ActivityTransformer.php                                                 |    36 +
+ app/Transformers/CountryTransformer.php                                                  |    32 +
+ app/Transformers/PermissionTransformer.php                                               |    22 +
+ app/Transformers/RoleTransformer.php                                                     |    33 +
+ app/Transformers/SessionTransformer.php                                                  |    27 +
+ app/Transformers/UserTransformer.php                                                     |    51 +
+ app/User.php                                                                             |    45 +-
+ app/UserSocialNetworks.php                                                               |    29 -
+ composer.json                                                                            |     5 +-
+ composer.lock                                                                            |   909 ++++++--
+ config/app.php                                                                           |     7 +-
+ config/auth.php                                                                          |    24 +-
+ config/jwt.php                                                                           |   262 +++
+ database/factories/ModelFactory.php                                                      |    14 +
+ database/migrations/2015_10_10_170827_create_users_table.php                             |     4 +-
+ database/migrations/2015_10_10_170911_create_user_social_networks_table.php              |    36 -
+ database/migrations/2015_12_30_171734_add_foreign_keys.php                               |    11 -
+ database/migrations/2017_04_13_200254_create_api_tokens_table.php                        |    49 +
+ database/seeds/CountriesSeeder.php                                                       |     6 +-
+ public/.htaccess                                                                         |     4 +
+ public/flags/AD.png                                                                      |   Bin 0 -> 1407 bytes
+ public/flags/AE.png                                                                      |   Bin 0 -> 1010 bytes
+ public/flags/AF.png                                                                      |   Bin 0 -> 1335 bytes
+ public/flags/AG.png                                                                      |   Bin 0 -> 1928 bytes
+ public/flags/AI.png                                                                      |   Bin 0 -> 1765 bytes
+ public/flags/AL.png                                                                      |   Bin 0 -> 1458 bytes
+ public/flags/AM.png                                                                      |   Bin 0 -> 1005 bytes
+ public/flags/AN.png                                                                      |   Bin 0 -> 1384 bytes
+ public/flags/AO.png                                                                      |   Bin 0 -> 1323 bytes
+ public/flags/AQ.png                                                                      |   Bin 0 -> 1698 bytes
+ public/flags/AR.png                                                                      |   Bin 0 -> 1199 bytes
+ public/flags/AS.png                                                                      |   Bin 0 -> 1440 bytes
+ public/flags/AT.png                                                                      |   Bin 0 -> 1016 bytes
+ public/flags/AU.png                                                                      |   Bin 0 -> 1963 bytes
+ public/flags/AW.png                                                                      |   Bin 0 -> 1336 bytes
+ public/flags/AZ.png                                                                      |   Bin 0 -> 1312 bytes
+ public/flags/BA.png                                                                      |   Bin 0 -> 1803 bytes
+ public/flags/BB.png                                                                      |   Bin 0 -> 1420 bytes
+ public/flags/BD.png                                                                      |   Bin 0 -> 1489 bytes
+ public/flags/BE.png                                                                      |   Bin 0 -> 968 bytes
+ public/flags/BF.png                                                                      |   Bin 0 -> 1260 bytes
+ public/flags/BG.png                                                                      |   Bin 0 -> 971 bytes
+ public/flags/BH.png                                                                      |   Bin 0 -> 1136 bytes
+ public/flags/BI.png                                                                      |   Bin 0 -> 2248 bytes
+ public/flags/BJ.png                                                                      |   Bin 0 -> 1088 bytes
+ public/flags/BM.png                                                                      |   Bin 0 -> 1666 bytes
+ public/flags/BN.png                                                                      |   Bin 0 -> 1977 bytes
+ public/flags/BO.png                                                                      |   Bin 0 -> 959 bytes
+ public/flags/BR.png                                                                      |   Bin 0 -> 2101 bytes
+ public/flags/BS.png                                                                      |   Bin 0 -> 1401 bytes
+ public/flags/BT.png                                                                      |   Bin 0 -> 2042 bytes
+ public/flags/BV.png                                                                      |   Bin 0 -> 1465 bytes
+ public/flags/BW.png                                                                      |   Bin 0 -> 1024 bytes
+ public/flags/BY.png                                                                      |   Bin 0 -> 1336 bytes
+ public/flags/BZ.png                                                                      |   Bin 0 -> 2126 bytes
+ public/flags/CA.png                                                                      |   Bin 0 -> 1332 bytes
+ public/flags/CC.png                                                                      |   Bin 0 -> 1681 bytes
+ public/flags/CD.png                                                                      |   Bin 0 -> 2266 bytes
+ public/flags/CF.png                                                                      |   Bin 0 -> 1586 bytes
+ public/flags/CG.png                                                                      |   Bin 0 -> 1376 bytes
+ public/flags/CH.png                                                                      |   Bin 0 -> 1418 bytes
+ public/flags/CI.png                                                                      |   Bin 0 -> 1018 bytes
+ public/flags/CK.png                                                                      |   Bin 0 -> 1989 bytes
+ public/flags/CL.png                                                                      |   Bin 0 -> 1287 bytes
+ public/flags/CM.png                                                                      |   Bin 0 -> 1024 bytes
+ public/flags/CN.png                                                                      |   Bin 0 -> 1286 bytes
+ public/flags/CO.png                                                                      |   Bin 0 -> 957 bytes
+ public/flags/CR.png                                                                      |   Bin 0 -> 962 bytes
+ public/flags/CS.png                                                                      |   Bin 0 -> 973 bytes
+ public/flags/CU.png                                                                      |   Bin 0 -> 1737 bytes
+ public/flags/CV.png                                                                      |   Bin 0 -> 1484 bytes
+ public/flags/CX.png                                                                      |   Bin 0 -> 1925 bytes
+ public/flags/CY.png                                                                      |   Bin 0 -> 1420 bytes
+ public/flags/CZ.png                                                                      |   Bin 0 -> 1477 bytes
+ public/flags/DE.png                                                                      |   Bin 0 -> 950 bytes
+ public/flags/DJ.png                                                                      |   Bin 0 -> 1493 bytes
+ public/flags/DK.png                                                                      |   Bin 0 -> 994 bytes
+ public/flags/DM.png                                                                      |   Bin 0 -> 1636 bytes
+ public/flags/DO.png                                                                      |   Bin 0 -> 1289 bytes
+ public/flags/DZ.png                                                                      |   Bin 0 -> 1535 bytes
+ public/flags/EC.png                                                                      |   Bin 0 -> 1611 bytes
+ public/flags/EE.png                                                                      |   Bin 0 -> 954 bytes
+ public/flags/EG.png                                                                      |   Bin 0 -> 1100 bytes
+ public/flags/EH.png                                                                      |   Bin 0 -> 1440 bytes
+ public/flags/ER.png                                                                      |   Bin 0 -> 2030 bytes
+ public/flags/ES.png                                                                      |   Bin 0 -> 1390 bytes
+ public/flags/ET.png                                                                      |   Bin 0 -> 1614 bytes
+ public/flags/FI.png                                                                      |   Bin 0 -> 1180 bytes
+ public/flags/FJ.png                                                                      |   Bin 0 -> 1847 bytes
+ public/flags/FK.png                                                                      |   Bin 0 -> 1891 bytes
+ public/flags/FM.png                                                                      |   Bin 0 -> 1481 bytes
+ public/flags/FO.png                                                                      |   Bin 0 -> 1314 bytes
+ public/flags/FR.png                                                                      |   Bin 0 -> 958 bytes
+ public/flags/GA.png                                                                      |   Bin 0 -> 959 bytes
+ public/flags/GB.png                                                                      |   Bin 0 -> 2299 bytes
+ public/flags/GD.png                                                                      |   Bin 0 -> 1918 bytes
+ public/flags/GE.png                                                                      |   Bin 0 -> 1582 bytes
+ public/flags/GF.png                                                                      |   Bin 0 -> 1437 bytes
+ public/flags/GH.png                                                                      |   Bin 0 -> 1354 bytes
+ public/flags/GI.png                                                                      |   Bin 0 -> 1605 bytes
+ public/flags/GL.png                                                                      |   Bin 0 -> 1615 bytes
+ public/flags/GM.png                                                                      |   Bin 0 -> 1080 bytes
+ public/flags/GN.png                                                                      |   Bin 0 -> 1064 bytes
+ public/flags/GP.png                                                                      |   Bin 0 -> 1952 bytes
+ public/flags/GQ.png                                                                      |   Bin 0 -> 1574 bytes
+ public/flags/GR.png                                                                      |   Bin 0 -> 1351 bytes
+ public/flags/GS.png                                                                      |   Bin 0 -> 1911 bytes
+ public/flags/GT.png                                                                      |   Bin 0 -> 1477 bytes
+ public/flags/GU.png                                                                      |   Bin 0 -> 1432 bytes
+ public/flags/GW.png                                                                      |   Bin 0 -> 1332 bytes
+ public/flags/GY.png                                                                      |   Bin 0 -> 2156 bytes
+ public/flags/HK.png                                                                      |   Bin 0 -> 1355 bytes
+ public/flags/HM.png                                                                      |   Bin 0 -> 2031 bytes
+ public/flags/HN.png                                                                      |   Bin 0 -> 1089 bytes
+ public/flags/HR.png                                                                      |   Bin 0 -> 1622 bytes
+ public/flags/HT.png                                                                      |   Bin 0 -> 1356 bytes
+ public/flags/HU.png                                                                      |   Bin 0 -> 994 bytes
+ public/flags/ID.png                                                                      |   Bin 0 -> 1021 bytes
+ public/flags/IE.png                                                                      |   Bin 0 -> 958 bytes
+ public/flags/IL.png                                                                      |   Bin 0 -> 1327 bytes
+ public/flags/IN.png                                                                      |   Bin 0 -> 1159 bytes
+ public/flags/IO.png                                                                      |   Bin 0 -> 2284 bytes
+ public/flags/IQ.png                                                                      |   Bin 0 -> 1129 bytes
+ public/flags/IR.png                                                                      |   Bin 0 -> 1100 bytes
+ public/flags/IS.png                                                                      |   Bin 0 -> 1243 bytes
+ public/flags/IT.png                                                                      |   Bin 0 -> 1057 bytes
+ public/flags/JM.png                                                                      |   Bin 0 -> 1907 bytes
+ public/flags/JO.png                                                                      |   Bin 0 -> 1571 bytes
+ public/flags/JP.png                                                                      |   Bin 0 -> 1350 bytes
+ public/flags/KE.png                                                                      |   Bin 0 -> 1552 bytes
+ public/flags/KG.png                                                                      |   Bin 0 -> 1392 bytes
+ public/flags/KH.png                                                                      |   Bin 0 -> 1490 bytes
+ public/flags/KI.png                                                                      |   Bin 0 -> 1551 bytes
+ public/flags/KM.png                                                                      |   Bin 0 -> 1810 bytes
+ public/flags/KN.png                                                                      |   Bin 0 -> 1909 bytes
+ public/flags/KP.png                                                                      |   Bin 0 -> 1377 bytes
+ public/flags/KR.png                                                                      |   Bin 0 -> 1883 bytes
+ public/flags/KW.png                                                                      |   Bin 0 -> 1291 bytes
+ public/flags/KY.png                                                                      |   Bin 0 -> 1536 bytes
+ public/flags/KZ.png                                                                      |   Bin 0 -> 1496 bytes
+ public/flags/LA.png                                                                      |   Bin 0 -> 1278 bytes
+ public/flags/LB.png                                                                      |   Bin 0 -> 1336 bytes
+ public/flags/LC.png                                                                      |   Bin 0 -> 1437 bytes
+ public/flags/LI.png                                                                      |   Bin 0 -> 1182 bytes
+ public/flags/LK.png                                                                      |   Bin 0 -> 2037 bytes
+ public/flags/LR.png                                                                      |   Bin 0 -> 1375 bytes
+ public/flags/LS.png                                                                      |   Bin 0 -> 1190 bytes
+ public/flags/LT.png                                                                      |   Bin 0 -> 959 bytes
+ public/flags/LU.png                                                                      |   Bin 0 -> 959 bytes
+ public/flags/LV.png                                                                      |   Bin 0 -> 1003 bytes
+ public/flags/LY.png                                                                      |   Bin 0 -> 947 bytes
+ public/flags/MA.png                                                                      |   Bin 0 -> 1454 bytes
+ public/flags/MC.png                                                                      |   Bin 0 -> 981 bytes
+ public/flags/MD.png                                                                      |   Bin 0 -> 1464 bytes
+ public/flags/ME.png                                                                      |   Bin 0 -> 930 bytes
+ public/flags/MG.png                                                                      |   Bin 0 -> 1077 bytes
+ public/flags/MH.png                                                                      |   Bin 0 -> 1839 bytes
+ public/flags/MK.png                                                                      |   Bin 0 -> 2468 bytes
+ public/flags/ML.png                                                                      |   Bin 0 -> 1065 bytes
+ public/flags/MM.png                                                                      |   Bin 0 -> 1345 bytes
+ public/flags/MN.png                                                                      |   Bin 0 -> 1487 bytes
+ public/flags/MO.png                                                                      |   Bin 0 -> 1548 bytes
+ public/flags/MP.png                                                                      |   Bin 0 -> 1688 bytes
+ public/flags/MQ.png                                                                      |   Bin 0 -> 2145 bytes
+ public/flags/MR.png                                                                      |   Bin 0 -> 1565 bytes
+ public/flags/MS.png                                                                      |   Bin 0 -> 1805 bytes
+ public/flags/MT.png                                                                      |   Bin 0 -> 1171 bytes
+ public/flags/MU.png                                                                      |   Bin 0 -> 1092 bytes
+ public/flags/MV.png                                                                      |   Bin 0 -> 1444 bytes
+ public/flags/MW.png                                                                      |   Bin 0 -> 1163 bytes
+ public/flags/MX.png                                                                      |   Bin 0 -> 1326 bytes
+ public/flags/MY.png                                                                      |   Bin 0 -> 1762 bytes
+ public/flags/MZ.png                                                                      |   Bin 0 -> 1672 bytes
+ public/flags/NA.png                                                                      |   Bin 0 -> 2162 bytes
+ public/flags/NC.png                                                                      |   Bin 0 -> 1740 bytes
+ public/flags/NE.png                                                                      |   Bin 0 -> 1082 bytes
+ public/flags/NF.png                                                                      |   Bin 0 -> 1186 bytes
+ public/flags/NG.png                                                                      |   Bin 0 -> 958 bytes
+ public/flags/NI.png                                                                      |   Bin 0 -> 1086 bytes
+ public/flags/NL.png                                                                      |   Bin 0 -> 974 bytes
+ public/flags/NO.png                                                                      |   Bin 0 -> 1366 bytes
+ public/flags/NP.png                                                                      |   Bin 0 -> 1810 bytes
+ public/flags/NR.png                                                                      |   Bin 0 -> 1267 bytes
+ public/flags/NU.png                                                                      |   Bin 0 -> 1700 bytes
+ public/flags/NZ.png                                                                      |   Bin 0 -> 1731 bytes
+ public/flags/OM.png                                                                      |   Bin 0 -> 1334 bytes
+ public/flags/PA.png                                                                      |   Bin 0 -> 1343 bytes
+ public/flags/PE.png                                                                      |   Bin 0 -> 1015 bytes
+ public/flags/PF.png                                                                      |   Bin 0 -> 1258 bytes
+ public/flags/PG.png                                                                      |   Bin 0 -> 1933 bytes
+ public/flags/PH.png                                                                      |   Bin 0 -> 1704 bytes
+ public/flags/PK.png                                                                      |   Bin 0 -> 1541 bytes
+ public/flags/PL.png                                                                      |   Bin 0 -> 953 bytes
+ public/flags/PM.png                                                                      |   Bin 0 -> 2605 bytes
+ public/flags/PN.png                                                                      |   Bin 0 -> 2064 bytes
+ public/flags/PR.png                                                                      |   Bin 0 -> 1507 bytes
+ public/flags/PS.png                                                                      |   Bin 0 -> 1287 bytes
+ public/flags/PT.png                                                                      |   Bin 0 -> 1597 bytes
+ public/flags/PW.png                                                                      |   Bin 0 -> 1445 bytes
+ public/flags/PY.png                                                                      |   Bin 0 -> 1145 bytes
+ public/flags/QA.png                                                                      |   Bin 0 -> 1358 bytes
+ public/flags/RE.png                                                                      |   Bin 0 -> 1775 bytes
+ public/flags/RO.png                                                                      |   Bin 0 -> 958 bytes
+ public/flags/RU.png                                                                      |   Bin 0 -> 982 bytes
+ public/flags/RW.png                                                                      |   Bin 0 -> 1344 bytes
+ public/flags/SA.png                                                                      |   Bin 0 -> 1686 bytes
+ public/flags/SB.png                                                                      |   Bin 0 -> 1809 bytes
+ public/flags/SC.png                                                                      |   Bin 0 -> 2034 bytes
+ public/flags/SD.png                                                                      |   Bin 0 -> 1411 bytes
+ public/flags/SE.png                                                                      |   Bin 0 -> 965 bytes
+ public/flags/SG.png                                                                      |   Bin 0 -> 1415 bytes
+ public/flags/SH.png                                                                      |   Bin 0 -> 1720 bytes
+ public/flags/SI.png                                                                      |   Bin 0 -> 1297 bytes
+ public/flags/SJ.png                                                                      |   Bin 0 -> 1310 bytes
+ public/flags/SK.png                                                                      |   Bin 0 -> 1570 bytes
+ public/flags/SL.png                                                                      |   Bin 0 -> 989 bytes
+ public/flags/SM.png                                                                      |   Bin 0 -> 1514 bytes
+ public/flags/SN.png                                                                      |   Bin 0 -> 1297 bytes
+ public/flags/SO.png                                                                      |   Bin 0 -> 1278 bytes
+ public/flags/SR.png                                                                      |   Bin 0 -> 1341 bytes
+ public/flags/ST.png                                                                      |   Bin 0 -> 1562 bytes
+ public/flags/SV.png                                                                      |   Bin 0 -> 1089 bytes
+ public/flags/SY.png                                                                      |   Bin 0 -> 1077 bytes
+ public/flags/SZ.png                                                                      |   Bin 0 -> 1814 bytes
+ public/flags/TC.png                                                                      |   Bin 0 -> 1856 bytes
+ public/flags/TD.png                                                                      |   Bin 0 -> 958 bytes
+ public/flags/TF.png                                                                      |   Bin 0 -> 1631 bytes
+ public/flags/TG.png                                                                      |   Bin 0 -> 1332 bytes
+ public/flags/TH.png                                                                      |   Bin 0 -> 965 bytes
+ public/flags/TJ.png                                                                      |   Bin 0 -> 1247 bytes
+ public/flags/TK.png                                                                      |   Bin 0 -> 1707 bytes
+ public/flags/TL.png                                                                      |   Bin 0 -> 1775 bytes
+ public/flags/TM.png                                                                      |   Bin 0 -> 1647 bytes
+ public/flags/TN.png                                                                      |   Bin 0 -> 1521 bytes
+ public/flags/TO.png                                                                      |   Bin 0 -> 1181 bytes
+ public/flags/TR.png                                                                      |   Bin 0 -> 1616 bytes
+ public/flags/TT.png                                                                      |   Bin 0 -> 1893 bytes
+ public/flags/TV.png                                                                      |   Bin 0 -> 1982 bytes
+ public/flags/TW.png                                                                      |   Bin 0 -> 1322 bytes
+ public/flags/TZ.png                                                                      |   Bin 0 -> 1721 bytes
+ public/flags/UA.png                                                                      |   Bin 0 -> 953 bytes
+ public/flags/UG.png                                                                      |   Bin 0 -> 1100 bytes
+ public/flags/UM.png                                                                      |   Bin 0 -> 1670 bytes
+ public/flags/US.png                                                                      |   Bin 0 -> 1718 bytes
+ public/flags/UY.png                                                                      |   Bin 0 -> 1280 bytes
+ public/flags/UZ.png                                                                      |   Bin 0 -> 1394 bytes
+ public/flags/VA.png                                                                      |   Bin 0 -> 1412 bytes
+ public/flags/VC.png                                                                      |   Bin 0 -> 1637 bytes
+ public/flags/VE.png                                                                      |   Bin 0 -> 1224 bytes
+ public/flags/VG.png                                                                      |   Bin 0 -> 1864 bytes
+ public/flags/VI.png                                                                      |   Bin 0 -> 2001 bytes
+ public/flags/VN.png                                                                      |   Bin 0 -> 1435 bytes
+ public/flags/VU.png                                                                      |   Bin 0 -> 1786 bytes
+ public/flags/WF.png                                                                      |   Bin 0 -> 1603 bytes
+ public/flags/WS.png                                                                      |   Bin 0 -> 1290 bytes
+ public/flags/YE.png                                                                      |   Bin 0 -> 987 bytes
+ public/flags/YT.png                                                                      |   Bin 0 -> 1982 bytes
+ public/flags/ZA.png                                                                      |   Bin 0 -> 1881 bytes
+ public/flags/ZM.png                                                                      |   Bin 0 -> 1280 bytes
+ public/flags/ZW.png                                                                      |   Bin 0 -> 1630 bytes
+ resources/lang/de/app.php                                                                |     1 +
+ resources/lang/en/app.php                                                                |     4 +-
+ resources/lang/en/validation.php                                                         |     1 +
+ resources/lang/sr/app.php                                                                |     1 +
+ resources/views/auth/register.blade.php                                                  |     2 +-
+ resources/views/partials/sidebar.blade.php                                               |     2 +-
+ resources/views/user/edit.blade.php                                                      |    15 -
+ resources/views/user/partials/details.blade.php                                          |     4 +-
+ resources/views/user/partials/social-networks.blade.php                                  |    69 -
+ resources/views/user/profile.blade.php                                                   |    15 -
+ resources/views/user/view.blade.php                                                      |    47 -
+ routes/api.php                                                                           |    72 +-
+ routes/web.php                                                                           |    10 -
+ storage/settings.json                                                                    |     2 +-
+ tests/Feature/ApiTestCase.php                                                            |    76 +
+ tests/Feature/FunctionalTestCase.php                                                     |    49 +-
+ tests/Feature/Http/Controllers/Api/ActivityControllerTest.php                            |   118 +
+ tests/Feature/Http/Controllers/Api/Auth/AuthControllerTest.php                           |    99 +
+ tests/Feature/Http/Controllers/Api/Auth/Password/RemindControllerTest.php                |    57 +
+ tests/Feature/Http/Controllers/Api/Auth/Password/ResetControllerTest.php                 |   106 +
+ tests/Feature/Http/Controllers/Api/Auth/RegistrationControllerTest.php                   |   125 ++
+ tests/Feature/Http/Controllers/Api/Auth/SocialLoginControllerTest.php                    |   181 ++
+ tests/Feature/Http/Controllers/Api/Authorization/PermissionsControllerTest.php           |   190 ++
+ tests/Feature/Http/Controllers/Api/Authorization/RolePermissionsControllerTest.php       |    90 +
+ tests/Feature/Http/Controllers/Api/Authorization/RolesControllerTest.php                 |   203 ++
+ tests/Feature/Http/Controllers/Api/CountriesControllerTest.php                           |    31 +
+ tests/Feature/Http/Controllers/Api/Profile/AvatarControllerTest.php                      |   114 +
+ tests/Feature/Http/Controllers/Api/Profile/DetailsControllerTest.php                     |   125 ++
+ tests/Feature/Http/Controllers/Api/Profile/SessionsControllerTest.php                    |    69 +
+ tests/Feature/Http/Controllers/Api/Profile/TwoFactorControllerTest.php                   |   108 +
+ tests/Feature/Http/Controllers/Api/SessionsControllerTest.php                            |   113 +
+ tests/Feature/Http/Controllers/Api/SettingsControllerTest.php                            |    37 +
+ tests/Feature/Http/Controllers/Api/StatsControllerTest.php                               |   108 +
+ tests/Feature/Http/Controllers/Api/Users/ActivityControllerTest.php                      |   109 +
+ tests/Feature/Http/Controllers/Api/Users/AvatarControllerTest.php                        |   154 ++
+ tests/Feature/Http/Controllers/Api/Users/SessionsControllerTest.php                      |    66 +
+ tests/Feature/Http/Controllers/Api/Users/TwoFactorControllerTest.php                     |   125 ++
+ tests/Feature/Http/Controllers/Api/Users/UsersControllerTest.php                         |   248 +++
+ tests/Feature/Http/Controllers/{ => Web}/ActivityControllerTest.php                      |     2 +-
+ tests/Feature/Http/Controllers/{ => Web}/Auth/AuthControllerTest.php                     |    13 +-
+ tests/Feature/Http/Controllers/{ => Web}/Auth/PasswordControllerTest.php                 |     2 +-
+ tests/Feature/Http/Controllers/{ => Web}/Auth/SocialAuthControllerTest.php               |     2 +-
+ tests/Feature/Http/Controllers/{ => Web}/PermissionsControllerTest.php                   |     2 +-
+ tests/Feature/Http/Controllers/{ => Web}/ProfileControllerTest.php                       |    22 +-
+ tests/Feature/Http/Controllers/{ => Web}/RolesControllerTest.php                         |     2 +-
+ tests/Feature/Http/Controllers/{ => Web}/SettingsControllerTest.php                      |     2 +-
+ tests/Feature/Http/Controllers/{ => Web}/UsersControllerTest.php                         |    51 +-
+ tests/Feature/Listeners/BaseListenerTestCase.php                                         |     6 +-
+ tests/Feature/Listeners/UserEventsSubscriberTest.php                                     |    14 +-
+ tests/Feature/Repositories/Session/DbSessionTest.php                                     |     9 +-
+ tests/Feature/Repositories/User/EloquentUserTest.php                                     |    87 +-
+ tests/Feature/Services/Auth/Api/TokenFactoryTest.php                                     |   101 +
+ 395 files changed, 13687 insertions(+), 6162 deletions(-)
+```
+ 
+
 <a name="upgrade-1.3.3"></a>
 ###To 1.3.3 from 1.3.2
 
-Fix compatibility issues with `laravel-jsvalidation` package and Laravel Framework version `5.4.19+`.
+Fix compatibility issues with `laravel-jsvalidation` package and Laravel Framework version `5.4.19+` and fix issue where country is set to null after user logs in.
 
-There is only one file that you need to update, and that is `composer.json`. After updating composer.json file to the latest version, you can run `composer update` command to update your packages.
+First, you need to update `Vanguard\Repositories\User\EloquentUser::update` method to fix the country issue, and then you can proceed and update 
+`composer.json` file to fix compatibility issues with `laravel-jsvalidtion` package. 
+After updating composer.json file to the latest version, you can run `composer update` command to update your packages.
 
 P.S.
 This compatibility issue only exists for latest version of Laravel Framework (5.4.19 at the moment of typing).

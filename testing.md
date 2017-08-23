@@ -9,7 +9,7 @@
 <a name="automated-testing"></a>
 ##Automated Testing
 
-Vanguard comes with more than a **hundred** automated test. Most of them are functional tests that are using to verify all vital parts of Vanguard application, but there are also unit tests for some parts of the system. If you want to, you can run those automated tests by following steps below and use them as starting point and continue adding tests for everything you change inside the application.
+Vanguard comes with more than **two hundred** automated test. Most of them are functional tests that are using to verify all vital parts of Vanguard application, but there are also unit tests for some parts of the system. If you want to, you can run those automated tests by following steps below and use them as starting point and continue adding tests for everything you change inside the application.
 
 <a name="preparation"></a>
 ###Preparation
@@ -43,7 +43,7 @@ PHP unit will then execute your tests and you will be sure that your application
 
 Vanguard is fully tested and working on PHP 5.6.4+ (including PHP 7).
 
-![Vanguard - Automated Tests - PHP](assets/img/testing-php.png)
+![Vanguard - Automated Tests - PHP](assets/img/testing-php-full.png)
 
 ###Different Databases
 

@@ -7,6 +7,7 @@
 	* [Email Configuration](#email-configuration)
 	* [Session Configuration](#session-configuration)
 	* [HTTPS](#https)
+	* [Enable JSON API](#json-api)
 
 ---
 
@@ -184,3 +185,16 @@ So, inside your `.env` file, it should look like following:
 //... 
 FORCE_SSL=true
 ```
+
+<a name="json-api"></a>
+###JSON API
+
+Built in JSON API is disabled by default, and if you want to enable it, just add new `.env` variable like following:
+
+```php
+//... 
+EXPOSE_API=true
+```
+
+After that your api will be located at `yourcomain.com/api` and you can start using it. The API documentation
+is available [here](/api).

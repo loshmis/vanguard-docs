@@ -66,3 +66,7 @@ value of `30` to any reasonably higher value (like `240` for example). After you
 
 Check [session configuration section](configuration.html#session-configuration).
 
+####I cannot use the API to authenticate users. What should I do?
+
+Make sure that you have enabled the API like it is described in [JSON API configuration section](configuration.html#json-api).
+
