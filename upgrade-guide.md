@@ -33,6 +33,10 @@ with the latest version.
 
 * Run `php artisan migrate` command to create new database table for storing api token identifiers.
 
+* "Social Networks" section is completely removed from user's profile page as well as from edit user page. So, to 
+remove it from your system, remove the `UserSocialNetworks` model from your `app` directory as well as `user_social_networks`
+database table. Also, make sure that you update your view files and remove Social Network section from them as well. 
+
 * There are now two different folders inside `app/Http/Controllers` folder: `Api` and `Web`. The `Api` folder is completely new 
 so you can just copy it there from latest version. Your "old" controllers should be moved to `Web` folder and namespace for
 each controller should be updated accordingly.

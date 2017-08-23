@@ -3,7 +3,6 @@
 * [User Profile](#user-profile)
 	* [Details](#details)
 	* [Avatar](#avatar)
-	* [Social Networks](#social-networks)
 	* [Authentication](#auth)
 
 ---
@@ -37,15 +36,6 @@ Uploading avatar is ridiculously easy. After selecting **Upload Avatar** option 
 After putting the image to desired position, and clicking the **Save** button, avatar will be automatically cropped and uploaded to the server, and user's avatar will be updated.
 
 ![Vanguard User Profile - Avatar Upload](assets/img/profile-avatar-upload.png)
-
-<a name="social-networks"></a>
-###Social Networks
-
-Users can, optionally, provide their social networks accounts by updating them on Social Networks tab, inside their Profile page.
-
- ![Vanguard User Profile - Social Networks](assets/img/profile-socials.png)
-
-Those social networks will be displayed when administrator view their [profile](users.html#user-details) from backend.
 
 <a name="auth"></a>
 ###Authentication
