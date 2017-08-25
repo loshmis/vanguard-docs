@@ -20,6 +20,28 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
 
+<a name="upgrade-2.0.1"></a>
+###To 2.0.1 from 2.0.0
+
+This is bug-fix release which addresses few small bugs related mainly to the installation of version 2.0.0.
+
+The following files are changed, so make sure that you update them if you want to install Vanguard via installer again:
+
+```
+ app/Http/Controllers/Web/InstallController.php | 1 +
+ config/app.php                                 | 2 +-
+ database/seeds/UserSeeder.php                  | 4 +---
+ phpunit.xml                                    | 1 +
+ resources/views/layouts/install.blade.php      | 6 +++---
+ 5 files changed, 7 insertions(+), 7 deletions(-)
+```
+
+If you have installed version 2.0.0 already, but you haven't executed the `php artisan jwt:secret` command since it
+was not documented as a part of 2.0.0 update guide (I added it now btw, but it was not there originally), make sure that
+you run the command now so it can generate random 32 characters long secret key used for signing JWT tokens for Vanguard
+JSON API. Btw, in version 2.0.1 this command **will be automatically executed during the installation process**, so you don't
+have to worry about it. 
+
 <a name="upgrade-2.0.0"></a>
 ###To 2.0.0 from 1.3.3
 
