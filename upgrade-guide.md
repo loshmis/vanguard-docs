@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 2.0.1 from 2.0.0](#upgrade-2.0.1)
     * [To 2.0.0 from 1.3.3](#upgrade-2.0.0)
     * [To 1.3.3 from 1.3.2](#upgrade-1.3.3)
     * [To 1.3.2 from 1.3.1](#upgrade-1.3.2)
