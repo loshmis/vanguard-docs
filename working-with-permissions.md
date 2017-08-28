@@ -31,7 +31,7 @@ Created permissions for this example have have following details:
 
 Now, since we have those permissions created, we need to update the view that is used for displaying users list. The HTML used for displaying the list of users is located inside `resources/views/user/list.blade.php` view file. 
 
-Our goal is to display buttons for editing, viewing or removing some user only if currently logged in user has the appropriate permission. In order to display something based on user's permissions, we just have to surround that HTML with following [Blade](https://laravel.com/docs/5.3/blade) directives:
+Our goal is to display buttons for editing, viewing or removing some user only if currently logged in user has the appropriate permission. In order to display something based on user's permissions, we just have to surround that HTML with following [Blade](https://laravel.com/docs/5.4/blade) directives:
 
 ```php
 @permission('user.view')
@@ -59,13 +59,13 @@ Since view is now updated, if you access the `yourdomain.com/user` URL, you won'
 <a name="applying-the-permissions"></a>
 ### Applying the Permissions
 
-Removing the buttons from users list is not actually protecting the application. If users type specific URL directly in browser's address bar, they will be able to access the desired page. In order to protect this, we have to apply permission [middleware](https://laravel.com/docs/5.3/middleware). 
+Removing the buttons from users list is not actually protecting the application. If users type specific URL directly in browser's address bar, they will be able to access the desired page. In order to protect this, we have to apply permission [middleware](https://laravel.com/docs/5.4/middleware). 
 
 This can be done in two ways. We can update the controller and add middleware directly inside the controllers constructor, or we can update `routes/web.php` file and apply middleware to specific route.
 
 ####Updating UsersController
 
-One way to protect our pages and make them available only for users with specific permissions, is to add middleware directly to controller's constructor. For our example, we have to edit `app/Http/Controllers/UsersController.php` controller and add the following code inside its `__construct` method:
+One way to protect our pages and make them available only for users with specific permissions, is to add middleware directly to controller's constructor. For our example, we have to edit `app/Http/Controllers/Web/UsersController.php` controller and add the following code inside its `__construct` method:
 
 ```php
 $this->middleware('permission:user.view', ['only' => 'view']);

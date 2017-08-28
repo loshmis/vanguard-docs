@@ -50,16 +50,19 @@ will will be able to change it only inside our `routes/web.php` file, and everyt
 Creating new controller in Laravel is pretty easy. If you are familiar with the terminal, you can navigate to Vanguard's root folder and type the following command
 
 ```cli
-php artisan make:controller ActiveUsersController
+php artisan make:controller Web/ActiveUsersController
 ```
 
-After you execute this command, new controller will be automatically created for you and placed inside `app/Http/Controllers` folder. The file will be named `ActiveUsersController.php`.
-You can also create the controller by manually creating new controller file inside `app/Http/Controllers` directory.
+After you execute this command, new controller will be automatically created for you and placed inside `app/Http/Controllers/Web` folder. The file will be named `ActiveUsersController.php`.
+You can also create the controller by manually creating new controller file inside `app/Http/Controllers/Web` directory, if you are using the controller for Web application,
+or inside `app/Http/Controllers/Api` directory if controller will be used for the API.
 
 Now lets define our constructor and create new `index` method inside that controller. Controller will now look like following
 
 ```php
-namespace Vanguard\Http\Controllers;
+namespace Vanguard\Http\Controllers\Web;
+
+use Vanguard\Http\Controllers\Controller;
 
 class ActiveUsersController extends Controller
 {
@@ -101,18 +104,19 @@ Hello from ActiveUsersController
 
 Of course, since we added those two checks inside controller's constructor, you will have to be logged in and you must have `users.manage` permission to access this page.
 
-> **Note!** You can find more about controllers inside [Laravel's documentation](https://laravel.com/docs/5.3/controllers).
+> **Note!** You can find more about controllers inside [Laravel's documentation](https://laravel.com/docs/5.4/controllers).
 
 <a name="fetching-users"></a>
 ###Fetching Users From DB
 
-It's time to write the actual query that will fetch all users with active sessions available inside `sessions` database table. It is a simple join query, and [Eloquent](https://laravel.com/docs/5.3/eloquent) makes it even easier.
+It's time to write the actual query that will fetch all users with active sessions available inside `sessions` database table. It is a simple join query, and [Eloquent](https://laravel.com/docs/5.4/eloquent) makes it even easier.
 
 We will modify our controller to look like following:
 
 ```php
-namespace Vanguard\Http\Controllers;
+namespace Vanguard\Http\Controllers\Web;
 
+use Vanguard\Http\Controllers\Controller;
 use Vanguard\User;
 
 class ActiveUsersController extends Controller
@@ -135,7 +139,7 @@ class ActiveUsersController extends Controller
 }
 ```
 
-As you can see, our join query is really simple. At the and of the index method, we will render our [view](https://laravel.com/docs/5.3/views), which we are going to create now.
+As you can see, our join query is really simple. At the and of the index method, we will render our [view](https://laravel.com/docs/5.4/views), which we are going to create now.
   
 <a name="view"></a>
 ###Page View
@@ -146,7 +150,7 @@ One great thing is that you can use **dot** notation when you want to render tha
 In our controller code, we are referencing our view like `user.active-users` which means that we will create new file called `active-users.blade.php` inside `resources/views/user` folder.
 As mentioned, you can put your view anywhere inside the `resources/views` folder, but for what we are building, it looks like `user` folder is the best place to put it.
 
-> **Note!** Laravel uses **Blade** templating language which has it's own tags and ways of building the templates. It is really simple, and you can learn more about it [here](https://laravel.com/docs/5.3/blade).
+> **Note!** Laravel uses **Blade** templating language which has it's own tags and ways of building the templates. It is really simple, and you can learn more about it [here](https://laravel.com/docs/5.4/blade).
 
 Here is the source code of our view file:
 

@@ -28,7 +28,7 @@ Since **Nick Name** does not exist into our database schema, we will have to add
 
 ###Laravel's Migrations (recommended)
 
-Creating [migrations](https://laravel.com/docs/5.3/migrations) for your database schema is the best way to create and modify your database schema. Also, since migrations are basically PHP files, those files will be stored on your Version Control System (Git, Mercurial, etc.) so any of your coworkers will have access to database schema that is being used for your project, and, the best thing about it, is that you will be able to see full history of changes for any of your database tables.
+Creating [migrations](https://laravel.com/docs/5.4/migrations) for your database schema is the best way to create and modify your database schema. Also, since migrations are basically PHP files, those files will be stored on your Version Control System (Git, Mercurial, etc.) so any of your coworkers will have access to database schema that is being used for your project, and, the best thing about it, is that you will be able to see full history of changes for any of your database tables.
 
 So, for our tutorial, we will create new database migrations by typing the following command into our terminal:
 
@@ -92,7 +92,7 @@ If for some reason you decide not to use the migrations for altering the databas
 
 Since we are going to allow users to select their country on registration form, we have to fetch all available countries from the database, and to pass those countries to our registration [view](https://laravel.com/docs/5.3/views). 
 
-In order to do that, we will have to edit `app/Http/Controllers/Auth/AuthController.php` file and update it's `AuthController::getRegister` method as following:
+In order to do that, we will have to edit `app/Http/Controllers/Web/Auth/AuthController.php` file and update it's `AuthController::getRegister` method as following:
 
 ```php
 /**

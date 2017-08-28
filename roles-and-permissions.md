@@ -11,7 +11,7 @@
 <a name="roles-and-permissions"></a>
 ##Roles and Permissions
 
-Vanguard comes with advanced roles and permissions mechanism based on [Entrust](https://github.com/Zizaco/entrust) package. System is created to allow users to have **only one** role, and to allow different permissions for each role.
+Vanguard comes with advanced roles and permissions mechanism which allows you to easily manage your available roles and permissions via Web UI. System is created to allow users to have **only one** role, and to allow different permissions for each role.
 
 <a name="roles-available"></a>
 ###Available System Roles

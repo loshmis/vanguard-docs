@@ -42,7 +42,7 @@ Of course, your VirtualHost configuration will probably be different, but you mu
 <a name="redirect-page"></a>
 ####How to change redirect page after login?
 
-Modifying redirect page after login is simple. Just check `handleUserWasAuthenticated` method available inside `app/Http/Controllers/Auth/AuthController`
+Modifying redirect page after login is simple. Just check `handleUserWasAuthenticated` method available inside `app/Http/Controllers/Web/Auth/AuthController`
 and replace `return redirect()->intended();`  line with **one** of the following:
 
 ```php
