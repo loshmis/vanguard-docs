@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 2.0.2 from 2.0.1](#upgrade-2.0.2)
     * [To 2.0.1 from 2.0.0](#upgrade-2.0.1)
     * [To 2.0.0 from 1.3.3](#upgrade-2.0.0)
     * [To 1.3.3 from 1.3.2](#upgrade-1.3.3)
@@ -20,6 +21,30 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-2.0.2"></a>
+###To 2.0.2 from 2.0.1
+
+This is bug-fix release mainly to fix few glitches related to API authentication for unconfirmed 
+and banned users, and other minor issues.
+
+The list of updated files is displayed below:
+
+```
+ app/Repositories/User/EloquentUser.php                        |  6 +++++-
+ composer.json                                                 |  4 +---
+ database/factories/ModelFactory.php                           |  2 +-
+ resources/views/user/list.blade.php                           |  4 ++--
+ resources/views/user/view.blade.php                           |  2 +-
+ tests/TestCase.php                                            | 16 ++++++++++++++++
+ tests/functional/FunctionalTestCase.php                       |  9 ++++++++-
+ tests/functional/Http/Controllers/Auth/AuthControllerTest.php | 21 ++++++++++++++-------
+ tests/functional/Http/Controllers/ProfileControllerTest.php   |  6 +++++-
+ tests/functional/Http/Controllers/UsersControllerTest.php     | 39 +++++++++++++++++++++++++++++++++++++--
+ tests/functional/Repositories/Session/DbSessionTest.php       | 15 +++++++++++----
+ 12 files changed, 102 insertions(+), 24 deletions(-)
+```
+
 
 <a name="upgrade-2.0.1"></a>
 ###To 2.0.1 from 2.0.0
