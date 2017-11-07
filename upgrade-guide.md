@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 2.1.0 from 2.0.2](#upgrade-2.1.0)
     * [To 2.0.2 from 2.0.1](#upgrade-2.0.2)
     * [To 2.0.1 from 2.0.0](#upgrade-2.0.1)
     * [To 2.0.0 from 1.3.3](#upgrade-2.0.0)
@@ -21,6 +22,57 @@
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file.
+
+<a name="upgrade-2.1.0"></a>
+###To 2.1.0 from 2.0.2
+
+In this release Laravel is upgraded to version 5.5. The only significant change here is that some packages 
+(like `proengsoft/laravel-jsvalidation`) needs to be updated to latest version. 
+
+The recommended way to upgrade your application is to make sure that your composer.json file matches the composer.json 
+file from this release. Once you update your composer.json file, just run `composer update` to install those packages,
+and then you can proceed and update/overwrite modified files that are listed below (tests are excluded):
+
+```
+app/Exceptions/Handler.php                                     |   57 +----
+ app/Http/Controllers/Web/Auth/AuthController.php               |    7 +-
+ app/Http/Kernel.php                                            |    3 +
+ app/Http/Middleware/TrimStrings.php                            |   18 ++
+ app/Http/Middleware/TrustProxies.php                           |   29 +++
+ app/Http/Middleware/UseApiGuard.php                            |    1 +
+ app/Http/Requests/User/UpdateLoginDetailsRequest.php           |    4 +-
+ artisan                                                        |    4 +-
+ bootstrap/autoload.php                                         |   34 ---
+ composer.json                                                  |   59 +++--
+ composer.lock                                                  | 1440 +++---
+ config/app.php                                                 |    2 +-
+ config/broadcasting.php                                        |    7 +-
+ config/cache.php                                               |   21 +-
+ config/compile.php                                             |   35 ---
+ config/database.php                                            |   33 +--
+ config/filesystems.php                                         |    7 +
+ config/mail.php                                                |   18 +-
+ config/queue.php                                               |   29 +--
+ config/services.php                                            |    4 -
+ config/session.php                                             |   49 +++-
+ config/settings.php                                            |   26 +-
+ config/view.php                                                |    2 +-
+ phpspec.yml                                                    |    5 -
+ phpunit.xml                                                    |    2 +-
+ public/.htaccess                                               |   11 +-
+ public/index.php                                               |    4 +-
+ public/vendor/jsvalidation/js/jsvalidation.js                  | 1681 +++---
+ public/vendor/jsvalidation/js/jsvalidation.js.map              |    2 +-
+ public/vendor/jsvalidation/js/jsvalidation.min.js              |    4 +-
+ resources/views/activity/index.blade.php                       |    3 +-
+ resources/views/user/view.blade.php                            |    2 +-
+ resources/views/vendor/jsvalidation/bootstrap.php              |    7 +-
+ webpack.mix.js                                                 |    2 +-
+```
+
+Since Laravel version is also upgraded, I would recommend you to go through Laravel's official 
+[upgrade guide](https://laravel.com/docs/5.5/upgrade#upgrade-5.5.0) to make sure that your custom code is also
+up to date. 
 
 <a name="upgrade-2.0.2"></a>
 ###To 2.0.2 from 2.0.1

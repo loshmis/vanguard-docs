@@ -16,7 +16,7 @@
 In order to install Vanguard application, your server must meet following requirements:
 
 
-* PHP >= 5.6.4 (including PHP 7)
+* PHP >= 7.0
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension
