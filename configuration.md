@@ -7,6 +7,7 @@
 	* [Email Configuration](#email-configuration)
 	* [Session Configuration](#session-configuration)
 	* [HTTPS](#https)
+    * [Date/Time Format](#date-time-format)
 	* [Enable JSON API](#json-api)
 
 ---
@@ -14,7 +15,7 @@
 <a name="configuration"></a>
 ##Configuration
 
-This section contains some important configuration options that are specific to Vanguard application. Since Vanguard is using Laravel PHP framework, full configuration options for some framework specific stuff can be found inside [Laravel documentation](https://laravel.com/docs/5.3/configuration). 
+This section contains some important configuration options that are specific to Vanguard application. Since Vanguard is using Laravel PHP framework, full configuration options for some framework specific stuff can be found inside [Laravel documentation](https://laravel.com/docs/5.3/configuration).
 
 <a name="social-authentication"></a>
 ###Social Authentication
@@ -185,6 +186,12 @@ So, inside your `.env` file, it should look like following:
 //... 
 FORCE_SSL=true
 ```
+
+<a name="date-time-format"></a>
+###Date/Time Format
+
+Date and date-time format can be configured inside the `config/app.php` file. By editing `date_format` and `date_time_format` configuration parameters there you are able to configure
+how it will be formatted across the application.
 
 <a name="json-api"></a>
 ###JSON API
