@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 2.1.1 from 2.1.0](#upgrade-2.1.1)
     * [To 2.1.0 from 2.0.2](#upgrade-2.1.0)
     * [To 2.0.2 from 2.0.1](#upgrade-2.0.2)
     * [To 2.0.1 from 2.0.0](#upgrade-2.0.1)
@@ -21,7 +22,72 @@
 ##Upgrade Guide
 
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
-You can find the version you are currently using inside `config/app.php` file.
+You can find the version you are currently using inside `config/app.php` file. Complete changelog is available inside the item
+description [on CodeCanyon](https://codecanyon.net/item/vanguard-advanced-php-login-and-user-management/14521866).
+
+<a name="upgrade-2.1.1"></a>
+###To 2.1.1 from 2.1.0
+
+This is mostly a bug-fix release with few new features added. To upgrade to this release I would recommend you to go through the list of 
+modified files available below and to update file to the latest version. You don't have to update files from `/tests` and `/database/factories` folders since 
+those files are related to application testing and won't affect the way how application works.
+
+Here is the list of modified files:
+```
+ app/Http/Controllers/Web/DashboardController.php                      |   2 +-
+ app/Http/Controllers/Web/InstallController.php                        |   6 +-
+ app/Http/Requests/User/CreateUserRequest.php                          |   4 +-
+ app/Http/Requests/User/UpdateDetailsRequest.php                       |   2 +-
+ app/Http/Requests/User/UpdateProfileDetailsRequest.php                |   2 +-
+ app/Http/Requests/User/UpdateUserRequest.php                          |   4 +-
+ app/Listeners/Users/InvalidateSessionsAndTokens.php                   |  39 ++++++++++
+ app/Presenters/UserPresenter.php                                      |   2 +-
+ app/Providers/AppServiceProvider.php                                  |   1 +
+ app/Providers/EventServiceProvider.php                                |   5 ++
+ app/Repositories/Session/DbSession.php                                |  43 ++++++++++-
+ app/Repositories/Session/SessionRepository.php                        |   7 ++
+ app/Repositories/User/EloquentUser.php                                |  42 ++++------
+ app/Repositories/User/UserRepository.php                              |   3 +-
+ app/Transformers/SessionTransformer.php                               |  11 +--
+ composer.json                                                         |   2 +-
+ composer.lock                                                         | 511 +++++++++++++++
+ config/app.php                                                        |  16 +++-
+ database/factories/ActivityFactory.php                                |  15 ++++
+ database/factories/CountryFactory.php                                 |  15 ++++
+ database/factories/ModelFactory.php                                   |  98 ------------------------
+ database/factories/PermissionFactory.php                              |  12 +++
+ database/factories/RoleFactory.php                                    |  12 +++
+ database/factories/TokenFactory.php                                   |  15 ++++
+ database/factories/UserFactory.php                                    |  23 ++++++
+ database/migrations/2015_10_10_170827_create_users_table.php          |   2 +-
+ extra/auth.php                                                        |   6 +-
+ package.json                                                          |  25 +++---
+ resources/assets/js/app.js                                            |  22 ++++++
+ resources/assets/js/bootstrap.js                                      |  53 +++++++++++++
+ resources/assets/js/components/Example.vue                            |  23 ++++++
+ resources/assets/sass/_variables.scss                                 |  38 +++++++++
+ resources/assets/sass/app.scss                                        |   8 +-
+ resources/lang/de/app.php                                             |  29 +++----
+ resources/lang/en/app.php                                             |  25 +++---
+ resources/lang/sr/app.php                                             |  25 +++---
+ resources/views/activity/index.blade.php                              |   2 +-
+ resources/views/errors/token-mismatch.blade.php                       |  43 -----------
+ resources/views/user/list.blade.php                                   |   2 +-
+ resources/views/user/sessions.blade.php                               |  18 +++--
+ resources/views/user/view.blade.php                                   |   2 +-
+ storage/settings.json                                                 |   2 +-
+ tests/Feature/Http/Controllers/Api/Profile/SessionsControllerTest.php |   5 +-
+ tests/Feature/Http/Controllers/Api/SessionsControllerTest.php         |   3 +-
+ tests/Feature/Http/Controllers/Api/Users/SessionsControllerTest.php   |   9 ++-
+ tests/Feature/Http/Controllers/Web/ActivityControllerTest.php         |   2 +-
+ tests/Feature/Http/Controllers/Web/ProfileControllerTest.php          |  13 +++-
+ tests/Feature/Http/Controllers/Web/UsersControllerTest.php            |  77 ++++++++++++++++---
+ tests/Feature/Repositories/Session/DbSessionTest.php                  |  40 ++++++++--
+ tests/Feature/Repositories/User/EloquentUserTest.php                  |  24 +++---
+ 50 files changed, 877 insertions(+), 513 deletions(-)
+
+```
+
 
 <a name="upgrade-2.1.0"></a>
 ###To 2.1.0 from 2.0.2

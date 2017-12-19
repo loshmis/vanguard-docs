@@ -4,7 +4,7 @@
 
 ####HTTP 500 Error: Request cannot be processed. What should I do?
 
-Make sure that you have **PHP >= 5.6.4**, since that's minimum PHP version required to use Vanguard.
+Make sure that you have **PHP >= 7.0**, since that's minimum PHP version required to use Vanguard.
  
 ####The requested URL `/install` was not found on this server. Am I missing some files?
 
