@@ -70,3 +70,14 @@ Check [session configuration section](configuration.html#session-configuration).
 
 Make sure that you have enabled the API like it is described in [JSON API configuration section](configuration.html#json-api).
 
+####I'm getting "Error 403 – Forbidden The request was a legal request, but the server is refusing to respond to it". How do I fix it?
+
+If you are using Apache web server and you are getting this error, it might be related to the `Options -MultiViews` apache configuration parameter.
+In that case, I would recommend you to edit `public/.htaccess` file and uncomment the following code by removing `#` in front of it:
+
+```
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+```
+
