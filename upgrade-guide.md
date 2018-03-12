@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 2.2.0 from 2.1.1](#upgrade-2.2.0)
     * [To 2.1.1 from 2.1.0](#upgrade-2.1.1)
     * [To 2.1.0 from 2.0.2](#upgrade-2.1.0)
     * [To 2.0.2 from 2.0.1](#upgrade-2.0.2)
@@ -24,6 +25,53 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file. Complete changelog is available inside the item
 description [on CodeCanyon](https://codecanyon.net/item/vanguard-advanced-php-login-and-user-management/14521866).
+
+<a name="upgrade-2.2.0"></a>
+###To 2.2.0 from 2.1.1
+
+In this release Laravel is upgraded to version 5.6. The only significant change here is that some packages 
+(like `proengsoft/laravel-jsvalidation`, `tymon/jwt-auth` etc.) needs to be updated to latest version. 
+
+The recommended way to upgrade your application is to make sure that your composer.json file matches the composer.json 
+file from this release. Once you update your composer.json file, just run `composer update` to install those packages,
+and then you can proceed and add missing files (there are few new configuration files added in Laravel 5.6) and 
+update modified files that are listed below:
+
+```
+  _ide_helper.php                                              | 22037 +++---
+  app/Http/Controllers/Api/Auth/AuthController.php             |     2 +-
+  app/Http/Controllers/Api/StatsController.php                 |     4 +-
+  app/Http/Controllers/Web/Auth/AuthController.php             |    42 +-
+  app/Http/Controllers/Web/DashboardController.php             |     4 +-
+  app/Http/Kernel.php                                          |     1 +
+  app/Http/Middleware/TrustProxies.php                         |     8 +-
+  app/Http/Requests/Auth/LoginRequest.php                      |    40 +
+  app/Repositories/User/EloquentUser.php                       |     1 +
+  app/Services/Auth/TwoFactor/Authy.php                        |     8 +-
+  app/Services/Auth/TwoFactor/Contracts/Provider.php           |     3 +-
+  app/User.php                                                 |     2 -
+  composer.json                                                |    28 +-
+  composer.lock                                                |  1133 +++----
+  config/app.php                                               |    17 +-
+  config/broadcasting.php                                      |     3 +
+  config/filesystems.php                                       |     9 +-
+  config/hashing.php                                           |    20 +
+  config/logging.php                                           |    70 +
+  config/queue.php                                             |     1 +
+  config/services.php                                          |     3 +
+  database/migrations/2015_10_10_170827_create_users_table.php |     2 +
+  package.json                                                 |     7 +-
+  public/.htaccess                                             |     2 +-
+  resources/assets/js/app.js                                   |     2 +-
+  resources/assets/js/bootstrap.js                             |     7 +-
+  resources/assets/js/components/Example.vue                   |    12 +-
+  storage/settings.json                                        |     2 +-
+  tests/Feature/Http/Controllers/Api/StatsControllerTest.php   |    20 +-
+  tests/Feature/Repositories/User/EloquentUserTest.php         |    60 +-
+  tests/TestCase.php                                           |     2 +
+  30 files changed, 13872 insertions(+), 9680 deletions(-)
+```
+
 
 <a name="upgrade-2.1.1"></a>
 ###To 2.1.1 from 2.1.0
