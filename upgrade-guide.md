@@ -1,6 +1,7 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 3.0.0 from 2.2.0](#upgrade-3.0.0)
     * [To 2.2.0 from 2.1.1](#upgrade-2.2.0)
     * [To 2.1.1 from 2.1.0](#upgrade-2.1.1)
     * [To 2.1.0 from 2.0.2](#upgrade-2.1.0)
@@ -25,6 +26,33 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file. Complete changelog is available inside the item
 description [on CodeCanyon](https://codecanyon.net/item/vanguard-advanced-php-login-and-user-management/14521866).
+
+<a name="upgrade-3.0.0"></a>
+###To 3.0.0 from 2.2.0
+
+This is the release which contains the complete rewrite of Vanguard frontend. The Bootstrap version is upgraded to 4.1 and 
+the whole Vanguard frontend theme is updated to a different, more up-to-date, design.
+
+Upgrading to this version is pretty hard and it means that you need to make sure that all your view files are up to 
+date with new classes and staff. 
+
+To start, it's recommended to make sure that your `composer.json` and `package.json` files are updated to the latest version so you can install
+all the packages you need. Once you update them to the latest version, run `composer update` and `npm install` to install php and npm packages,
+including Bootstrap 4.
+
+Copy new `sass` folder to `resources/assets` folder, update `webpack.mix.js` file and run `npm run dev` to compile assets. Also make sure 
+that all the assets in `public/assets` directory are updated to the latest version. If you haven't changed them much, then you can
+just overwrite them all. However, if you have modified some of them, make sure that you update them manually.
+
+Once you have updated all the assets, you should start updating your view files one by one. Starting from the `layout` files is recommended,
+but you can do it however you decide.
+
+The list of updated files is available below, so make sure that you check each one of them carefully, or you can check the patch file from
+`documentation/Patches` directory to see how the files are updated.
+
+```
+
+```
 
 <a name="upgrade-2.2.0"></a>
 ###To 2.2.0 from 2.1.1
