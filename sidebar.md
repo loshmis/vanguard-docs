@@ -17,6 +17,7 @@
 - Testing
     - [Vanguard Automated Tests](testing.html)
 - Cookbook
+    - [Customizing Stylesheets](customizing-stylesheets.html)
     - [Working with Vanguard Permissions](working-with-permissions.html)
 	- [Using Vanguard for Existing Website](existing-website.html)
 	- [Extending Registration Form](registration-form.html)

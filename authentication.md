@@ -1,7 +1,7 @@
 #Authentication & Registration
 
 * [Authentication & Registration](#authentication-and-registration)
-	* [Loggin In](#logging-in)
+	* [Logging In](#logging-in)
 	* [Two-Factor Token](#two-factor-token)
 	* [Registration](#registration)
 	* [Password Reset](#password-reset)

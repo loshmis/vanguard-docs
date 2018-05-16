@@ -158,40 +158,33 @@ Here is the source code of our view file:
 @extends('layouts.app')
 
 @section('page-title', 'Active Users')
+@section('page-heading', 'Active Users')
+
+@section('breadcrumbs')
+    <li class="breadcrumb-item active">
+        Active Users
+    </li>
+@stop
 
 @section('content')
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-            Active Users
-            <small>list of users with active sessions</small>
-            <div class="pull-right">
-                <ol class="breadcrumb">
-                    <li><a href="{{ route('dashboard') }}">@lang('app.home')</a></li>
-                    <li class="active">Active Users</li>
-                </ol>
+    @include('partials.messages')
+
+    @foreach($users as $user)
+        <div class="user media d-flex align-items-center">
+            <div>
+                <a href="#">
+                    <img width="64" height="64"
+                        class="media-object mr-3 rounded-circle img-thumbnail img-responsive"
+                        src="{{ $user->present()->avatar }}">
+                </a>
             </div>
-
-        </h1>
-    </div>
-</div>
-
-
-@foreach($users as $user)
-    <div class="user media">
-        <div class="media-left">
-            <a href="#">
-                <img class="media-object img-circle avatar" src="{{ $user->present()->avatar }}">
-            </a>
+            <div class="d-flex justify-content-center flex-column">
+                <h5 class="mb-0">{{ $user->present()->name }}</h5>
+                <small class="text-muted">{{ $user->email }}</small>
+            </div>
         </div>
-        <div class="media-body">
-            <h4 class="media-heading">{{ $user->present()->name }}</h4>
-            {{ $user->email }}
-        </div>
-    </div>
-@endforeach
-
+    @endforeach
 @stop
 
 @section('styles')
@@ -199,16 +192,10 @@ Here is the source code of our view file:
         .user.media {
             float: left;
             border: 1px solid #dfdfdf;
-            padding: 10px;
+            background-color: #fff;
+            padding: 15px 20px;
             border-radius: 4px;
             margin-right: 15px;
-        }
-        .user.media .media-object {
-            width: 64px;
-            height: 64px;
-        }
-        .user.media .media-body {
-            width: 180px;
         }
     </style>
 @stop
@@ -219,6 +206,10 @@ Let's explain what is happening here:
 `@extends('layouts.app')` - means that this file is extending default layout called **app**, which is located inside `resources/views/layouts` folder.
 
 `@section('page-title', 'Active Users')` - page title. Check `<title></title>` element inside app layout to see where it will be printed out.
+
+`@section('page-heading', 'Active Users')` - page heading. Text to be rendered inside the header.
+
+`@section('breadcrumbs') ... @stop` - page specific breadcrumbs.
 
 `@section('content') ... @stop` - The actual content section. Everything that is inside those two tags (`@section('content')` and `@stop`) will be echoed out on the same place where `@yield('content')` is located inside app layout.
  Inside this section we are just looping through the passed array of users and printing them out. We are using [bootstrap media object](http://getbootstrap.com/components/#media) just to make things a bit prettier. You can also click on user's avatar
@@ -244,15 +235,17 @@ to put this new link right after "Users" link, between `@permission('users.manag
 //...
 
 @permission('users.manage')
-    <li class="{{ Request::is('user*') ? 'active open' : ''  }}">
-        <a href="{{ route('user.list') }}" class="{{ Request::is('user*') ? 'active' : ''  }}">
-            <i class="fa fa-users fa-fw"></i> @lang('app.users')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('user*') ? 'active' : ''  }}" href="{{ route('user.list') }}">
+            <i class="fas fa-users"></i>
+            <span>@lang('app.users')</span>
         </a>
     </li>
 
-    <li class="{{ Request::is('active-users') ? 'active open' : ''  }}">
-        <a href="{{ route('active-users') }}" class="{{ Request::is('active-users') ? 'active' : ''  }}">
-            <i class="fa fa-users fa-fw"></i> Active Users
+    <li class="nav-item">
+        <a href="{{ route('active-users') }}" class="nav-link {{ Request::is('active-users') ? 'active' : ''  }}">
+            <i class="fas fa-users"></i>
+            Active Users
         </a>
     </li>
 @endpermission

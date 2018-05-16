@@ -31,10 +31,9 @@ Next step is to modify the login page and add GitHub button. The view file we ne
 
 ```php
 @if (in_array('github', $socialProviders))
-    <div class="col-md-{{ $colSize }} col-spaced">
-        <a class="btn btn-block btn-social btn-github"  href="{{ url('auth/github/login') }}">
-            <i class="fa fa-github"></i>
-            GitHub
+    <div class="col-{{ $colSize }} d-flex align-items-center justify-content-center">
+        <a href="{{ url('auth/github/login') }}" style="color: #24292e;">
+            <i class="fab fa-github fa-2x"></i>
         </a>
     </div>
 @endif
@@ -50,7 +49,7 @@ One thing that I don't like here is that, if you have 4 social auth providers li
  $colSize = 6;
  ```
  
- By default it is automatically calculating how much width each social button should take by looking at the number of social providers available, but for our purposes we can simply hardcode it to `6` and make it have two buttons per row. After making this modification, the form looks like following
+ By default it is automatically calculating how much width each social button should take by looking at the number of social providers available, but for our purposes we can simply hard-code it to `6` and make it have two buttons per row. After making this modification, the form looks like following
  
 ![Vanguard Social Auth - Login Form](assets/img/social-auth-login-form-4-buttons.png)
 
