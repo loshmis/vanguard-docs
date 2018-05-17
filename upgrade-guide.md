@@ -51,7 +51,166 @@ The list of updated files is available below, so make sure that you check each o
 `documentation/Patches` directory to see how the files are updated.
 
 ```
-
+ app/Http/Controllers/Api/Profile/AuthDetailsController.php                  |    39 +
+ app/Http/Controllers/Web/Auth/PasswordController.php                        |     4 +-
+ app/Http/Controllers/Web/Auth/SocialAuthController.php                      |    65 +-
+ app/Http/Controllers/Web/DashboardController.php                            |     2 +-
+ app/Http/Controllers/Web/InstallController.php                              |     4 +-
+ app/Http/Requests/User/UpdateProfileLoginDetailsRequest.php                 |     3 -
+ app/Presenters/UserPresenter.php                                            |     6 +-
+ app/Repositories/User/EloquentUser.php                                      |     5 +-
+ app/Services/Auth/Social/ManagesSocialAvatarSize.php                        |    32 +
+ app/Services/Auth/Social/SocialManager.php                                  |     4 +-
+ app/User.php                                                                |     2 +-
+ composer.lock                                                               |   393 ++--
+ config/app.php                                                              |     2 +-
+ package-lock.json                                                           | 14043 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ package.json                                                                |     4 +-
+ public/assets/css/app.css                                                   |  1160 +---------
+ public/assets/css/bootstrap-datetimepicker.min.css                          |     5 -
+ public/assets/css/bootstrap-social.css                                      |   101 -
+ public/assets/css/bootstrap.min.css                                         |     5 -
+ public/assets/css/font-awesome.min.css                                      |     4 -
+ public/assets/css/fontawesome-all.min.css                                   |     5 +
+ public/assets/css/install.css                                               |     4 +-
+ public/assets/css/metisMenu.css                                             |    99 -
+ public/assets/css/sweetalert.css                                            |   932 --------
+ public/assets/css/vendor.css                                                |    10 +
+ public/assets/fonts/FontAwesome.otf                                         |   Bin 93888 -> 0 bytes
+ public/assets/fonts/fontawesome-webfont.eot                                 |   Bin 60767 -> 0 bytes
+ public/assets/fonts/fontawesome-webfont.svg                                 |   565 -----
+ public/assets/fonts/fontawesome-webfont.ttf                                 |   Bin 122092 -> 0 bytes
+ public/assets/fonts/fontawesome-webfont.woff                                |   Bin 71508 -> 0 bytes
+ public/assets/fonts/fontawesome-webfont.woff2                               |   Bin 56780 -> 0 bytes
+ public/assets/fonts/glyphicons-halflings-regular.eot                        |   Bin 20127 -> 0 bytes
+ public/assets/fonts/glyphicons-halflings-regular.svg                        |   288 ---
+ public/assets/fonts/glyphicons-halflings-regular.ttf                        |   Bin 45404 -> 0 bytes
+ public/assets/fonts/glyphicons-halflings-regular.woff                       |   Bin 23424 -> 0 bytes
+ public/assets/fonts/glyphicons-halflings-regular.woff2                      |   Bin 18028 -> 0 bytes
+ public/assets/js/as/app.js                                                  |    22 +-
+ public/assets/js/as/btn.js                                                  |     4 +-
+ public/assets/js/as/dashboard-admin.js                                      |    54 +-
+ public/assets/js/as/dashboard-default.js                                    |    56 +-
+ public/assets/js/as/login.js                                                |     2 +-
+ public/assets/js/as/profile.js                                              |    11 +-
+ public/assets/js/bootstrap-datetimepicker.min.js                            |     9 -
+ public/assets/js/bootstrap.min.js                                           |    12 +-
+ public/assets/js/bootstrap.min.js.map                                       |     1 +
+ public/assets/js/chart.min.js                                               |     9 +-
+ public/assets/js/delete.handler.js                                          |     8 +-
+ public/assets/js/jquery-2.1.4.min.js                                        |     4 -
+ public/assets/js/jquery-3.3.1.min.js                                        |     2 +
+ public/assets/js/metisMenu.min.js                                           |    10 -
+ public/assets/js/popper.min.js                                              |     5 +
+ public/assets/js/sweetalert.min.js                                          |     2 +-
+ public/assets/js/vendor.js                                                  |    11 +
+ public/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css     |     9 +
+ public/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css.map |     1 +
+ public/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js      |     9 +
+ public/assets/plugins/bootstrap-switch/bootstrap-switch.css                 |   195 --
+ public/assets/plugins/bootstrap-switch/bootstrap-switch.min.js              |    22 -
+ public/assets/webfonts/fa-brands-400.eot                                    |   Bin 0 -> 111620 bytes
+ public/assets/webfonts/fa-brands-400.svg                                    |  1104 +++++++++
+ public/assets/webfonts/fa-brands-400.ttf                                    |   Bin 0 -> 111384 bytes
+ public/assets/webfonts/fa-brands-400.woff                                   |   Bin 0 -> 71560 bytes
+ public/assets/webfonts/fa-brands-400.woff2                                  |   Bin 0 -> 61336 bytes
+ public/assets/webfonts/fa-regular-400.eot                                   |   Bin 0 -> 31272 bytes
+ public/assets/webfonts/fa-regular-400.svg                                   |   372 +++
+ public/assets/webfonts/fa-regular-400.ttf                                   |   Bin 0 -> 31044 bytes
+ public/assets/webfonts/fa-regular-400.woff                                  |   Bin 0 -> 14724 bytes
+ public/assets/webfonts/fa-regular-400.woff2                                 |   Bin 0 -> 12188 bytes
+ public/assets/webfonts/fa-solid-900.eot                                     |   Bin 0 -> 133140 bytes
+ public/assets/webfonts/fa-solid-900.svg                                     |  1896 ++++++++++++++++
+ public/assets/webfonts/fa-solid-900.ttf                                     |   Bin 0 -> 132920 bytes
+ public/assets/webfonts/fa-solid-900.woff                                    |   Bin 0 -> 63836 bytes
+ public/assets/webfonts/fa-solid-900.woff2                                   |   Bin 0 -> 50372 bytes
+ public/mix-manifest.json                                                    |     5 +
+ resources/assets/sass/_variables.scss                                       |    63 +-
+ resources/assets/sass/app.scss                                              |    47 +-
+ resources/assets/sass/components/avatar.scss                                |    16 +
+ resources/assets/sass/components/button.scss                                |    78 +
+ resources/assets/sass/components/card.scss                                  |    12 +
+ resources/assets/sass/components/datepicker.scss                            |   160 ++
+ resources/assets/sass/components/general.scss                               |    13 +
+ resources/assets/sass/components/input.scss                                 |     8 +
+ resources/assets/sass/components/list-group.scss                            |    17 +
+ resources/assets/sass/components/nav-tabs.scss                              |    13 +
+ resources/assets/sass/components/navbar.scss                                |    50 +
+ resources/assets/sass/components/sidebar.scss                               |   122 +
+ resources/assets/sass/components/sweet-alert.scss                           |     3 +
+ resources/assets/sass/components/switch.scss                                |   158 ++
+ resources/assets/sass/components/table.scss                                 |     8 +
+ resources/assets/sass/components/util.scss                                  |    40 +
+ resources/lang/de/app.php                                                   |    63 +-
+ resources/lang/en/app.php                                                   |    58 +-
+ resources/lang/sr/app.php                                                   |    64 +-
+ resources/views/activity/index.blade.php                                    |   170 +-
+ resources/views/auth/login.blade.php                                        |   103 +-
+ resources/views/auth/password/remind.blade.php                              |    52 +-
+ resources/views/auth/password/reset.blade.php                               |    82 +-
+ resources/views/auth/register.blade.php                                     |   110 +-
+ resources/views/auth/social/buttons.blade.php                               |    28 +-
+ resources/views/auth/social/twitter-email.blade.php                         |    34 -
+ resources/views/auth/token.blade.php                                        |    49 +-
+ resources/views/dashboard/admin.blade.php                                   |   168 +-
+ resources/views/dashboard/default.blade.php                                 |   106 +-
+ resources/views/errors/403.blade.php                                        |    49 +-
+ resources/views/errors/404.blade.php                                        |    63 +-
+ resources/views/errors/500.blade.php                                        |    49 +-
+ resources/views/errors/503.blade.php                                        |    44 +-
+ resources/views/install/complete.blade.php                                  |     2 +-
+ resources/views/install/database.blade.php                                  |     2 +-
+ resources/views/install/error.blade.php                                     |     2 +-
+ resources/views/install/permissions.blade.php                               |    12 +-
+ resources/views/install/requirements.blade.php                              |     8 +-
+ resources/views/install/start.blade.php                                     |     2 +-
+ resources/views/layouts/app.blade.php                                       |    89 +-
+ resources/views/layouts/auth.blade.php                                      |    24 +-
+ resources/views/layouts/errors.blade.php                                    |    35 +
+ resources/views/layouts/install.blade.php                                   |    37 +-
+ resources/views/partials/messages.blade.php                                 |     4 +-
+ resources/views/partials/navbar.blade.php                                   |    79 +
+ resources/views/partials/sidebar.blade.php                                  |   167 +-
+ resources/views/permission/add-edit.blade.php                               |    46 +-
+ resources/views/permission/index.blade.php                                  |   159 +-
+ resources/views/role/add-edit.blade.php                                     |    56 +-
+ resources/views/role/index.blade.php                                        |   129 +-
+ resources/views/settings/auth.blade.php                                     |    64 +-
+ resources/views/settings/general.blade.php                                  |    41 +-
+ resources/views/settings/notifications.blade.php                            |    78 +-
+ resources/views/settings/partials/auth.blade.php                            |    70 +-
+ resources/views/settings/partials/recaptcha.blade.php                       |    16 +-
+ resources/views/settings/partials/registration.blade.php                    |    78 +-
+ resources/views/settings/partials/throttling.blade.php                      |    45 +-
+ resources/views/settings/partials/two-factor.blade.php                      |    15 +-
+ resources/views/user/add.blade.php                                          |    71 +-
+ resources/views/user/edit.blade.php                                         |   153 +-
+ resources/views/user/list.blade.php                                         |   170 +-
+ resources/views/user/partials/auth.blade.php                                |    57 +-
+ resources/views/user/partials/avatar.blade.php                              |    69 +-
+ resources/views/user/partials/details.blade.php                             |   118 +-
+ resources/views/user/partials/row.blade.php                                 |    59 +
+ resources/views/user/partials/two-factor.blade.php                          |    58 +-
+ resources/views/user/profile.blade.php                                      |   143 +-
+ resources/views/user/sessions.blade.php                                     |   123 +-
+ resources/views/user/view.blade.php                                         |   172 +-
+ resources/views/vendor/jsvalidation/bootstrap.php                           |    20 +-
+ routes/api.php                                                              |     1 +
+ storage/settings.json                                                       |     2 +-
+ tests/Feature/Http/Controllers/Api/Auth/SocialLoginControllerTest.php       |     2 +
+ tests/Feature/Http/Controllers/Api/Profile/AuthDetailsControllerTest.php    |    88 +
+ tests/Feature/Http/Controllers/Api/Profile/TwoFactorControllerTest.php      |    28 +-
+ tests/Feature/Http/Controllers/Api/Users/TwoFactorControllerTest.php        |    32 +-
+ tests/Feature/Http/Controllers/Web/ActivityControllerTest.php               |     1 -
+ tests/Feature/Http/Controllers/Web/Auth/AuthControllerTest.php              |     2 +-
+ tests/Feature/Http/Controllers/Web/Auth/SocialAuthControllerTest.php        |    26 +-
+ tests/Feature/Http/Controllers/Web/ProfileControllerTest.php                |    22 +-
+ tests/Feature/Http/Controllers/Web/SettingsControllerTest.php               |     2 +-
+ tests/Feature/Http/Controllers/Web/UsersControllerTest.php                  |    40 +-
+ tests/Feature/Repositories/User/EloquentUserTest.php                        |    61 +-
+ tests/unit/Presenters/UserPresenterTest.php                                 |     6 +-
+ webpack.mix.js                                                              |    26 +-
+ 159 files changed, 20812 insertions(+), 5721 deletions(-)
 ```
 
 <a name="upgrade-2.2.0"></a>

@@ -21,8 +21,9 @@ In order to install Vanguard application, your server must meet following requir
 * PDO PHP Extension
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
-* Ctype PHP Extension
 * XML PHP Extension
+* Ctype PHP Extension
+* JSON PHP Extension
 * GD PHP Extension
 * Fileinfo PHP Extension
 * Xdebug Max Nesting Level (>= 500)
