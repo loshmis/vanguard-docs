@@ -1,6 +1,8 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 3.1.0 from 3.0.1](#upgrade-3.1.0)
+    * [To 3.0.1 from 3.0.0](#upgrade-3.0.1)
     * [To 3.0.0 from 2.2.0](#upgrade-3.0.0)
     * [To 2.2.0 from 2.1.1](#upgrade-2.2.0)
     * [To 2.1.1 from 2.1.0](#upgrade-2.1.1)
@@ -26,6 +28,155 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file. Complete changelog is available inside the item
 description [on CodeCanyon](https://codecanyon.net/item/vanguard-advanced-php-login-and-user-management/14521866).
+
+<a name="upgrade-3.1.0"></a>
+###To 3.1.0 from 3.0.1
+
+Vanguard's codebase has been upgraded to Laravel 5.7. The recommended way to upgrade your application is to make sure 
+that your `composer.json` file matches the `composer.json` 
+file from this release. Once you update your `composer.json` file, just run `composer update` to install those packages,
+and then you can go through the list of changed files inside the list below and make sure that they match
+the files from this release. 
+
+Two-Factor Authentication has been improved in this version and all users who want to activate 2FA will receive the
+phone confirmation SMS first. The reason for this update is to prevent users from locking their accounts and using wrong
+phone number.
+
+Below is the list of updated files:
+
+```
+ .editorconfig                                                             |   15 +
+ .env.example                                                              |   26 +-
+ .gitattributes                                                            |    1 +
+ .gitignore                                                                |   14 +-
+ app/Console/Kernel.php                                                    |   11 +-
+ app/Exceptions/Handler.php                                                |   29 +-
+ app/Http/Controllers/Api/Profile/TwoFactorController.php                  |   32 +-
+ app/Http/Controllers/Api/Users/TwoFactorController.php                    |   37 +-
+ app/Http/Controllers/Web/ProfileController.php                            |   56 +--
+ app/Http/Controllers/Web/TwoFactorController.php                          |  137 +++++++
+ app/Http/Controllers/Web/UsersController.php                              |   55 +--
+ app/Http/Kernel.php                                                       |    1 +
+ app/Http/Middleware/VerifyTwoFactorPhone.php                              |   42 +++
+ app/Http/Requests/TwoFactor/DisableTwoFactorRequest.php                   |   11 +
+ app/Http/Requests/{User => TwoFactor}/EnableTwoFactorRequest.php          |    7 +-
+ app/Http/Requests/TwoFactor/ReSendTwoFactorTokenRequest.php               |    7 +
+ app/Http/Requests/TwoFactor/TwoFactorRequest.php                          |   48 +++
+ app/Http/Requests/TwoFactor/VerifyTwoFactorTokenRequest.php               |   18 +
+ app/Jobs/Job.php                                                          |   21 --
+ app/Listeners/UserEventsSubscriber.php                                    |   28 ++
+ app/Policies/.gitkeep                                                     |    0
+ app/Services/Auth/TwoFactor/Authy.php                                     |   20 +-
+ app/Services/Auth/TwoFactor/Contracts/Provider.php                        |    7 +
+ app/Support/CanImpersonateUsers.php                                       |   28 ++
+ app/Transformers/UserTransformer.php                                      |    4 +-
+ app/User.php                                                              |    4 +-
+ composer.json                                                             |   26 +-
+ composer.lock                                                             | 1686 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------------
+ config/app.php                                                            |    5 +-
+ config/database.php                                                       |   21 +-
+ config/filesystems.php                                                    |   38 +-
+ config/hashing.php                                                        |   34 +-
+ config/logging.php                                                        |   13 +-
+ config/mail.php                                                           |    8 +-
+ config/queue.php                                                          |   23 +-
+ config/services.php                                                       |    4 +
+ config/session.php                                                        |    4 +-
+ database/migrations/2015_12_29_224252_create_user_activity_table.php      |    8 +-
+ database/migrations/2015_12_30_171734_add_foreign_keys.php                |   16 +-
+ database/migrations/2017_04_13_200254_create_api_tokens_table.php         |    8 +-
+ phpunit.xml                                                               |    4 +-
+ public/assets/css/app.css                                                 |    2 +-
+ public/assets/js/as/two-factor.js                                         |   36 ++
+ public/mix-manifest.json                                                  |    2 +-
+ public/svg/403.svg                                                        |    1 +
+ public/svg/404.svg                                                        |    1 +
+ public/svg/500.svg                                                        |    1 +
+ public/svg/503.svg                                                        |    1 +
+ readme.md                                                                 |    4 +
+ resources/{assets => }/js/app.js                                          |    0
+ resources/{assets => }/js/bootstrap.js                                    |    0
+ resources/{assets => }/js/components/Example.vue                          |    0
+ resources/lang/de/app.php                                                 |   14 +-
+ resources/lang/de/log.php                                                 |    5 +-
+ resources/lang/en/app.php                                                 |   14 +-
+ resources/lang/en/log.php                                                 |    5 +-
+ resources/lang/sr/app.php                                                 |   14 +-
+ resources/lang/sr/log.php                                                 |    5 +-
+ resources/{assets => }/sass/_variables.scss                               |    0
+ resources/{assets => }/sass/app.scss                                      |    2 +-
+ resources/{assets => }/sass/components/avatar.scss                        |    0
+ resources/{assets => }/sass/components/button.scss                        |    0
+ resources/{assets => }/sass/components/card.scss                          |    4 +
+ resources/{assets => }/sass/components/datepicker.scss                    |    0
+ resources/{assets => }/sass/components/general.scss                       |    0
+ resources/{assets => }/sass/components/input.scss                         |    0
+ resources/{assets => }/sass/components/list-group.scss                    |    0
+ resources/{assets => }/sass/components/nav-tabs.scss                      |    0
+ resources/{assets => }/sass/components/navbar.scss                        |    0
+ resources/{assets => }/sass/components/sidebar.scss                       |    0
+ resources/{assets => }/sass/components/sweet-alert.scss                   |    0
+ resources/{assets => }/sass/components/switch.scss                        |    0
+ resources/{assets => }/sass/components/table.scss                         |    0
+ resources/{assets => }/sass/components/util.scss                          |    0
+ resources/views/auth/token.blade.php                                      |    4 +-
+ resources/views/partials/navbar.blade.php                                 |   15 +
+ resources/views/settings/notifications.blade.php                          |    2 +
+ resources/views/user/edit.blade.php                                       |    5 +-
+ resources/views/user/partials/row.blade.php                               |    7 +
+ resources/views/user/profile.blade.php                                    |    4 +-
+ resources/views/user/two-factor-verification.blade.php                    |   69 ++++
+ resources/views/user/view.blade.php                                       |    8 +
+ routes/api.php                                                            |    2 +
+ routes/channels.php                                                       |   16 +
+ routes/web.php                                                            |   51 ++-
+ storage/framework/cache/.gitignore                                        |    1 +
+ storage/framework/cache/data/.gitignore                                   |    2 +
+ storage/settings.json                                                     |    2 +-
+ tests/Feature/FunctionalTestCase.php                                      |   16 +-
+ tests/Feature/Http/Controllers/Api/Auth/AuthControllerTest.php            |    4 -
+ tests/Feature/Http/Controllers/Api/Auth/Password/RemindControllerTest.php |   41 +--
+ tests/Feature/Http/Controllers/Api/Auth/Password/ResetControllerTest.php  |    3 -
+ tests/Feature/Http/Controllers/Api/Auth/RegistrationControllerTest.php    |   45 ++-
+ tests/Feature/Http/Controllers/Api/Profile/TwoFactorControllerTest.php    |   63 +++-
+ tests/Feature/Http/Controllers/Api/Users/TwoFactorControllerTest.php      |   63 +++-
+ tests/Feature/Http/Controllers/Api/Users/UsersControllerTest.php          |   39 +-
+ tests/Feature/Http/Controllers/Web/Auth/AuthControllerTest.php            |  106 +++---
+ tests/Feature/Http/Controllers/Web/Auth/PasswordControllerTest.php        |   32 +-
+ tests/Feature/Http/Controllers/Web/Auth/SocialAuthControllerTest.php      |    1 -
+ tests/Feature/Http/Controllers/Web/ProfileControllerTest.php              |   65 ----
+ tests/Feature/Http/Controllers/Web/TwoFactorControllerTest.php            |  411 +++++++++++++++++++++
+ tests/Feature/Http/Controllers/Web/UsersControllerTest.php                |   48 ---
+ tests/Feature/ImpersonateUsersTest.php                                    |   96 +++++
+ tests/Feature/Listeners/UserEventsSubscriberTest.php                      |   28 +-
+ tests/MailTrap.php                                                        |  131 -------
+ webpack.mix.js                                                            |    2 +-
+ 107 files changed, 4917 insertions(+), 1473 deletions(-)
+```
+
+<a name="upgrade-3.0.1"></a>
+###To 3.0.1 from 3.0.0
+
+Version 3.0.1 is a bug-fix release where some minor (mostly UI related) bugs that are reported by customers are fixed. The main
+bug fixed was the one where assets were not being loaded if you install the app in a sub-folder, which was caused by
+using the `mix` function without wrapping it with `url` function. Luckily, this is an easy fix applied in 
+`resources/views/layouts/app.blade.php` layout file.
+
+Below is the list of updated files, so make sure that you update them to the latest version.
+
+```
+ app/Http/Controllers/Web/Auth/SocialAuthController.php |  4 ++++
+ app/Repositories/User/EloquentUser.php                 |  4 ++++
+ config/app.php                                         |  2 +-
+ resources/lang/de/app.php                              |  1 +
+ resources/lang/en/app.php                              |  1 +
+ resources/lang/sr/app.php                              |  1 +
+ resources/views/layouts/app.blade.php                  |  6 +++---
+ resources/views/user/partials/details.blade.php        |  2 +-
+ resources/views/user/partials/row.blade.php            | 18 ++++++++++++------
+ resources/views/user/view.blade.php                    |  6 +++---
+ 10 files changed, 31 insertions(+), 14 deletions(-)
+```
 
 <a name="upgrade-3.0.0"></a>
 ###To 3.0.0 from 2.2.0

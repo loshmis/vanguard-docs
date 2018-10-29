@@ -9,6 +9,7 @@
 	- [Dashboard](dashboard.html)
 	- [User Profile](profile.html)
 	- [User Management](users.html)
+	- [Impersonating Users](impersonating-users.html)
 	- [Session Management](sessions.html)
 	- [Activity Log](activity-log.html)
 	- [Roles and Permissions](roles-and-permissions.html)
