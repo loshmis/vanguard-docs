@@ -1,6 +1,9 @@
 #Upgrade Guide
 
 * [Upgrade Guide](#upgrade-guide)
+    * [To 4.0.0 from 3.2.1](#upgrade-4.0.0)
+    * [To 3.2.1 from 3.2.0](#upgrade-3.2.1)
+    * [To 3.2.0 from 3.1.0](#upgrade-3.2.0)
     * [To 3.1.0 from 3.0.1](#upgrade-3.1.0)
     * [To 3.0.1 from 3.0.0](#upgrade-3.0.1)
     * [To 3.0.0 from 2.2.0](#upgrade-3.0.0)
@@ -28,6 +31,418 @@
 This section contains some info about what's changed in the latest version and how you should update your Vanguard application. 
 You can find the version you are currently using inside `config/app.php` file. Complete changelog is available inside the item
 description [on CodeCanyon](https://codecanyon.net/item/vanguard-advanced-php-login-and-user-management/14521866).
+
+<a name="upgrade-4.0.0"></a>
+###To 4.0.0 from 3.2.1
+
+Version 4 of Vanguard, which runs on Laravel 6, comes with a lot of improvements and, if you have any projects 
+created using the previous versions of Vanguard, it's recommended to move all your modifications to a clean Vanguard 4 
+installation than to upgrade your existing Vanguard version.
+
+The reason for this is because there are a lot of changed files between Vanguard 3.2.1 and Vanguard 4, and it can 
+take pretty long to update all the files to their latest versions.
+
+Anyways, if you decide to upgrade the Vanguard manually, since there are a lot of the changes files, you will need to 
+go through each file from the list of modified files available below, and compare it with the one from version 4. 
+It's highly recommended to check the Git patch file that contains all the differences between those two versions. 
+The patch file is located inside the `Documentation/Patches` directory and you can use any text editor to open it 
+(something like [this Chrome plugin](https://chrome.google.com/webstore/detail/git-patch-viewer/hkoggakcdopbgnaeeidcmopfekipkleg) 
+will also be a good option).
+
+Modified files:
+```
+ .gitignore                                                                                                 |    1 +
+ app/Events/User/Registered.php                                                                             |   30 -
+ app/Events/User/ResetedPasswordViaEmail.php                                                                |   26 -
+ app/Exceptions/Handler.php                                                                                 |    8 -
+ app/Http/Controllers/Api/ActivityController.php                                                            |   39 -
+ app/Http/Controllers/Api/Auth/AuthController.php                                                           |   10 +-
+ app/Http/Controllers/Api/Auth/Password/RemindController.php                                                |    4 +-
+ app/Http/Controllers/Api/Auth/Password/ResetController.php                                                 |   10 +-
+ app/Http/Controllers/Api/Auth/RegistrationController.php                                                   |   19 +-
+ app/Http/Controllers/Api/Auth/SocialLoginController.php                                                    |    2 +-
+ app/Http/Controllers/Api/Profile/AvatarController.php                                                      |    1 -
+ app/Http/Controllers/Api/SessionsController.php                                                            |    2 +
+ app/Http/Controllers/Api/SettingsController.php                                                            |    4 +-
+ app/Http/Controllers/Api/StatsController.php                                                               |   43 +-
+ app/Http/Controllers/Api/Users/AvatarController.php                                                        |   30 +-
+ app/Http/Controllers/Api/Users/UsersController.php                                                         |    7 +-
+ app/Http/Controllers/Web/ActivityController.php                                                            |   68 --
+ app/Http/Controllers/Web/Auth/AuthController.php                                                           |  374 -------
+ app/Http/Controllers/Web/Auth/ForgotPasswordController.php                                                 |   45 +
+ app/Http/Controllers/Web/Auth/LoginController.php                                                          |  150 +++
+ app/Http/Controllers/Web/Auth/PasswordController.php                                                       |  113 --
+ app/Http/Controllers/Web/Auth/RegisterController.php                                                       |   63 ++
+ app/Http/Controllers/Web/Auth/ResetPasswordController.php                                                  |   61 +
+ app/Http/Controllers/Web/Auth/SocialAuthController.php                                                     |   25 +-
+ app/Http/Controllers/Web/Auth/TwoFactorTokenController.php                                                 |   75 ++
+ app/Http/Controllers/Web/Auth/VerificationController.php                                                   |   41 +
+ app/Http/Controllers/Web/{ => Authorization}/PermissionsController.php                                     |   74 +-
+ app/Http/Controllers/Web/Authorization/RolePermissionsController.php                                       |   53 +
+ app/Http/Controllers/Web/{ => Authorization}/RolesController.php                                           |   43 +-
+ app/Http/Controllers/Web/DashboardController.php                                                           |   78 +-
+ app/Http/Controllers/Web/InstallController.php                                                             |   14 +-
+ app/Http/Controllers/Web/Profile/AvatarController.php                                                      |   85 ++
+ app/Http/Controllers/Web/Profile/DetailsController.php                                                     |   45 +
+ app/Http/Controllers/Web/Profile/LoginDetailsController.php                                                |   51 +
+ app/Http/Controllers/Web/Profile/ProfileController.php                                                     |   64 ++
+ app/Http/Controllers/Web/Profile/SessionsController.php                                                    |   52 +
+ app/Http/Controllers/Web/ProfileController.php                                                             |  224 ----
+ app/Http/Controllers/Web/SettingsController.php                                                            |   36 +-
+ app/Http/Controllers/Web/TwoFactorController.php                                                           |   10 +-
+ app/Http/Controllers/Web/Users/AvatarController.php                                                        |   83 ++
+ app/Http/Controllers/Web/Users/DetailsController.php                                                       |   76 ++
+ app/Http/Controllers/Web/Users/LoginDetailsController.php                                                  |   54 +
+ app/Http/Controllers/Web/Users/SessionsController.php                                                      |   62 +
+ app/Http/Controllers/Web/Users/UsersController.php                                                         |  163 +++
+ app/Http/Controllers/Web/UsersController.php                                                               |  326 ------
+ app/Http/Kernel.php                                                                                        |   34 +-
+ app/Http/Middleware/EncryptCookies.php                                                                     |    2 +-
+ app/Http/Middleware/{Registration.php => PasswordResetEnabled.php}                                         |    6 +-
+ app/Http/Middleware/RegistrationEnabled.php                                                                |   25 +
+ app/Http/Middleware/TwoFactorEnabled.php                                                                   |   25 +
+ app/Http/Requests/Activity/GetActivitiesRequest.php                                                        |   28 -
+ app/Http/Requests/Auth/PasswordResetRequest.php                                                            |   10 +
+ app/Http/Requests/Auth/RegisterRequest.php                                                                 |   31 +-
+ app/Http/Requests/Permission/BasePermissionRequest.php                                                     |    8 +-
+ app/Http/Requests/Permission/CreatePermissionRequest.php                                                   |    9 +-
+ app/Http/Requests/Permission/RemovePermissionRequest.php                                                   |    3 +
+ app/Http/Requests/Permission/UpdatePermissionRequest.php                                                   |   11 +-
+ app/Http/Requests/User/CreateUserRequest.php                                                               |    1 +
+ app/Listeners/PermissionEventsSubscriber.php                                                               |   66 --
+ app/Listeners/Registration/SendConfirmationEmail.php                                                       |   43 -
+ app/Listeners/Registration/SendSignUpNotification.php                                                      |    8 +-
+ app/Listeners/RoleEventsSubscriber.php                                                                     |   72 --
+ app/Listeners/UserEventsSubscriber.php                                                                     |  204 ----
+ app/Mail/ResetPassword.php                                                                                 |   37 +
+ app/Mail/UserRegistered.php                                                                                |   41 +
+ app/Notifications/EmailConfirmation.php                                                                    |   54 -
+ app/Notifications/ResetPassword.php                                                                        |   53 -
+ app/Notifications/UserRegistered.php                                                                       |   70 --
+ app/Presenters/Presenter.php                                                                               |   46 +
+ app/Presenters/Traits/Presentable.php                                                                      |   26 +
+ app/Presenters/UserPresenter.php                                                                           |   25 +-
+ app/Providers/AppServiceProvider.php                                                                       |    5 +-
+ app/Providers/EventServiceProvider.php                                                                     |   13 +-
+ app/Providers/VanguardServiceProvider.php                                                                  |   52 +
+ app/Repositories/Activity/ActivityRepository.php                                                           |   59 -
+ app/Repositories/Activity/EloquentActivity.php                                                             |   98 --
+ app/Rules/ValidPermissionName.php                                                                          |   44 +
+ app/Services/Auth/Api/TokenFactory.php                                                                     |    2 +
+ app/Services/Auth/ThrottlesLogins.php                                                                      |   81 ++
+ app/Services/Logging/UserActivity/Activity.php                                                             |   20 -
+ app/Services/Logging/UserActivity/Logger.php                                                               |   86 --
+ app/Services/Upload/UserAvatarManager.php                                                                  |   89 +-
+ app/Support/Enum/UserStatus.php                                                                            |    6 +-
+ app/Support/Plugins/Dashboard/Dashboard.php                                                                |   17 +
+ app/Support/Plugins/Dashboard/Widgets/BannedUsers.php                                                      |   44 +
+ app/Support/Plugins/Dashboard/Widgets/LatestRegistrations.php                                              |   43 +
+ app/Support/Plugins/Dashboard/Widgets/NewUsers.php                                                         |   43 +
+ app/Support/Plugins/Dashboard/Widgets/RegistrationHistory.php                                              |   71 ++
+ app/Support/Plugins/Dashboard/Widgets/TotalUsers.php                                                       |   43 +
+ app/Support/Plugins/Dashboard/Widgets/UnconfirmedUsers.php                                                 |   44 +
+ app/Support/Plugins/Dashboard/Widgets/UserActions.php                                                      |   27 +
+ app/Support/Plugins/RolesAndPermissions.php                                                                |   31 +
+ app/Support/Plugins/Settings.php                                                                           |   40 +
+ app/Support/Plugins/Users.php                                                                              |   18 +
+ app/Support/Sidebar/Item.php                                                                               |  249 +++++
+ app/Support/helpers.php                                                                                    |   21 -
+ app/Transformers/ActivityTransformer.php                                                                   |   36 -
+ app/Transformers/UserTransformer.php                                                                       |    3 +-
+ app/User.php                                                                                               |   38 +-
+ composer.json                                                                                              |   56 +-
+ composer.lock                                                                                              | 2847 +-
+ config/app.php                                                                                             |   19 +-
+ config/broadcasting.php                                                                                    |    3 +-
+ config/cache.php                                                                                           |   13 +-
+ config/database.php                                                                                        |   48 +-
+ config/logging.php                                                                                         |   17 +-
+ config/mail.php                                                                                            |   11 +
+ config/plugins.php                                                                                         |   21 +
+ config/queue.php                                                                                           |   10 +-
+ config/services.php                                                                                        |   10 +-
+ config/session.php                                                                                         |    4 +-
+ config/setting.php                                                                                         |   85 ++
+ config/settings.php                                                                                        |   17 -
+ database/factories/ActivityFactory.php                                                                     |   15 -
+ database/factories/RoleFactory.php                                                                         |    2 +-
+ database/factories/UserFactory.php                                                                         |    5 +-
+ database/migrations/2014_10_12_100000_create_password_resets_table.php                                     |    4 +-
+ database/migrations/2015_08_25_172600_create_settings_table.php                                            |   42 -
+ database/migrations/2015_10_10_170827_create_users_table.php                                               |    2 +-
+ database/migrations/2015_12_29_224252_create_user_activity_table.php                                       |    2 +
+ database/migrations/2017_08_24_000000_create_settings_table.php                                            |   41 +
+ database/migrations/2019_08_22_140712_create_announcements_table.php                                       |   50 +
+ database/seeds/UserSeeder.php                                                                              |    3 +-
+ package-lock.json                                                                                          | 5165 +-
+ phpunit.xml                                                                                                |    3 +
+ public/assets/css/app.css                                                                                  |    2 +-
+ public/assets/js/as/app.js                                                                                 |   14 +-
+ public/mix-manifest.json                                                                                   |    2 +-
+ public/vendor/plugins/announcements/css/announcements.css                                                  |    1 +
+ public/vendor/plugins/announcements/js/announcements.js                                                    |    1 +
+ public/vendor/plugins/announcements/mix-manifest.json                                                      |    4 +
+ resources/lang/de.json                                                                                     |  242 ++++
+ resources/lang/de/app.php                                                                                  |  328 +-----
+ resources/lang/de/log.php                                                                                  |   32 -
+ resources/lang/en/app.php                                                                                  |  331 +-----
+ resources/lang/en/log.php                                                                                  |   32 -
+ resources/lang/sr.json                                                                                     |  242 ++++
+ resources/lang/sr/app.php                                                                                  |  335 +-----
+ resources/lang/sr/log.php                                                                                  |   32 -
+ resources/sass/_variables.scss                                                                             |   12 +-
+ resources/sass/app.scss                                                                                    |    2 +-
+ resources/sass/components/card.scss                                                                        |   29 +-
+ resources/sass/components/general.scss                                                                     |   12 +-
+ resources/sass/components/input.scss                                                                       |    9 +-
+ resources/sass/components/navbar.scss                                                                      |   98 +-
+ resources/sass/components/sidebar.scss                                                                     |  279 +++--
+ resources/sass/components/util.scss                                                                        |   16 +
+ resources/views/activity/index.blade.php                                                                   |  100 --
+ resources/views/auth/login.blade.php                                                                       |   40 +-
+ resources/views/auth/{password/remind.blade.php => passwords/email.blade.php}                              |   26 +-
+ resources/views/auth/{password => passwords}/reset.blade.php                                               |   43 +-
+ resources/views/auth/register.blade.php                                                                    |   90 +-
+ resources/views/auth/token.blade.php                                                                       |   18 +-
+ resources/views/auth/tos.blade.php                                                                         |   24 +
+ resources/views/auth/verify.blade.php                                                                      |   30 +
+ resources/views/dashboard/admin.blade.php                                                                  |  147 +--
+ resources/views/dashboard/default.blade.php                                                                |  102 --
+ resources/views/emails/notifications/new-registration.blade.php                                            |   10 -
+ resources/views/emails/password/remind.blade.php                                                           |   12 -
+ resources/views/emails/registration/confirmation.blade.php                                                 |   13 -
+ resources/views/errors/403.blade.php                                                                       |    8 -
+ resources/views/errors/404.blade.php                                                                       |   12 -
+ resources/views/errors/500.blade.php                                                                       |   10 -
+ resources/views/errors/503.blade.php                                                                       |    8 -
+ resources/views/layouts/app.blade.php                                                                      |   10 +-
+ resources/views/layouts/auth.blade.php                                                                     |    5 +-
+ resources/views/layouts/errors.blade.php                                                                   |   35 -
+ resources/views/layouts/install.blade.php                                                                  |    2 +-
+ resources/views/mail/reset-password.blade.php                                                              |   22 +
+ resources/views/mail/user-registered.blade.php                                                             |   19 +
+ resources/views/partials/navbar.blade.php                                                                  |   33 +-
+ resources/views/partials/sidebar.blade.php                                                                 |  122 --
+ resources/views/partials/sidebar/items.blade.php                                                           |   26 +
+ resources/views/partials/sidebar/main.blade.php                                                            |   37 +
+ resources/views/permission/add-edit.blade.php                                                              |   46 +-
+ resources/views/permission/index.blade.php                                                                 |   34 +-
+ resources/views/plugins/dashboard/widgets/banned-users.blade.php                                           |   14 +
+ resources/views/plugins/dashboard/widgets/latest-registrations.blade.php                                   |   31 +
+ resources/views/plugins/dashboard/widgets/new-users.blade.php                                              |   14 +
+ resources/views/plugins/dashboard/widgets/registration-history-scripts.blade.php                           |   12 +
+ resources/views/plugins/dashboard/widgets/registration-history.blade.php                                   |   11 +
+ resources/views/plugins/dashboard/widgets/total-users.blade.php                                            |   14 +
+ resources/views/plugins/dashboard/widgets/unconfirmed-users.blade.php                                      |   14 +
+ resources/views/plugins/dashboard/widgets/user-actions.blade.php                                           |   53 +
+ resources/views/role/add-edit.blade.php                                                                    |   46 +-
+ resources/views/role/index.blade.php                                                                       |   34 +-
+ resources/views/settings/auth.blade.php                                                                    |   12 +-
+ resources/views/settings/general.blade.php                                                                 |   18 +-
+ resources/views/settings/notifications.blade.php                                                           |   30 +-
+ resources/views/settings/partials/auth.blade.php                                                           |   35 +-
+ resources/views/settings/partials/recaptcha.blade.php                                                      |   24 +-
+ resources/views/settings/partials/registration.blade.php                                                   |   31 +-
+ resources/views/settings/partials/throttling.blade.php                                                     |   39 +-
+ resources/views/settings/partials/two-factor.blade.php                                                     |   29 +-
+ resources/views/user/add.blade.php                                                                         |   20 +-
+ resources/views/user/edit.blade.php                                                                        |   60 +-
+ resources/views/user/list.blade.php                                                                        |   41 +-
+ resources/views/user/partials/auth.blade.php                                                               |   46 +-
+ resources/views/user/partials/avatar.blade.php                                                             |   31 +-
+ resources/views/user/partials/details.blade.php                                                            |   42 +-
+ resources/views/user/partials/row.blade.php                                                                |   35 +-
+ resources/views/user/partials/two-factor.blade.php                                                         |   40 +-
+ resources/views/user/profile.blade.php                                                                     |   58 +-
+ resources/views/user/sessions.blade.php                                                                    |   34 +-
+ resources/views/user/two-factor-verification.blade.php                                                     |   25 +-
+ resources/views/user/view.blade.php                                                                        |   99 +-
+ resources/views/vendor/mail/html/button.blade.php                                                          |   19 +
+ resources/views/vendor/mail/html/footer.blade.php                                                          |   11 +
+ resources/views/vendor/mail/html/header.blade.php                                                          |    7 +
+ resources/views/vendor/mail/html/layout.blade.php                                                          |   54 +
+ resources/views/vendor/mail/html/message.blade.php                                                         |   27 +
+ resources/views/vendor/mail/html/panel.blade.php                                                           |   13 +
+ resources/views/vendor/mail/html/promotion.blade.php                                                       |    7 +
+ resources/views/vendor/mail/html/promotion/button.blade.php                                                |   13 +
+ resources/views/vendor/mail/html/subcopy.blade.php                                                         |    7 +
+ resources/views/vendor/mail/html/table.blade.php                                                           |    3 +
+ resources/views/vendor/mail/html/themes/default.css                                                        |  307 +++++
+ resources/views/vendor/mail/text/button.blade.php                                                          |    1 +
+ resources/views/vendor/mail/text/footer.blade.php                                                          |    1 +
+ resources/views/vendor/mail/text/header.blade.php                                                          |    1 +
+ resources/views/vendor/mail/text/layout.blade.php                                                          |    9 +
+ resources/views/vendor/mail/text/message.blade.php                                                         |   27 +
+ resources/views/vendor/mail/text/panel.blade.php                                                           |    1 +
+ resources/views/vendor/mail/text/promotion.blade.php                                                       |    1 +
+ resources/views/vendor/mail/text/promotion/button.blade.php                                                |    1 +
+ resources/views/vendor/mail/text/subcopy.blade.php                                                         |    1 +
+ resources/views/vendor/mail/text/table.blade.php                                                           |    1 +
+ resources/views/vendor/notifications/email.blade.php                                                       |    6 +-
+ routes/api.php                                                                                             |   16 +-
+ routes/web.php                                                                                             |  458 +++-----
+ storage/app/.gitignore                                                                                     |    0
+ storage/framework/.gitignore                                                                               |    1 +
+ storage/settings.json                                                                                      |    2 +-
+ tests/CreatesApplication.php                                                                               |   24 +
+ tests/Feature/Api/Auth/AuthControllerTest.php                                                              |  162 +++
+ tests/Feature/Api/Auth/Password/RemindControllerTest.php                                                   |   38 +
+ tests/Feature/{Http/Controllers => }/Api/Auth/Password/ResetControllerTest.php                             |   46 +-
+ tests/Feature/Api/Auth/RegistrationControllerTest.php                                                      |  104 ++
+ tests/Feature/{Http/Controllers => }/Api/Auth/SocialLoginControllerTest.php                                |   69 +-
+ tests/Feature/Api/Authorization/PermissionsControllerTest.php                                              |  161 +++
+ tests/Feature/{Http/Controllers => }/Api/Authorization/RolePermissionsControllerTest.php                   |   56 +-
+ tests/Feature/Api/Authorization/RolesControllerTest.php                                                    |  176 +++
+ tests/Feature/{Http/Controllers => }/Api/CountriesControllerTest.php                                       |   16 +-
+ tests/Feature/Api/Profile/AuthDetailsControllerTest.php                                                    |   83 ++
+ tests/Feature/{Http/Controllers => }/Api/Profile/AvatarControllerTest.php                                  |   74 +-
+ tests/Feature/Api/Profile/DetailsControllerTest.php                                                        |  123 ++
+ tests/Feature/{Http/Controllers => }/Api/Profile/SessionsControllerTest.php                                |   19 +-
+ tests/Feature/{Http/Controllers => }/Api/Profile/TwoFactorControllerTest.php                               |  119 +-
+ tests/Feature/{Http/Controllers => }/Api/SessionsControllerTest.php                                        |   61 +-
+ tests/Feature/Api/SettingsControllerTest.php                                                               |   38 +
+ tests/Feature/{Http/Controllers => }/Api/StatsControllerTest.php                                           |   53 +-
+ tests/Feature/Api/Users/AvatarControllerTest.php                                                           |  147 +++
+ tests/Feature/{Http/Controllers => }/Api/Users/SessionsControllerTest.php                                  |   26 +-
+ tests/Feature/Api/Users/TwoFactorControllerTest.php                                                        |  170 +++
+ tests/Feature/{Http/Controllers => }/Api/Users/UsersControllerTest.php                                     |  127 ++-
+ tests/Feature/ApiTestCase.php                                                                              |   22 +-
+ tests/Feature/FunctionalTestCase.php                                                                       |  203 ----
+ tests/Feature/Http/Controllers/Api/ActivityControllerTest.php                                              |  118 --
+ tests/Feature/Http/Controllers/Api/Auth/AuthControllerTest.php                                             |  163 ---
+ tests/Feature/Http/Controllers/Api/Auth/Password/RemindControllerTest.php                                  |   44 -
+ tests/Feature/Http/Controllers/Api/Auth/RegistrationControllerTest.php                                     |  122 --
+ tests/Feature/Http/Controllers/Api/Authorization/PermissionsControllerTest.php                             |  190 ----
+ tests/Feature/Http/Controllers/Api/Authorization/RolesControllerTest.php                                   |  203 ----
+ tests/Feature/Http/Controllers/Api/Profile/AuthDetailsControllerTest.php                                   |   88 --
+ tests/Feature/Http/Controllers/Api/Profile/DetailsControllerTest.php                                       |  125 ---
+ tests/Feature/Http/Controllers/Api/SettingsControllerTest.php                                              |   37 -
+ tests/Feature/Http/Controllers/Api/Users/ActivityControllerTest.php                                        |  109 --
+ tests/Feature/Http/Controllers/Api/Users/AvatarControllerTest.php                                          |  154 ---
+ tests/Feature/Http/Controllers/Api/Users/TwoFactorControllerTest.php                                       |  196 ----
+ tests/Feature/Http/Controllers/Web/ActivityControllerTest.php                                              |   83 --
+ tests/Feature/Http/Controllers/Web/Auth/AuthControllerTest.php                                             |  438 --------
+ tests/Feature/Http/Controllers/Web/Auth/PasswordControllerTest.php                                         |  159 ---
+ tests/Feature/Http/Controllers/Web/PermissionsControllerTest.php                                           |  181 ---
+ tests/Feature/Http/Controllers/Web/ProfileControllerTest.php                                               |  266 -----
+ tests/Feature/Http/Controllers/Web/RolesControllerTest.php                                                 |  138 ---
+ tests/Feature/Http/Controllers/Web/SettingsControllerTest.php                                              |   34 -
+ tests/Feature/Http/Controllers/Web/UsersControllerTest.php                                                 |  464 --------
+ tests/Feature/ImpersonateUsersTest.php                                                                     |   96 --
+ tests/Feature/Listeners/BaseListenerTestCase.php                                                           |   29 -
+ tests/Feature/Listeners/PermissionEventsSubscriberTest.php                                                 |   38 -
+ tests/Feature/Listeners/RoleEventsSubscriberTest.php                                                       |   44 -
+ tests/Feature/Listeners/UserEventsSubscriberTest.php                                                       |  178 ---
+ tests/Feature/Repositories/Activity/EloquentActivityTest.php                                               |  128 ---
+ tests/Feature/Repositories/Role/EloquentRoleTest.php                                                       |  108 --
+ tests/Feature/Web/ImpersonateUsersTest.php                                                                 |   91 ++
+ tests/Feature/Web/LoginTest.php                                                                            |  177 +++
+ tests/Feature/Web/PermissionsTest.php                                                                      |  348 ++++++
+ tests/Feature/Web/RegistrationTest.php                                                                     |  172 +++
+ tests/Feature/Web/RolesTest.php                                                                            |  234 ++++
+ tests/Feature/Web/Settings/AuthSettingsTest.php                                                            |  105 ++
+ tests/Feature/Web/Settings/CaptchaSettingsTest.php                                                         |   49 +
+ tests/Feature/Web/Settings/GeneralSettingsTest.php                                                         |   62 +
+ tests/Feature/Web/Settings/TwoFactorSettingsTest.php                                                       |   49 +
+ tests/Feature/Web/SettingsTest.php                                                                         |  137 +++
+ tests/Feature/{Http/Controllers/Web/Auth/SocialAuthControllerTest.php => Web/SocialAuthenticationTest.php} |  141 +--
+ tests/Feature/{Http/Controllers/Web/TwoFactorControllerTest.php => Web/TwoFactorAuthTest.php}              |  276 ++---
+ tests/Feature/Web/UpdateProfileTest.php                                                                    |  251 +++++
+ tests/Feature/Web/UsersTest.php                                                                            |  710 ++++++++++++
+ tests/Setup/RoleFactory.php                                                                                |   47 +
+ tests/Setup/UserFactory.php                                                                                |   95 ++
+ tests/TestCase.php                                                                                         |   65 +-
+ tests/{unit => Unit}/Presenters/UserPresenterTest.php                                                      |   31 +-
+ tests/{Feature => Unit}/Repositories/Country/EloquentCountryTest.php                                       |   15 +-
+ tests/{Feature => Unit}/Repositories/Permission/EloquentPermissionTest.php                                 |   29 +-
+ tests/Unit/Repositories/Role/EloquentRoleTest.php                                                          |  117 ++
+ tests/{Feature => Unit}/Repositories/Session/DbSessionTest.php                                             |   32 +-
+ tests/{Feature => Unit}/Repositories/User/EloquentUserTest.php                                             |  195 ++--
+ tests/{Feature => Unit}/Services/Auth/Api/TokenFactoryTest.php                                             |   37 +-
+ tests/UpdatesSettings.php                                                                                  |   22 +
+ tests/files/.DS_Store                                                                                      |  Bin 6148 -> 0 bytes
+ tests/files/image.png                                                                                      |  Bin 38306 -> 0 bytes
+ 312 files changed, 15667 insertions(+), 16557 deletions(-)
+```
+
+<a name="upgrade-3.2.1"></a>
+###To 3.2.1 from 3.2.0
+
+Installation bugs fixed. The list of modified files is given below:
+
+```
+ app/Http/Controllers/Web/InstallController.php | 3 ++-
+ config/app.php                                 | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+```
+
+<a name="upgrade-3.2.0"></a>
+###To 3.2.0 from 3.1.0
+
+Vanguard's codebase has been upgraded to Laravel 5.8. The recommended way to upgrade your application is to make sure 
+that your `composer.json` file matches the `composer.json` file from this release. Once you update your `composer.json` 
+file, just run `composer update` to install those packages, and then you can go through the list of changed files 
+inside the list below and make sure that they match the files from this release.
+
+Below is the list of updated files:
+
+```
+ app/Http/Controllers/Web/Auth/AuthController.php                         |    7 +-
+ app/Http/Controllers/Web/PermissionsController.php                       |    3 +-
+ app/Http/Controllers/Web/ProfileController.php                           |   24 +-
+ app/Http/Controllers/Web/UsersController.php                             |    5 +-
+ app/Http/Requests/Auth/LoginRequest.php                                  |    2 +
+ app/Http/Requests/Auth/PasswordResetRequest.php                          |    2 +-
+ app/Http/Requests/Auth/RegisterRequest.php                               |    2 +-
+ app/Http/Requests/BinaryFileUploadRequest.php                            |    5 +-
+ app/Http/Requests/User/UpdateLoginDetailsRequest.php                     |    2 +-
+ app/Listeners/Registration/SendConfirmationEmail.php                     |    3 +-
+ app/Providers/HtmlServiceProvider.php                                    |    8 +-
+ app/Repositories/Role/EloquentRole.php                                   |    2 -
+ app/Services/Auth/Api/TokenFactory.php                                   |    3 +-
+ app/Services/Auth/Social/SocialManager.php                               |    3 +-
+ app/Services/Upload/UserAvatarManager.php                                |    5 +-
+ app/Support/Authorization/AuthorizationRoleTrait.php                     |    3 +-
+ composer.json                                                            |   14 +-
+ composer.lock                                                            | 1216 ++++++++++++--------
+ config/app.php                                                           |    2 +-
+ config/cache.php                                                         |   10 +-
+ database/factories/PermissionFactory.php                                 |    3 +-
+ database/factories/RoleFactory.php                                       |    3 +-
+ database/factories/TokenFactory.php                                      |    3 +-
+ database/factories/UserFactory.php                                       |    3 +-
+ phpunit.xml                                                              |    1 +
+ resources/lang/de/passwords.php                                          |    2 +-
+ resources/lang/en/passwords.php                                          |    2 +-
+ resources/lang/sr/passwords.php                                          |    2 +-
+ tests/Feature/ApiTestCase.php                                            |    7 -
+ tests/Feature/FunctionalTestCase.php                                     |    2 +-
+ tests/Feature/Http/Controllers/Api/Auth/Password/ResetControllerTest.php |    6 +-
+ tests/Feature/Http/Controllers/Api/Auth/RegistrationControllerTest.php   |   12 +-
+ tests/Feature/Http/Controllers/Api/Profile/AuthDetailsControllerTest.php |    6 +-
+ tests/Feature/Http/Controllers/Api/Profile/SessionsControllerTest.php    |   13 +-
+ tests/Feature/Http/Controllers/Api/SessionsControllerTest.php            |    7 +-
+ tests/Feature/Http/Controllers/Api/Users/SessionsControllerTest.php      |    9 +-
+ tests/Feature/Http/Controllers/Web/ActivityControllerTest.php            |    2 +-
+ tests/Feature/Http/Controllers/Web/Auth/AuthControllerTest.php           |    7 +-
+ tests/Feature/Http/Controllers/Web/Auth/PasswordControllerTest.php       |    6 +-
+ tests/Feature/Http/Controllers/Web/PermissionsControllerTest.php         |    2 +-
+ tests/Feature/Http/Controllers/Web/ProfileControllerTest.php             |   35 +-
+ tests/Feature/Http/Controllers/Web/RolesControllerTest.php               |    2 +-
+ tests/Feature/Http/Controllers/Web/UsersControllerTest.php               |   25 +-
+ tests/Feature/Listeners/BaseListenerTestCase.php                         |    2 +-
+ tests/Feature/Listeners/PermissionEventsSubscriberTest.php               |    2 +-
+ tests/Feature/Listeners/RoleEventsSubscriberTest.php                     |    2 +-
+ tests/Feature/Listeners/UserEventsSubscriberTest.php                     |    2 +-
+ tests/Feature/Repositories/Activity/EloquentActivityTest.php             |    2 +-
+ tests/Feature/Repositories/Country/EloquentCountryTest.php               |    2 +-
+ tests/Feature/Repositories/Permission/EloquentPermissionTest.php         |   11 +-
+ tests/Feature/Repositories/Role/EloquentRoleTest.php                     |    2 +-
+ tests/Feature/Repositories/Session/DbSessionTest.php                     |    9 +-
+ tests/Feature/Repositories/User/EloquentUserTest.php                     |    9 +-
+ tests/unit/Presenters/UserPresenterTest.php                              |    2 +-
+ 55 files changed, 5408 insertions(+), 3309 deletions(-)
+```
 
 <a name="upgrade-3.1.0"></a>
 ###To 3.1.0 from 3.0.1

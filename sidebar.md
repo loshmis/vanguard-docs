@@ -15,8 +15,7 @@
 	- [Roles and Permissions](roles-and-permissions.html)
 	- [Settings](settings.html)
 	- [Developer API](api/index.html)
-- Testing
-    - [Vanguard Automated Tests](testing.html)
+
 - Cookbook
     - [Customizing Stylesheets](customizing-stylesheets.html)
     - [Working with Vanguard Permissions](working-with-permissions.html)
@@ -24,5 +23,19 @@
 	- [Extending Registration Form](registration-form.html)
 	- [Creating New Page](new-page.html)
 	- [Adding Social Auth Provider](adding-social-auth-provider.html)
+	
+- Plugins
+    - [What are plugins](what-are-plugins.html)
+    - [Creating a Plugin](creating-a-plugin.html)
+    - [Removing a Plugin](removing-a-plugin.html)
+    - [Activating a Plugin](activating-a-plugin.html)
+    - [Plugin Service Provider](plugin-service-provider.html)
+    - [Installing an Existing Plugin](installing-existing-plugin.html)
+    - [Template Hooks](template-hooks.html)
+    - [Dashboard Widgets](dashboard-widgets.html)
+	 
+- Testing
+    - [Vanguard Automated Tests](testing.html)
+    
 - Need More Help?
     - [FAQ](faq.html)
